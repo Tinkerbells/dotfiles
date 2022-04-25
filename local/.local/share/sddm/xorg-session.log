@@ -1,0 +1,97 @@
+/home/tinkerbells/.xprofile:26: command not found: clipmenud
+Waiting for initial location to become available...
+[ 04/26/22 00:35:15.565 parse_config_libconfig WARN ] The refresh-rate option has been deprecated. Please remove it from your configuration file. If you encounter any problems without this feature, please feel free to open a bug report
+/home/tinkerbells/.xprofile: line 26: clipmenud: command not found
+Error: another instance of dwmblocks is already running.
+Waiting for initial location to become available...
+[ 04/26/22 00:35:15.706 parse_config_libconfig WARN ] The refresh-rate option has been deprecated. Please remove it from your configuration file. If you encounter any problems without this feature, please feel free to open a bug report
+Could not grab key 25 with modfield 64: the combination is already grabbed.
+Could not grab key 25 with modfield 80: the combination is already grabbed.
+Could not grab key 25 with modfield 66: the combination is already grabbed.
+Could not grab key 25 with modfield 82: the combination is already grabbed.
+Could not grab key 28 with modfield 65: the combination is already grabbed.
+Could not grab key 28 with modfield 81: the combination is already grabbed.
+Could not grab key 28 with modfield 67: the combination is already grabbed.
+Could not grab key 28 with modfield 83: the combination is already grabbed.
+Could not grab key 36 with modfield 64: the combination is already grabbed.
+Could not grab key 36 with modfield 80: the combination is already grabbed.
+Could not grab key 36 with modfield 66: the combination is already grabbed.
+Could not grab key 36 with modfield 82: the combination is already grabbed.
+Could not grab key 27 with modfield 64: the combination is already grabbed.
+Could not grab key 27 with modfield 80: the combination is already grabbed.
+Could not grab key 27 with modfield 66: the combination is already grabbed.
+Could not grab key 27 with modfield 82: the combination is already grabbed.
+Could not grab key 55 with modfield 65: the combination is already grabbed.
+Could not grab key 55 with modfield 81: the combination is already grabbed.
+Could not grab key 55 with modfield 67: the combination is already grabbed.
+Could not grab key 55 with modfield 83: the combination is already grabbed.
+Could not grab key 41 with modfield 65: the combination is already grabbed.
+Could not grab key 41 with modfield 81: the combination is already grabbed.
+Could not grab key 41 with modfield 67: the combination is already grabbed.
+Could not grab key 41 with modfield 83: the combination is already grabbed.
+Could not grab key 58 with modfield 64: the combination is already grabbed.
+Could not grab key 58 with modfield 80: the combination is already grabbed.
+Could not grab key 58 with modfield 66: the combination is already grabbed.
+Could not grab key 58 with modfield 82: the combination is already grabbed.
+Could not grab key 122 with modfield 0: the combination is already grabbed.
+Could not grab key 122 with modfield 16: the combination is already grabbed.
+Could not grab key 122 with modfield 2: the combination is already grabbed.
+Could not grab key 122 with modfield 18: the combination is already grabbed.
+[ 04/26/22 00:35:15.753 session_init FATAL ERROR ] Another composite manager is already running
+Could not grab key 123 with modfield 0: the combination is already grabbed.
+Could not grab key 123 with modfield 16: the combination is already grabbed.
+Could not grab key 123 with modfield 2: the combination is already grabbed.
+Could not grab key 123 with modfield 18: the combination is already grabbed.
+Could not grab key 121 with modfield 0: the combination is already grabbed.
+Could not grab key 121 with modfield 16: the combination is already grabbed.
+Could not grab key 121 with modfield 2: the combination is already grabbed.
+Could not grab key 121 with modfield 18: the combination is already grabbed.
+Could not grab key 233 with modfield 0: the combination is already grabbed.
+Could not grab key 233 with modfield 16: the combination is already grabbed.
+Could not grab key 233 with modfield 2: the combination is already grabbed.
+Could not grab key 233 with modfield 18: the combination is already grabbed.
+Could not grab key 232 with modfield 0: the combination is already grabbed.
+Could not grab key 232 with modfield 16: the combination is already grabbed.
+Could not grab key 232 with modfield 2: the combination is already grabbed.
+Could not grab key 232 with modfield 18: the combination is already grabbed.
+Could not grab key 50 with modfield 8: the combination is already grabbed.
+Could not grab key 50 with modfield 24: the combination is already grabbed.
+Could not grab key 50 with modfield 10: the combination is already grabbed.
+Could not grab key 50 with modfield 26: the combination is already grabbed.
+Could not grab key 39 with modfield 65: the combination is already grabbed.
+Could not grab key 39 with modfield 81: the combination is already grabbed.
+Could not grab key 39 with modfield 67: the combination is already grabbed.
+Could not grab key 39 with modfield 83: the combination is already grabbed.
+Could not grab key 39 with modfield 64: the combination is already grabbed.
+Could not grab key 39 with modfield 80: the combination is already grabbed.
+Could not grab key 39 with modfield 66: the combination is already grabbed.
+Could not grab key 39 with modfield 82: the combination is already grabbed.
+Could not grab key 39 with modfield 69: the combination is already grabbed.
+Could not grab key 39 with modfield 85: the combination is already grabbed.
+Could not grab key 39 with modfield 71: the combination is already grabbed.
+Could not grab key 39 with modfield 87: the combination is already grabbed.
+Could not grab key 46 with modfield 65: the combination is already grabbed.
+Could not grab key 46 with modfield 81: the combination is already grabbed.
+Could not grab key 46 with modfield 67: the combination is already grabbed.
+Could not grab key 46 with modfield 83: the combination is already grabbed.
+/home/tinkerbells/testdwm/dwmblocks/blocks/bluetooth-conn: line 3: rofi-bluetooth: command not found
+[1066:1155:0426/003543.398578:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.DBus.Properties.Get: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1066:1155:0426/003543.398803:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.UPower.GetDisplayDevice: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1066:1155:0426/003543.398934:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.UPower.EnumerateDevices: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1118:1118:0426/003543.471615:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+[1550:1625:0426/003616.843401:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.DBus.Properties.Get: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1550:1625:0426/003616.843671:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.UPower.GetDisplayDevice: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1550:1625:0426/003616.843878:ERROR:object_proxy.cc(623)] Failed to call method: org.freedesktop.UPower.EnumerateDevices: object_path= /org/freedesktop/UPower: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[1583:1583:0426/003616.909598:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+Fontconfig error: Cannot load default config file: No such file: (null)
+Fontconfig error: Cannot load default config file: No such file: (null)
+Fontconfig error: Cannot load default config file: No such file: (null)
+[1550:1550:0426/003802.797136:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 93.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[1550:1550:0426/003802.799406:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 93.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[1550:1550:0426/003802.800203:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 93.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[1550:1550:0426/003802.800266:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 93.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[2993:2993:0100/000000.824529:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+[1550:1550:0426/003809.258353:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 97.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[1550:1550:0426/003809.258489:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 97.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[1550:1550:0426/003809.258539:ERROR:CONSOLE(1)] "[Shields]: Can't request shields panel data for tabId: 97.  Error: No tab url specified", source: chrome-extension://mnojpmjdmbbfmejpflffifhffcmidifd/out/brave_extension_background.bundle.js (1)
+[3137:3137:0100/000000.323237:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.

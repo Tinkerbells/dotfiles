@@ -1,0 +1,4 @@
+#!/bin/sh
+
+setxkbmap -query | grep -q 'us' && (dunstify "ru" -i keyboard -r 999 & setxkbmap ru) || (dunstify "us" -i keyboard -r 999 & setxkbmap us);pkill -RTMIN+5 dwmblocks
+

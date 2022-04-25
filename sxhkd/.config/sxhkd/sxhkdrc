@@ -1,0 +1,53 @@
+# Running apps
+super + w 
+  brave
+  
+super + shift + t 
+  telegram-desktop
+
+super + Return 
+  alacritty
+
+super + r 
+  rofi -show drun
+
+# Running terminal based apps
+super + shift + v
+  alacritty -e lvim 
+
+super + shift + f 
+  alacritty -e lfub 
+super + m 
+  alacritty -e ncmpcpp
+
+# Media Control keys
+XF86AudioLowerVolume
+  change-volume down	
+
+XF86AudioRaiseVolume
+  change-volume up 
+  
+XF86AudioMute
+  change-volume mute 
+
+XF86MonBrightnessUp
+  change-brightness up
+
+XF86MonBrightnessDown
+  change-brightness down 
+
+# Change keyboard layout
+alt + Shift_L 
+  change-keyboard-layout
+
+# Screenshot
+super + shift + s
+  screenshot select  
+super + s
+  screenshot 
+super + control + shift + s
+  screenshot window
+
+# Suspend
+super + shift + l 
+  systemctl suspend
