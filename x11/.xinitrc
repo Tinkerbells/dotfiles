@@ -36,8 +36,11 @@ picom --experimental-backends -b &
 #Sxhkd 
 sxhkd &
 
+#Clipmanager
+greenclip daemon &
+
 #Dwmblocks
-sleep 10 && dwmblocks &
+sleep 20 && dwmblocks &
 
 #Wallpaper 
 feh --bg-fill ~/Pictures/wallpapers/landscapes/shaded_landscape.png &
