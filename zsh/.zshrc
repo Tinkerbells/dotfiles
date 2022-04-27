@@ -92,6 +92,10 @@ alias tree='tree -a -I .git'
 alias lf='lfub'
 alias v='lvim'
 alias m='ncmpcpp'
+alias mpv='devour mpv'
+alias sxiv='devour sxiv'
+alias zathura='devour zathura'
+
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
 

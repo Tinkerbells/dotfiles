@@ -7,5 +7,8 @@ while true; do
     printf '[$%.*f]' 2 $price
     break
   fi
-  sleep 5
 done
+
+case $BLOCK_BUTTON in
+	   1) alacritty -e dollar-button;;
+esac
