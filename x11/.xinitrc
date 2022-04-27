@@ -40,7 +40,7 @@ sxhkd &
 sleep 10 && dwmblocks &
 
 #Wallpaper 
-feh --randomize --bg-fill ~/Pictures/wallpapers/minimalistic/* &
+feh --bg-fill ~/Pictures/wallpapers/landscapes/shaded_landscape.png &
 
 #Loop
 while true; do 
