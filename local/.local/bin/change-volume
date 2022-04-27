@@ -11,22 +11,22 @@ up)
 	pamixer -u
 	pamixer -i 5 --allow-boost
 	send_notification $1
-	pkill -RTMIN+3 dwmblocks
+	kill -41 $(pidof dwmblocks)
 	;;
 down)
 	pamixer -u
 	pamixer -d 5 --allow-boost
 	send_notification $1
-	pkill -RTMIN+3 dwmblocks
+	kill -41 $(pidof dwmblocks)
 	;;
 mute)
 	pamixer -t
 	if $(pamixer --get-mute); then
 		dunstify -i volume-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted"
-		pkill -RTMIN+3 dwmblocks
+		kill -41 $(pidof dwmblocks)
 	else
 		send_notification up
-		pkill -RTMIN+3 dwmblocks
+		kill -41 $(pidof dwmblocks)
 	fi
 	;;
 esac

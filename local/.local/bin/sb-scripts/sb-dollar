@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while true; do
+  ping -c 1 -q google.com >&/dev/null; 
+  if [ "$?" -eq 0 ]; then
+    price=$(curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB&compact=ultra&apiKey=3100dea3775f17212859" | jq .USD_RUB)
+    printf '[$%.*f]' 2 $price
+    break
+  fi
+  sleep 5
+done

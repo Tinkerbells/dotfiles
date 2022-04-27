@@ -1,0 +1,26 @@
+#!/bin/sh
+
+is_muted="$(pamixer --get-mute)"
+volume="$(pamixer --get-volume)"
+
+get_icon() {
+  if [ "$volume" -gt "70" ]; then
+    icon=" "
+  elif [ "$volume" -gt "30" ]; then
+    icon=" "
+  else
+    icon=" "
+  fi
+  echo "$icon"
+}
+
+if [ "$is_muted" = "true" ]; then
+  echo "[ ]"
+else
+  icon=$(get_icon)
+  echo "[$icon$volume%]"
+fi
+
+case $BLOCK_BUTTON in
+     1) pavucontrol ;;
+esac

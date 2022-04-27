@@ -1,0 +1,16 @@
+#!/bin/bash
+
+wget --spider --quiet http://google.com
+
+if [ "$?" != 0 ]; then
+    #not connected
+    echo "[睊 ]" 
+else
+    #connected
+    echo "[直 ]"
+fi
+
+case $BLOCK_BUTTON in
+     1) alacritty -e nmtui;;
+esac
+

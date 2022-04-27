@@ -1,0 +1,11 @@
+#!/bin/sh
+
+sleep 10
+
+connecitons=$(rofi-bluetooth --status)
+
+echo -e "$connecitons"
+
+case $BLOCK_BUTTON in
+     1) rofi-bluetooth ;;
+esac

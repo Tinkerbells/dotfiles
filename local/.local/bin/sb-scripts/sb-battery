@@ -1,0 +1,11 @@
+#!/bin/sh
+
+info="$(acpi | head -n 1 | cut -d "," -f3)"
+level=$(acpi | head -n 1 | cut -d "," -f2 | sed 's/%//' | tr -d " ")
+
+echo "[$level%]"
+
+case $BLOCK_BUTTON in
+  1) [ -z "$info" ] && dunstify "Fully charged" -r 998 || dunstify "$info" -r 998;;
+esac
+
