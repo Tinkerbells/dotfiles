@@ -46,6 +46,5 @@ setopt rcs
 export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
-# tstock API key
-export ALPHAVANTAGE_API_KEY=561PTBRJOGBD4J7W
+
 
