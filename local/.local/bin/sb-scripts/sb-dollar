@@ -10,5 +10,5 @@ while true; do
 done
 
 case $BLOCK_BUTTON in
-	   1) alacritty -e dollar-button;;
+	   1) alacritty --hold -e tstock -b 24 -t 60min usd/rub;;
 esac

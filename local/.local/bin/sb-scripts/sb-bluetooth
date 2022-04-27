@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sleep 10
-
 connecitons=$(rofi-bluetooth --status)
 
 echo -e "$connecitons"
