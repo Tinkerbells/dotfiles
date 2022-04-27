@@ -17,6 +17,7 @@ super + shift + v
 
 super + shift + f 
   alacritty -e lfub 
+
 super + m 
   alacritty -e ncmpcpp
 
