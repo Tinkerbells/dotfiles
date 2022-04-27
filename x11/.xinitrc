@@ -1,23 +1,15 @@
 #!/bin/sh
+
+#Switch caps lock to ctrl
+setxkbmap -option caps:ctrl_modifier &
+
 userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodma
 
 export PATH=${PATH}:${HOME}/.local/bin::${HOME}/.local/bin/sb-scripts
 # merge in defaults and keymaps
 
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
-fi
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
 fi
 
 # start some nice programs
@@ -45,13 +37,10 @@ picom --experimental-backends -b &
 sxhkd &
 
 #Dwmblocks
-dwmblocks &
+sleep 10 && dwmblocks &
 
 #Wallpaper 
-feh --bg-scale ~/Pictures/wallpapers/landscapes/evening-sky.png &
-
-#Switch caps lock to ctrl
-setxkbmap -option caps:ctrl_modifier &
+feh --randomize --bg-fill ~/Pictures/wallpapers/minimalistic/* &
 
 #Loop
 while true; do 
