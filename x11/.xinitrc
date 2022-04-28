@@ -43,7 +43,7 @@ greenclip daemon &
 sleep 20 && dwmblocks &
 
 #Wallpaper 
-feh --bg-fill ~/Pictures/wallpapers/landscapes/shaded_landscape.png &
+feh --bg-fill ~/Pictures/Wallpapers/landscapes/shaded_landscape.png &
 
 #Loop
 while true; do 
