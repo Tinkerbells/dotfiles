@@ -95,6 +95,7 @@ alias m='ncmpcpp'
 alias mpv='devour mpv'
 alias sxiv='devour sxiv'
 alias zathura='devour zathura'
+alias jac='sudo systemctl start jackett'
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
