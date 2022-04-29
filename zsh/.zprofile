@@ -165,3 +165,5 @@ ex=:\
 export LC_ALL=en_US.UTF-8
 # tstock API key
 export ALPHAVANTAGE_API_KEY=561PTBRJOGBD4J7W
+# ssh-agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
