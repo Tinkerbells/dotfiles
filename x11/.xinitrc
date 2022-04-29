@@ -3,6 +3,9 @@
 #Switch caps lock to ctrl
 setxkbmap -option caps:ctrl_modifier &
 
+#Start ssh agent
+eval `ssh-agent` 
+
 userresources=$HOME/.Xresources
 
 export PATH=${PATH}:${HOME}/.local/bin::${HOME}/.local/bin/sb-scripts
@@ -50,8 +53,6 @@ while true; do
 	dwm >/dev/null 2>&1
 done
 
-#Start ssh agent
-eval `ssh-agent` 
 
 #Dwm
 exec dwm
