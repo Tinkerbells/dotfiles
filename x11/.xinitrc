@@ -9,6 +9,7 @@ eval `ssh-agent`
 userresources=$HOME/.Xresources
 
 export PATH=${PATH}:${HOME}/.local/bin::${HOME}/.local/bin/sb-scripts
+export BW_SESSION="oS6OJQ906Mja0k/ILGkyLYb/L9tUJXGtbgOO8CtKB0mlmlSlY57PoH/Ex7BVLMHj7atsRYTYfILHMHN2lENBZQ=="
 # merge in defaults and keymaps
 
 if [ -f "$userresources" ]; then
