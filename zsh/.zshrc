@@ -96,6 +96,7 @@ alias mpv='devour mpv'
 alias sxiv='devour sxiv'
 alias zathura='devour zathura'
 alias jac='sudo systemctl start jackett'
+alias p='paru -S'
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
