@@ -1,39 +1,56 @@
+# general settings
 mpd_host = localhost
 mpd_port = 6600
-mpd_crossfade_time = 2
+mpd_connection_timeout = 1
+
+# editor
+external_editor = vim
+use_console_editor = "yes"
+
+# volume options
+display_volume_level = "yes"
+volume_change_step = "5"
+volume_color = green 
+
+# visualizer options
 visualizer_data_source = /tmp/mpd.fifo
 visualizer_output_name = "Visualizer feed"
 visualizer_in_stereo = no
 visualizer_type = spectrum
 visualizer_look = ●┃
-visualizer_color = cyan, green, yellow, magenta, red
-song_list_format = "{{%a - %t}|{%f}}{$R%l}"
+visualizer_color = red, green, white, magenta, yellow 
+
+# song output format
+alternative_header_first_line_format = $b$1$aqqu$/a$6 {%t}|{%f} $1$atqq$/a$1$/b
+alternative_header_second_line_format = {{$2$b%a$/b$9}{ - $4%b$9}{ ($2%y$9)}}|{%D}
+song_list_format = "%a - %t $R {%30b} %l"
 song_status_format = "{{%a{ $2//$9 %b{, %y}} $2//$9 }{%t$/b}}|{$b%f$/b}"
 song_library_format = {{%a - %t} (%b)}|{%f}
-now_playing_prefix = "$b$5"
-now_playing_suffix = "$/b$9"
+current_item_prefix = "$r$5" 
+current_item_suffix = "$/r$6"
+now_playing_prefix = "$b$3"
+now_playing_suffix = "$/b$6"
 playlist_display_mode = classic
-autocenter_mode = yes
+user_interface = "alternative"
+# bars options
+autocenter_mode = no 
 progressbar_look = "▃▃▃"
-header_visibility = no
-statusbar_visibility = no
-titles_visibility = no
-follow_now_playing_lyrics = no
-enable_window_title = no
-external_editor = nano
+header_visibility = no 
+statusbar_visibility = no 
+titles_visibility = no 
+follow_now_playing_lyrics = no 
+enable_window_title = no 
+
+# colors
 colors_enabled = yes
 empty_tag_color = red
-header_window_color = yellow
-volume_color = yellow
-state_line_color = red
-state_flags_color = yellow
-main_window_color = default
-color1 = red
-color2 = red
-progressbar_color = black
-progressbar_elapsed_color = red
-statusbar_color = default
+header_window_color = blue 
+state_line_color = magenta 
+state_flags_color = blue 
+main_window_color = magenta 
+progressbar_color = blue 
+progressbar_elapsed_color = green 
+statusbar_color = magenta 
 alternative_ui_separator_color = magenta
-window_border_color = yellow
+window_border_color = black 
 active_window_border = magenta
-execute_on_song_change = notify-send "Now Playing ♫" "$(mpc current)"
