@@ -31,9 +31,6 @@ xrandr --output eDP-1 --primary --mode 1920x1080 --rotate normal --output HDMI-1
 #Redshift 
 redshift &
 
-#MPD notifications
-mpd-notification &
-
 #Suspend 
 xidlehook --not-when-audio --not-when-fullscreen --timer 1800 '/usr/local/bin/slock' '' &
 
