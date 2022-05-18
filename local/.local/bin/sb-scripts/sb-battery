@@ -3,9 +3,24 @@
 info="$(acpi | head -n 1 | cut -d "," -f3)"
 level=$(acpi | head -n 1 | cut -d "," -f2 | sed 's/%//' | tr -d " ")
 
-echo "[$level%]"
+get_icon() {
+  if [ "$level" -ge "90" ]; then
+    icon=""
+  elif [ "$level" -ge "70" ] && [ "$level" -lt "90" ]; then
+    icon=""
+  elif [ "$level" -ge "50" ] && [ "$level" -lt "70" ]; then
+    icon=""
+  elif [ "$level" -ge "30" ] && [ "$level" -lt "50" ]; then
+    icon=""
+  else
+    icon=""
+  fi
+  echo "$icon"
+}
+
+icon=$(get_icon)
+echo "$icon  $level%"
 
 case $BLOCK_BUTTON in
-  1) [ -z "$info" ] && dunstify "Fully charged" -r 998 || dunstify "$info" -r 998;;
+  1) [ -z "$info" ] && dunstify "Fully charged" -r 998 || dunstify "$info" -r 998 ;;
 esac
-

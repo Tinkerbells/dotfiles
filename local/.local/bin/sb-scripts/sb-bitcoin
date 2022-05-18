@@ -1,22 +1,14 @@
 #!/bin/sh
 
 while true; do
-  ping -c 1 -q google.com >&/dev/null; 
+  ping -c 1 -q google.com >&/dev/null
   if [ "$?" -eq 0 ]; then
     price=$(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate)
-    printf '[$%.*f]' 2 $price
+    printf ' %.*f' 2 $price
     break
   fi
 done
 
-case $BLOCK_BUTTON in 
-   1) alacritty --hold -e tstock -b 24 -t 60min btc;;
+case $BLOCK_BUTTON in
+  1) alacritty --hold -e tstock -b 24 -t 60min btc ;;
 esac
-
-
-
-
-
-
-
-

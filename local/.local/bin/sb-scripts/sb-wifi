@@ -3,14 +3,13 @@
 wget --spider --quiet http://google.com
 
 if [ "$?" != 0 ]; then
-    #not connected
-    echo "[睊 ]" 
+  #not connected
+  echo "ﲁ"
 else
-    #connected
-    echo "[直 ]"
+  #connected
+  echo "說"
 fi
 
 case $BLOCK_BUTTON in
-     1) alacritty -e nmtui;;
+  1) alacritty -e nmtui ;;
 esac
-

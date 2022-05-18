@@ -18,7 +18,7 @@ if [ "$is_muted" = "true" ]; then
   echo "[ ]"
 else
   icon=$(get_icon)
-  echo "[$icon$volume%]"
+  echo "$icon$volume%"
 fi
 
 case $BLOCK_BUTTON in

@@ -1,6 +1,5 @@
 #!/bin/sh
 
-layout=$(setxkbmap -query | grep "layout" | awk  '{print $2}') || exit 1
+layout=$(setxkbmap -query | grep "layout" | awk '{print $2}') || exit 1
 
-echo "[${layout^^}]" 
-
+echo "  ${layout^^}"
