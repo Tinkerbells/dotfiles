@@ -23,10 +23,10 @@ cmd open ${{
 			lf -remote "send toggle"
 		done &
 		;;
-	audio/*) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	application/pgp-encrypted) $EDITOR $fx ;;
+	audio/*) devour mpv --audio-display=no $f ;;
+	video/*) setsid -f devour mpv --fs $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) setsid -f devour zathura $fx >/dev/null 2>&1 ;;
+	application/pgp-encrypted) devour $EDITOR $fx ;;
         *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
