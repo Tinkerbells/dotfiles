@@ -189,45 +189,68 @@ print_status() {
 
     for device in "${paired_devices[@]}"; do
       if device_connected $device; then
-        Icon=$(bluetoothctl info $device | grep Icon | awk '{ print $NF }')
-        battery=$(bluetoothctl info $device | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
 
-        # get_color() {
-        #     if [ "$battery" -le "30" ]; then
-        #         color="\x10"
-        #     elif [ "$battery" -gt "30" ] && [ "$battery" -le "50" ]; then
-        #         color="\x0f"
-        #     elif [ "$battery" -gt "50" ] && [ "$battery" -le "80" ]; then
-        #         color="\x0d"
-        #     elif [ "$battery" -gt "80" ]; then
-        #         color="\x0e"
-        #     fi
-        #     echo "$color"
-        # }
+        name=$(bluetoothctl info $device | grep Icon | awk '{ print $NF }')
+        level=$(bluetoothctl info $device | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
 
-        get_icon() {
-          if [ "$Icon" = "audio-headset" ]; then
-            icon=""
-          elif [ "$Icon" = "input-keyboard" ]; then
-            icon=""
+        if [ "$level" -le "20" ] && [ "$name" = "audio-headset" ]; then
+          dunstify -r 988 -t 4000 -i headphones -u critical "Low battery - $level%"
+        elif [ "$level" -le "20" ] && [ "$name" = "audio-headphones" ]; then
+          dunstify -r 988 -t 4000 -i headphones -u critical "Low battery - $level%"
+        elif [ "$level" -le "20" ] && [ "$name" = "input-keyboard" ]; then
+          dunstify -r 988 -t 4000 -i keyboard -u critical "Low battery - $level%"
+        fi
+
+        get_battery_icon() {
+          if [ "$level" -ge "98" ]; then
+            icon=""
+          elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
+            icon=""
+          elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
+            icon=""
+          elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
+            icon=""
+          elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
+            icon=""
+          elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
+            icon=""
+          elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
+            icon=""
+          elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
+            icon=""
+          elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
+            icon=""
+          elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
+            icon=""
           else
-            icon=""
+            icon=""
           fi
           echo "$icon"
         }
-        device_icon=$(get_icon)
+
+        get_device_icon() {
+          if [ "$name" = "audio-headset" ] || [ "$name" = "audio-headphones" ]; then
+            icon=""
+          elif [ "$name" = "input-keyboard" ]; then
+            icon=""
+          else
+            icon=""
+          fi
+          echo "$icon"
+        }
+
+        icon=$(get_device_icon)
+        battery=$(get_battery_icon)
+
         if [ $counter -gt 0 ]; then
-          printf " %s" "$device_icon $battery%"
+          printf " %s" "$icon - $battery $level%"
         else
-          printf "%s" "$device_icon $battery%"
+          printf "%s" "$icon  - $battery $level%"
         fi
 
         ((counter++))
       fi
     done
-    printf "\n"
-  else
-    echo ""
   fi
 }
 

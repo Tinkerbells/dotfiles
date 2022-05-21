@@ -2,12 +2,14 @@
 
 wget --spider --quiet http://google.com
 
+network=$(nmcli -o c | awk '{print $1;}' | sed -n '2 p')
+
 if [ "$?" != 0 ]; then
   #not connected
-  echo "ﲁ"
+  echo "睊  disconnected"
 else
   #connected
-  echo "說"
+  echo "直  $network"
 fi
 
 case $BLOCK_BUTTON in

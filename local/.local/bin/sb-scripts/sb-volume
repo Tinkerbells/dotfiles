@@ -15,7 +15,7 @@ get_icon() {
 }
 
 if [ "$is_muted" = "true" ]; then
-  echo "[ ]"
+  echo "  muted"
 else
   icon=$(get_icon)
   echo "$icon$volume%"

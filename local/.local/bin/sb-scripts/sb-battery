@@ -2,24 +2,41 @@
 
 info="$(acpi | head -n 1 | cut -d "," -f3)"
 level=$(acpi | head -n 1 | cut -d "," -f2 | sed 's/%//' | tr -d " ")
+is_charging=$(acpi | head -n 1 | cut -d "," -f1 | cut -d " " -f3)
 
 get_icon() {
-  if [ "$level" -ge "90" ]; then
-    icon=""
-  elif [ "$level" -ge "70" ] && [ "$level" -lt "90" ]; then
-    icon=""
-  elif [ "$level" -ge "50" ] && [ "$level" -lt "70" ]; then
-    icon=""
-  elif [ "$level" -ge "30" ] && [ "$level" -lt "50" ]; then
-    icon=""
+  if [ "$level" -ge "98" ]; then
+    icon=""
+  elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
+    icon=""
+  elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
+    icon=""
+  elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
+    icon=""
+  elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
+    icon=""
+  elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
+    icon=""
+  elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
+    icon=""
+  elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
+    icon=""
+  elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
+    icon=""
+  elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
+    icon=""
   else
-    icon=""
+    icon=""
   fi
   echo "$icon"
 }
 
-icon=$(get_icon)
-echo "$icon  $level%"
+if [ "$is_charging" != "Charging" ]; then
+  icon=$(get_icon)
+  echo "$icon $level%"
+else
+  echo " $level%"
+fi
 
 case $BLOCK_BUTTON in
   1) [ -z "$info" ] && dunstify "Fully charged" -r 998 || dunstify "$info" -r 998 ;;
