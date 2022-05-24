@@ -25,7 +25,8 @@ super + m
   alacritty -t ncmpcpp -e ncmpcpp
 
 # Dunstctl histroy bind
-  alt + h
+alt + h
+  dunstctl history-pop                              
   
 # Media Control keys
 XF86AudioLowerVolume
