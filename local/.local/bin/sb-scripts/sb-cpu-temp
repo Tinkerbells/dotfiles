@@ -1,0 +1,24 @@
+#!/bin/sh
+
+read -r temp < /sys/class/thermal/thermal_zone0/temp
+
+temp="${temp%???}"
+
+get_icon() {
+  if [ "$temp" -ge "85" ]; then
+    icon=""
+  elif [ "$temp" -ge "75" ] && [ "$temp" -lt "85" ]; then
+    icon=""
+  elif [ "$temp" -ge "65" ] && [ "$temp" -lt "75" ]; then
+    icon=""
+  elif [ "$temp" -ge "55" ] && [ "$temp" -lt "65" ]; then
+    icon=""
+  else
+    icon=""
+  fi
+  echo $icon
+}
+
+icon=$(get_icon)
+
+printf "$icon %s°C" "$temp"
