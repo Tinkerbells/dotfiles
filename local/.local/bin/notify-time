@@ -1,0 +1,5 @@
+#!/bin/bash
+
+time=$(date +"%H:%M:%S")
+
+dunstify -t 2000 -r 942 -i clock " $time"

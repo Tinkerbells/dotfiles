@@ -1,15 +1,13 @@
 #!/bin/bash
 
-wget --spider --quiet http://google.com
+status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
+name=$(nmcli dev status | awk '{print $4;}' | sed -n '2 p')
 
-network=$(nmcli -o c | awk '{print $1;}' | sed -n '2 p')
-
-if [ "$?" != 0 ]; then
-  #not connected
-  echo "睊  disconnected"
+if [ "$status" != "disconnected" ]; then
+  echo "直  $name"
 else
-  #connected
-  echo "直  $network"
+  echo "睊  $status"
+
 fi
 
 case $BLOCK_BUTTON in

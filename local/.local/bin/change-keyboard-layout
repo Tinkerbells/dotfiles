@@ -1,4 +1,9 @@
 #!/bin/sh
 
-setxkbmap -query | grep -q 'us' && (dunstify "RU" -i layout -r 999 & setxkbmap ru) || (dunstify "US" -i layout -r 999 & setxkbmap us) && kill -43 $(pidof dwmblocks)
-
+setxkbmap -query | grep -q 'us' && (
+  dunstify "RU" -t 1000 -i layout -r 999 &
+  setxkbmap ru
+) || (
+  dunstify "US" -t 1000 -i layout -r 999 &
+  setxkbmap us
+) && kill -43 $(pidof dwmblocks)

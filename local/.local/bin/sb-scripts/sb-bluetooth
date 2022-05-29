@@ -2,11 +2,7 @@
 
 connecitons=$(rofi-bluetooth --status)
 
-if [[ $? != 0 ]]; then
-  echo "$connecitons"
-else
-  echo "No devices"
-fi
+echo "$connecitons"
 
 case $BLOCK_BUTTON in
   1) rofi-bluetooth ;;
