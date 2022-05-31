@@ -31,6 +31,11 @@ get_icon() {
   echo "$icon"
 }
 
+# Low battery message
+if [ "$level" -le "10" ];then
+  dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
+fi
+
 if [ "$is_charging" != "Charging" ]; then
   icon=$(get_icon)
   echo "$icon $level%"
