@@ -193,11 +193,11 @@ print_status() {
         name=$(bluetoothctl info $device | grep Icon | awk '{ print $NF }')
         level=$(bluetoothctl info $device | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
 
-        if [ "$level" -le "20" ] && [ "$name" = "audio-headset" ]; then
+        if [ "$level" -le "10" ] && [ "$name" = "audio-headset" ]; then
           dunstify -r 988 -t 4000 -i headphones -u critical "Low battery - $level%"
-        elif [ "$level" -le "20" ] && [ "$name" = "audio-headphones" ]; then
+        elif [ "$level" -le "10" ] && [ "$name" = "audio-headphones" ]; then
           dunstify -r 988 -t 4000 -i headphones -u critical "Low battery - $level%"
-        elif [ "$level" -le "20" ] && [ "$name" = "input-keyboard" ]; then
+        elif [ "$level" -le "10" ] && [ "$name" = "input-keyboard" ]; then
           dunstify -r 988 -t 4000 -i keyboard -u critical "Low battery - $level%"
         fi
 
@@ -249,8 +249,13 @@ print_status() {
         fi
 
         ((counter++))
+      else
+        printf "no devices"
+        break
       fi
     done
+  else
+    printf ""
   fi
 }
 
