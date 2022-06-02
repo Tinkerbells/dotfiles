@@ -77,6 +77,10 @@ alt + c
 super + x 
   bwmenu
 
+# Color picker
+alt + e 
+  farge
+
 # Suspend
 super + shift + l 
   systemctl suspend
