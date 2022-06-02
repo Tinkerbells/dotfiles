@@ -249,11 +249,11 @@ print_status() {
         fi
 
         ((counter++))
-      else
-        printf "no devices"
-        break
       fi
     done
+    if [ $counter -eq 0 ]; then
+      printf "No devices"
+    fi
   else
     printf ""
   fi

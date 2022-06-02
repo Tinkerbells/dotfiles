@@ -1,31 +1,3 @@
-window:
-  padding:
-    x: 15
-    y: 15
-  class:
-    instance: Alacritty
-    general: Alacritty
-  opacity: 1
-
-scrolling:
-  history: 10000
-  multiplier: 3
-
-font:
-  normal:
-    family: FantasqueSansMono Nerd Font Mono 
-    style: Regular
-  bold:
-    family: FantasqueSansMono Nerd Font Mono 
-    style: Bold
-  italic:
-    family: FantasqueSansMono Nerd Font Mono 
-    style: Italic
-  size: 14
-
-draw_bold_text_with_bright_colors: true
-
-# Catppuccin!
 color_schemes:
 
 
@@ -347,8 +319,3 @@ color_schemes:
 
 
 colors: *macchiato
-
-selection:
-  save_to_clipboard: false
-shell:
-  program: /usr/local/bin/zsh 

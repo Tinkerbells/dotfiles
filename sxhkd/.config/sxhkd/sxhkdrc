@@ -2,7 +2,7 @@
 super + w  
   brave 
 
-super + shift + t 
+super +  t 
   telegram-desktop
 
 super + Return 
@@ -80,3 +80,7 @@ super + x
 # Suspend
 super + shift + l 
   systemctl suspend
+  
+# Custom scripts 
+alt + t
+  notify-time
