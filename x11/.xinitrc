@@ -46,7 +46,7 @@ greenclip daemon >/dev/null 2>&1 &
 dwmblocks &
 
 # Wallpaper 
-feh --bg-fill ~/Pictures/Wallpapers/os/arch-magenta-blue-1920x1080.png  >/dev/null 2>&1 &
+feh --bg-fill /home/tinkerbells/Pictures/wallpapers/catppuccin/exodus_v01.png >/dev/null 2>&1 &
 
 
 # Dwm Loop
