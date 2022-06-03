@@ -44,5 +44,5 @@ else
 fi
 
 case $BLOCK_BUTTON in
-  1) [ -z "$info" ] && dunstify "Fully charged" -r 998 || dunstify "$info" -r 998 ;;
+  1) [ -z "$info" ] && dunstify -u low "Fully charged" -r 998 || dunstify -u low "$info" -r 998 ;;
 esac
