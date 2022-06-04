@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="input", ENV{PRODUCT}=="5/54c/cd3/452", RUN+="/usr/bin/su tinkerbells -c /home/tinkerbells/.local/bin/WH-1000XM3-notify"
+ACTION=="add", SUBSYSTEM=="input", ENV{PRODUCT}=="5/0/0/0", RUN+="/usr/bin/su tinkerbells -c /home/tinkerbells/.local/bin/FreeBuds3-notify"

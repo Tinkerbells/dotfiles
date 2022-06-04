@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo cp ./rules.d/* /etc/udev/rules.d/ && echo "Rules are installed!"
