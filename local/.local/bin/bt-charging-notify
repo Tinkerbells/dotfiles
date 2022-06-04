@@ -1,0 +1,6 @@
+#!/bin/bash
+export XAUTHORITY=$HOME/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
+
+dunstify -u low -i battery-charging -t 1000 -r 987 "Plug in"
