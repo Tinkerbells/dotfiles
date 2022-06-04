@@ -1,0 +1,8 @@
+#!/bin/bash
+export XAUTHORITY=$HOME/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
+
+level=$(bluetoothctl info CC:98:8B:1C:02:12 | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
+
+dunstify -u low -i headphones -t 5000 -r 957 "WH-1000XM3 connected" "Battery $level%"
