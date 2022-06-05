@@ -33,7 +33,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 15x40
+    offset = 10x30
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0 
@@ -60,11 +60,12 @@
     # Set the maximum width for the progress bar
     progress_bar_max_width = 275 
 
-
+    highlight = "#f0c6c6"
     # Show how many messages are currently hidden (because of
     # notification_limit).
     indicate_hidden = yes
 
+    frame_color = "#f0c6c6"
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
@@ -73,7 +74,7 @@
     # Draw a line of "separator_height" pixel height between two
     # notifications.
     # Set to 0 to disable.
-    separator_height = 2
+    separator_height = 5
 
     # Padding between text and separator.
     padding = 8
@@ -86,10 +87,9 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 2
+    frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#96CDFB"
 
     # Define a color for the separator.
     # possible values are:
@@ -228,7 +228,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 4
+    corner_radius = 5
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -291,24 +291,25 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#1E1E2E"
-    foreground = "#D9E0EE"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 3 
     # Icon for notifications with low urgency, uncomment to enable
     default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default-low.png
  
 
 [urgency_normal]
-    background = "#1E1E2E"
-    foreground = "#D9E0EE"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 3 
     # Icon for notifications with normal urgency, uncomment to enable
     default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default.png
 
 [urgency_critical]
-    background = "#1E1E2E"
-    foreground = "#D9E0EE"
-    frame_color = "#F8BD96" 
+    background = "#24273a"
+    foreground = "#cad3f5"
+    frame_color = "#ed8796" 
+    timeout = 30 
     # Icon for notifications with critical urgency, uncomment to enable
     default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default-critical.png
 
