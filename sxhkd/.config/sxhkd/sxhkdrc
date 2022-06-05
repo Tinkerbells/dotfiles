@@ -44,6 +44,9 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
   change-brightness down 
 
+alt + m 
+  change-audio-sink
+
 alt + n
   mpc next
 
@@ -79,7 +82,7 @@ super + x
 
 # Color picker
 alt + e 
-  farge
+  farge --no-preview
 
 # Suspend
 super + shift + l 

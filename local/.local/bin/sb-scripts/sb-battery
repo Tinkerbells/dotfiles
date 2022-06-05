@@ -32,7 +32,7 @@ get_icon() {
 }
 
 # Low battery message
-if [ "$level" -le "10" ];then
+if [ "$level" -le "10" ]; then
   dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
 fi
 
@@ -44,5 +44,5 @@ else
 fi
 
 case $BLOCK_BUTTON in
-  1) [ -z "$info" ] && dunstify -u low "Fully charged" -r 998 || dunstify -u low "$info" -r 998 ;;
+  1) [ -z "$info" ] && dunstify -u normal "Fully charged" -r 998 || dunstify -u normal "$info" -r 998 ;;
 esac
