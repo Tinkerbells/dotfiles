@@ -60,12 +60,12 @@
     # Set the maximum width for the progress bar
     progress_bar_max_width = 275 
 
-    highlight = "#f0c6c6"
+    highlight = "#b7bdf8"
     # Show how many messages are currently hidden (because of
     # notification_limit).
     indicate_hidden = yes
 
-    frame_color = "#f0c6c6"
+    frame_color = "#b7bdf8"
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
@@ -228,7 +228,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 5
+    corner_radius = 3
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
