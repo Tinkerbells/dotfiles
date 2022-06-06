@@ -44,7 +44,7 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
   change-brightness down 
 
-alt + m 
+alt + o 
   change-audio-sink
 
 alt + n

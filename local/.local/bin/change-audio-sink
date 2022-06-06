@@ -1,20 +1,34 @@
 #!/bin/bash
 alsa=$(pactl list sinks | grep "Sink #" | head -n 4 | tail -n 1 | sed 's/.*#//')
 bluez=$(pactl list sinks | grep "Sink #" | tail -n 1 | sed 's/.*#//')
-connected=$(bluetoothctl info 04:8C:9A:F2:38:BB | grep Connected | awk 'NF>1{print $NF}')
+devices=$(bluetoothctl devices | cut -d " " -f 2)
 
-if [ "$connected" = "yes" ]; then
-  icon="earbuds"
-  name="FreeBuds3"
-else
-  icon="headphones"
-  name="WH-1000XM3"
-fi
+is_connected() {
+  device_info=$(bluetoothctl info "$1")
+  if echo "$device_info" | grep "Connected: yes"; then
+    return 0
+  else
+    return 1
+  fi
+}
 
-pactl get-default-sink | grep bluez && (
-  pactl set-default-sink $alsa &
-  dunstify -i speaker -r 957 -t 1000 -u low "Speakers"
-) || (
-  pactl set-default-sink $bluez &
-  dunstify -i $icon -r 957 -t 1000 -u low "$name"
-)
+for device in $devices; do
+
+  if [ "$device" = "04:8C:9A:F2:38:BB" ]; then # Adding icon and name depends on type of headphones
+    name="FreeBuds 3"
+    icon="earbuds"
+  else
+    name="WH-1000XM3"
+    icon="headphones"
+  fi
+
+  if is_connected $device && pactl get-default-sink | grep alsa; then
+    pactl set-default-sink $bluez
+    dunstify -i $icon -r 957 -t 1000 -u low "$name"
+    exit 0
+  elif is_connected $device && pactl get-default-sink | grep bluez; then
+    pactl set-default-sink $alsa
+    dunstify -i speaker -r 957 -t 1000 -u low "Speakers" &
+    exit 0
+  fi
+done
