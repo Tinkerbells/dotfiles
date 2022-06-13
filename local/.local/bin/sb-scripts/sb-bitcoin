@@ -1,12 +1,23 @@
 #!/bin/sh
 
 status=$(sleep 10 && nmcli dev status | awk '{print $3;}' | sed -n '2 p')
+update_time=$(date "+%m-%d-%Y, %H:%m:%S")
 
 if [ "$status" != "disconnected" ]; then
+
+  old_price=$(cat bitcoin-price | head -n 1)
   price=$(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate)
-  printf ' %.*f' 2 $price
+
+  if (($(echo "$price > $old_price" | bc -l))); then
+    icon=""
+  else
+    icon=""
+  fi
+
+  printf " %.*f $icon" 2 $price && rm -rf bitcoin-price && echo -e "$price\n$update_time" > bitcoin-price
+
 else
-  printf "disconnected"
+  printf " %.*f" 2 $old_price
 fi
 
 case $BLOCK_BUTTON in
