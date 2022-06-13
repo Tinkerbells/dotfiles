@@ -1,6 +1,6 @@
 #!/bin/sh
 
-status=$(sleep 10 && nmcli dev status | awk '{print $3;}' | sed -n '2 p')
+status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 update_time=$(date "+%m-%d-%Y, %H:%m:%S")
 
 if [ "$status" != "disconnected" ]; then
@@ -14,7 +14,7 @@ if [ "$status" != "disconnected" ]; then
     icon=""
   fi
 
-  printf " %.*f $icon" 2 $price && rm -rf bitcoin-price && echo -e "$price\n$update_time" > bitcoin-price
+  printf " %.*f $icon" 2 $price && rm -rf bitcoin-price && echo -e "$price\nUpdate time - $update_time" > bitcoin-price
 
 else
   printf " %.*f" 2 $old_price
