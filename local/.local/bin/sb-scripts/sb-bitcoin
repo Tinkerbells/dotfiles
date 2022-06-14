@@ -1,8 +1,9 @@
 #!/bin/sh
 
+path="/home/$USER/.local/bin/sb-scripts/bitcoin-price"
 status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 update_time=$(date "+%m-%d-%Y, %H:%m:%S")
-old_price=$(cat bitcoin-price | head -n 1)
+old_price=$(cat $path | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
   price=$(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate)
@@ -11,7 +12,7 @@ if [ "$status" != "disconnected" ]; then
   else
     icon=""
   fi
-  printf " %.*f $icon" 2 $price && rm -rf bitcoin-price && echo -e "$price\nUpdate time - $update_time" > bitcoin-price
+  printf " %.*f $icon" 2 $price && rm -rf $path && echo -e "$price\nUpdate time - $update_time" > $path
 else
   printf " %.*f" 2 $old_price
 fi
