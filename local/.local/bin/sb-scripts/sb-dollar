@@ -2,20 +2,16 @@
 
 status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 update_time=$(date "+%m-%d-%Y, %H:%m:%S")
+old_price=$(cat dollar-price | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
-
-  old_price=$(cat dollar-price | head -n 1)
   price=$(curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB&compact=ultra&apiKey=3100dea3775f17212859" | jq .USD_RUB)
-
   if (($(echo "$price > $old_price" | bc -l))); then
     icon=""
   else
     icon=""
   fi
-
   printf " %.*f $icon" 2 $price && rm -rf dollar-price && echo -e "$price\nUpdate time - $update_time" > dollar-price
-
 else
   printf " %.*f" 2 $old_price
 fi
