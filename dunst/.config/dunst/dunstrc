@@ -195,7 +195,7 @@
     max_icon_size = 40 
 
     # Paths to default icons.
-    icon_path = /home/tinkerbells/.local/share/icons/notifications_icons/
+    icon_path = /home/untermensch/.local/share/icons/notifications_icons/
 
     ### History ###
 
@@ -295,7 +295,7 @@
     foreground = "#cad3f5"
     timeout = 3 
     # Icon for notifications with low urgency, uncomment to enable
-    default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default-low.png
+    default_icon = /home/untermensch/.local/share/icons/notifications_icons/default-low.png
  
 
 [urgency_normal]
@@ -303,7 +303,7 @@
     foreground = "#cad3f5"
     timeout = 3 
     # Icon for notifications with normal urgency, uncomment to enable
-    default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default.png
+    default_icon = /home/untermensch/.local/share/icons/notifications_icons/default.png
 
 [urgency_critical]
     background = "#24273a"
@@ -311,7 +311,7 @@
     frame_color = "#ed8796" 
     timeout = 30 
     # Icon for notifications with critical urgency, uncomment to enable
-    default_icon = /home/tinkerbells/.local/share/icons/notifications_icons/default-critical.png
+    default_icon = /home/untermensch/.local/share/icons/notifications_icons/default-critical.png
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
