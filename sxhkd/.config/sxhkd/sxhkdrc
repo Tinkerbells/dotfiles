@@ -6,7 +6,7 @@ super +  t
   telegram-desktop
 
 super + Return 
-  alacritty
+  alacritty -t terminal
 
 super + r 
   rofi -show drun
@@ -15,9 +15,6 @@ super + shift + f
   nemo
 
 # Running terminal based apps
-super + shift + v
-  alacritty -t lvim -e lvim 
-
 super + f 
   alacritty -t lf -e lfub 
 
@@ -75,10 +72,6 @@ super + c
 # Calculator  
 alt + c 
   rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip"
-
-# Bitwarden 
-super + x 
-  bwmenu
 
 # Color picker
 alt + e 
