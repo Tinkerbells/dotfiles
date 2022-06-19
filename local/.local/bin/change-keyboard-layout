@@ -6,4 +6,4 @@ setxkbmap -query | grep -q 'us' && (
 ) || (
   dunstify -u low "US" -t 1000 -i layout -r 999 &
   setxkbmap us
-) && kill -43 $(pidof dwmblocks)
+) && kill -38 $(pidof dwmblocks)

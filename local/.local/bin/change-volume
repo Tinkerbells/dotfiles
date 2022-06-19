@@ -12,22 +12,22 @@ case $1 in
     pamixer -u
     pamixer -i 5 --allow-boost
     send_notification $1
-    kill -41 $(pidof dwmblocks)
+    kill -39 $(pidof dwmblocks)
     ;;
   down)
     pamixer -u
     pamixer -d 5 --allow-boost
     send_notification $1
-    kill -41 $(pidof dwmblocks)
+    kill -39 $(pidof dwmblocks)
     ;;
   mute)
     pamixer -t
     if $(pamixer --get-mute); then
       dunstify -i volume-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted"
-      kill -41 $(pidof dwmblocks)
+      kill -39 $(pidof dwmblocks)
     else
       send_notification up
-      kill -41 $(pidof dwmblocks)
+      kill -39 $(pidof dwmblocks)
     fi
     ;;
 esac
