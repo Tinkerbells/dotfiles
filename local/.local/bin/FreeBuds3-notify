@@ -5,4 +5,4 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
 level=$(sleep 2 && bluetoothctl info 04:8C:9A:F2:38:BB | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
 message=$(echo -e "Connected\nBattery: $level%")
-dunstify -u low -i earbuds -r 957 "$message"
+dunstify -u low -i earbuds -r 957 "$message" && kill -40 $(pidof dwmblocks)
