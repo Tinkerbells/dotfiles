@@ -245,7 +245,7 @@ print_status() {
         if [ $counter -gt 0 ]; then
           printf " %s" "$icon - $battery $level%"
         else
-          printf "%s" "$icon  - $battery $level%"
+          printf "%s" "$icon - $battery $level%"
         fi
 
         ((counter++))
