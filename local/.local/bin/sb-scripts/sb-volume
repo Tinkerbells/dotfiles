@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ $(pamixer --get-mute) = true ] && echo "  muted" && exit
+[ $(pamixer --get-mute) = true ] && echo " muted" && exit
 
 volume="$(pamixer --get-volume)"
 
