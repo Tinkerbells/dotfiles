@@ -4,7 +4,7 @@ pidof -x sb-mpdup > /dev/null 2>&1 || sb-mpdup > /dev/null 2>&1 &
 
 name=$(mpc | head -n 1)
 
-mpc | grep paused > /dev/null 2>&1 && echo "[  $name " ] || echo "[  $name ]" 
+mpc | grep paused > /dev/null 2>&1 && echo "[  ${name:0:30} " ] || echo "[  ${name:0:30} ]" 
 
 case $BLOCK_BUTTON in
   1) mpc next;;
