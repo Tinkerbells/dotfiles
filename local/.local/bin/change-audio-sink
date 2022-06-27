@@ -24,11 +24,13 @@ for device in $devices; do
 
   if is_connected $device && pactl get-default-sink | grep alsa; then
     pactl set-default-sink $bluez
-    dunstify -i $icon -r 957 -t 1000 -u low "$name"
+    dunstify -i $icon -r 957 -t 1000 -u low "$name" 
+    kill -39 $(pidof dwmblocks)
     exit 0
   elif is_connected $device && pactl get-default-sink | grep bluez; then
     pactl set-default-sink $alsa
     dunstify -i speaker -r 957 -t 1000 -u low "Speakers" &
+    kill -39 $(pidof dwmblocks)
     exit 0
   fi
 done

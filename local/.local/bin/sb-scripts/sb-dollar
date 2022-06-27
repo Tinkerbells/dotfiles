@@ -1,18 +1,19 @@
 #!/bin/sh
 
-path="/home/$USER/.local/bin/sb-scripts/dollar-price"
+path="/home/$USER/.cache/dollar"
 status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
-update_time=$(date "+%m-%d-%Y, %H:%m:%S")
 old_price=$(cat $path | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
   price=$(curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB&compact=ultra&apiKey=3100dea3775f17212859" | jq .USD_RUB)
   if (($(echo "$price > $old_price" | bc -l))); then
     icon=""
+    change=$(echo "100-$old_prce/$price*100" | bc -l)
   else
     icon=""
+    change=$(echo "100-$price/$old_price*100" | bc -l)
   fi
-  printf "[  %.*f $icon ]" 2 $price && rm -rf $path && echo -e "$price\nUpdate time - $update_time" > $path
+  printf "[  %.*f $icon %.*f%% ]" 2 $price 2 $change 
 else
   printf "[  %.*f ]" 2 $old_price
 fi

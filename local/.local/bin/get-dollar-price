@@ -1,0 +1,6 @@
+#!/bin/sh
+
+path="/home/$USER/.cache"
+update_time=$(date "+%m-%d-%Y, %H:%m:%S")
+price=$(curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB&compact=ultra&apiKey=3100dea3775f17212859" | jq .USD_RUB) 
+echo -e "$price\nUpdate time - $update_time" > "$path/dollar"
