@@ -12,9 +12,9 @@ if [ "$status" != "disconnected" ]; then
   else
     icon=""
   fi
-  printf " %.*f $icon" 2 $price && rm -rf $path && echo -e "$price\nUpdate time - $update_time" > $path
+  printf "[  %.*f $icon ]" 2 $price && rm -rf $path && echo -e "$price\nUpdate time - $update_time" > $path
 else
-  printf " %.*f" 2 $old_price
+  printf "[  %.*f ]" 2 $old_price
 fi
 
 case $BLOCK_BUTTON in

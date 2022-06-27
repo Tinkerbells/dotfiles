@@ -11,7 +11,7 @@ update() {
 
 speed=$(update)
 
-echo " $speed Mbit/s"
+echo "[  $speed Mbit/s ]"
 
 case $BLOCK_BUTTON in
   1) dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;

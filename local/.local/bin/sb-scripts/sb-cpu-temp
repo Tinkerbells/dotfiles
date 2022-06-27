@@ -21,4 +21,4 @@ get_icon() {
 
 icon=$(get_icon)
 
-printf "$icon %s°C" "$temp"
+printf "[ $icon %s°C ]" "$temp"

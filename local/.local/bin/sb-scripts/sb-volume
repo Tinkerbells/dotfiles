@@ -14,7 +14,7 @@ else
   icon="" && exit
 fi
 
-echo "$icon $volume%"
+echo "[ $icon $volume% ]"
 
 case $BLOCK_BUTTON in
   1) pavucontrol ;;

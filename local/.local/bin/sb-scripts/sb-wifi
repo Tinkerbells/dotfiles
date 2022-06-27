@@ -4,9 +4,9 @@ status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 name=$(nmcli dev status | awk '{print $4;}' | sed -n '2 p')
 
 if [ "$status" != "disconnected" ]; then
-  echo "直 $name"
+  echo "[ 直 $name ]"
 else
-  echo "睊 $status"
+  echo "[ 睊 $status ]"
 
 fi
 

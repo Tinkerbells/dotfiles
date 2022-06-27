@@ -8,10 +8,9 @@ pidof -x sb-mpdup > /dev/null 2>&1 || sb-mpdup > /dev/null 2>&1 &
 
 name=$(get_name)
 
-echo " $name"
+echo "[  $name ]"
 
 case $BLOCK_BUTTON in
-  1)
-    setsid -f "$TERMINAL" -e ncmpcpp
-    ;; # right click, pause/unpause
+  1) mpc play 
+  2) mpc pause
 esac
