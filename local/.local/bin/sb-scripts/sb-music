@@ -1,16 +1,13 @@
 #!/bin/sh
 
-get_name() {
-  echo "$(mpc | sed "/^volume:/d;s/\\&/&amp;/g;s/\\[paused\\].*//g;/\\[playing\\].*/d;/^ERROR/Q" | paste -sd ' ' -)"
-}
-
 pidof -x sb-mpdup > /dev/null 2>&1 || sb-mpdup > /dev/null 2>&1 &
 
-name=$(get_name)
+name=$(mpc | head -n 1)
 
-echo "[  $name ]"
+mpc | grep paused > /dev/null 2>&1 && echo "[  $name " ] || echo "[  $name ]" 
 
 case $BLOCK_BUTTON in
-  1) mpc play 
-  2) mpc pause
+  1) mpc next;;
+  2) mpc | grep paused && mpc play || mpc pause ;;
+  3) mpc prev;;
 esac
