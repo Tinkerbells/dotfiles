@@ -43,7 +43,7 @@ fi
 . "$Z4H"/z4h.zsh || return
 
 setopt rcs
-export EDITOR="nvim"
+export EDITOR="vim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 

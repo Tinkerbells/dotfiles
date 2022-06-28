@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo cp ./auto-cpufreq.conf /etc/ && echo "Installation is finished!"

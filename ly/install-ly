@@ -1,3 +1,0 @@
-#!/bin/bash
-
-sudo cp ./ly.service  /lib/systemd/system/ && echo "Service installed!"

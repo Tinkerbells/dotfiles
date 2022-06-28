@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for i in *
+do
+ if [ "$i" != ".git" ] && [ "$i" != "alacritty" ] && [ "$i" != "zsh" ] && [ "$i" != "install-dots" ];then
+  stow $i
+ fi
+done
+
+echo "Done!"
