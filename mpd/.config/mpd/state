@@ -1,7 +1,9 @@
 sw_volume: 98
 audio_device_state:1:PipeWire Sound Server
 audio_device_state:1:MPD FIFO
-state: stop
+state: play
+current: 2
+time: 3.341000
 random: 1
 repeat: 0
 single: 0
@@ -10,4 +12,9 @@ crossfade: 0
 mixrampdb: 0.000000
 mixrampdelay: -1.000000
 playlist_begin
+0:Rammstein/04. Asche Zu Asche .mp3
+1:Rammstein/04. Ich Will.mp3
+2:Rammstein/05. Feuer Frei!.mp3
+3:Rammstein/08. Zwitter.mp3
+4:Rammstein/09. Rein Raus.mp3
 playlist_end
