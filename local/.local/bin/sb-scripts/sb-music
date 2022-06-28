@@ -3,7 +3,7 @@
 pidof -x sb-mpdup > /dev/null 2>&1 || sb-mpdup > /dev/null 2>&1 &
 
 if [ $(mpc | wc -l) -lt 3 ];then
- name="empty list"
+ name="empty playlist"
 else
  name=$(mpc | head -n 1)
 fi
