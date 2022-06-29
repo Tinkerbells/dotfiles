@@ -3,6 +3,14 @@ export XAUTHORITY=$HOME/.Xauthority
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
+
 level=$(bluetoothctl info CC:98:8B:1C:02:12 | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
 message=$(echo -e "Connected\nBattery: $level%")
-dunstify -u low -i headphones -r 957 "$message" && kill -40 $(pidof dwmblocks) && kill -39 $(pidof dwmblocks) 
+
+kill -39 $(pidof dwmblocks) 
+
+if [[ "$level" ]];then
+   dunstify -u low -i headphones -r 957 "$message" 
+fi
+
+sleep 5 && kill -40 $(pidof dwmblocks)
