@@ -38,9 +38,6 @@ XF86AudioMute
 XF86AudioPlay
   mpc toggle 
 
-XF86AudioStop
-  mpc stop 
-
 XF86AudioNext
   mpc next
 
@@ -63,7 +60,7 @@ alt + p
   mpc prev
 
 alt + Return
-  mpc {pause,play}
+  mpc toggle
 
 # Change keyboard layout
 alt + Shift_L 
