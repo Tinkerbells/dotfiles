@@ -35,6 +35,18 @@ XF86AudioRaiseVolume
 XF86AudioMute
   change-volume mute 
 
+XF86AudioPlay
+  mpc toggle 
+
+XF86AudioStop
+  mpc stop 
+
+XF86AudioNext
+  mpc next
+
+XF86AudioPrev
+  mpc prev
+
 XF86MonBrightnessUp
   change-brightness up
 
