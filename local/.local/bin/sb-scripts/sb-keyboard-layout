@@ -1,5 +1,11 @@
 #!/bin/sh
 
-layout=$(setxkbmap -query | grep "layout" | awk '{print $2}') || exit 1
+layout_code=$(xset -q | grep -A 0 'LED' | cut -c59-67) 
 
-echo "[  ${layout^^} ]"
+if [ "$layout_code" -eq "00000000" ];then
+	layout="US"
+else
+	layout="RU"
+fi
+
+echo "[  $layout ]"

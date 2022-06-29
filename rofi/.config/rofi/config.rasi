@@ -1,10 +1,10 @@
 configuration{
     modi: "run,drun,window";
     lines: 5;
-    font: "JetBrainsMono Nerd Font 14";
+    font: "FantasqueSansMono NF 14";
     show-icons: true;
     icon-theme: "Oranchelo";
-    terminal: "st";
+    terminal: "alacritty";
     drun-display-format: "{icon} {name}";
     location: 0;
     disable-history: false;
@@ -21,6 +21,16 @@ configuration{
 element-text, element-icon , mode-switcher {
     background-color: inherit;
     text-color:       inherit;
+}
+
+*{
+bg:@bg-col;
+bg-alt:@bg-col;
+fg:@fg-col;
+fg-alt:@fg-col2;
+background-color:@bg-col;
+padding:3;
+spacing: 5;
 }
 
 window {

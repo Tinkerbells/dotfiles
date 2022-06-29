@@ -2,6 +2,7 @@
 
 #Switch caps lock to ctrl
 setxkbmap -option caps:ctrl_modifier &
+setxkbmap -option grp:alt_shift_toggle us,ru & 
 
 userresources=$HOME/.Xresources
 
@@ -27,7 +28,6 @@ xrandr --output eDP-1 --primary --mode 1920x1080 --rotate normal --output HDMI-1
 redshift >/dev/null 2>&1 &
 
 # Dwmblocks mpd and mpd update script
-mpd >/dev/null 2>&1 &
 sb-mpdup >/dev/null 2>&1 &
 
 # Suspend 

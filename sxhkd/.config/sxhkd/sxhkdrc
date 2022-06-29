@@ -65,10 +65,6 @@ alt + p
 alt + Return
   mpc toggle
 
-# Change keyboard layout
-alt + Shift_L 
-  change-keyboard-layout
-
 # Screenshot
 super + shift + s
   screenshot select  
@@ -95,4 +91,4 @@ super + shift + l
   
 # Custom scripts 
 alt + t
-  notify-time
+ rofitr 
