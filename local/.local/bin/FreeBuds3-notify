@@ -7,10 +7,8 @@ level=$(sleep 2 && bluetoothctl info 04:8C:9A:F2:38:BB | grep Battery | awk '{ p
 message=$(echo -e "Connected\nBattery: $level%")
 
 kill -39 $(pidof dwmblocks)
+kill -40 $(pidof dwmblocks)
 
-if [[ "$level" ]];then
-   dunstify -u low -i earbuds -r 957 "$message" 
-fi
+dunstify -u low -i earbuds -r 957 "$message" 
 
-sleep 5 && kill -40 $(pidof dwmblocks)
 

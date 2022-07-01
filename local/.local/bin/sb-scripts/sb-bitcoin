@@ -1,22 +1,21 @@
 #!/bin/sh
 
-path="$HOME/.cache/bitcoin"
 status=$(sleep 10 && nmcli dev status | awk '{print $3;}' | sed -n '2 p')
-old_price=$(cat $path | head -n 1)
+old_price=$(cat /tmp/bitcoin | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
     price=$(printf "%.*f" 2 $(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate))
   if (($(echo "$price > $old_price" | bc -l))); then
     icon=""
     change=$(printf "%.*f" 2 $(echo "100-$old_price/$price*100" | bc -l))
-    message=$(echo -e "Pirce has rised\n$old_price  $price")
+    message=$(echo -e "Rised by $change%\n$old_price$  $price$")
     if (($(echo "$change > 5" | bc -l)));then
 	    dunstify -i bitcoin-up -r 934 -t 5000 "$message"
     fi
   else
     icon=""
     change=$(printf "%.*f" 2 $(echo "100-$price/$old_price*100" | bc -l))
-    message=$(echo -e "Pirce has dropped\n$old_price  $price")
+    message=$(echo -e "Dropped by $change%\n$old_price$  $price$")
     if (($(echo "$change > 5" | bc -l)));then
 	    dunstify -i bitcoin-down -r 934 -t 5000 "$message"
     fi
