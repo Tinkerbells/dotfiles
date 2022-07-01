@@ -1,6 +1,7 @@
 #!/bin/sh
 
+file="$HOME/.cache"
 update_time=$(date "+%m-%d-%Y, %H:%m:%S")
 price=$(printf "%.*f" 2 $(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate))
 
-echo -e "$price\nUpdate time - $update_time" > "/tmp/bitcoin"
+echo -e "$price\nUpdate time - $update_time" > $file

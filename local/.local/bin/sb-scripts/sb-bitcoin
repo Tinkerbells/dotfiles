@@ -1,7 +1,7 @@
 #!/bin/sh
 
 status=$(sleep 10 && nmcli dev status | awk '{print $3;}' | sed -n '2 p')
-old_price=$(cat /tmp/bitcoin | head -n 1)
+old_price=$(cat "$HOME/.cache" | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
     price=$(printf "%.*f" 2 $(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate))
