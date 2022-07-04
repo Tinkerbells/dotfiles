@@ -4,10 +4,9 @@ status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 name=$(nmcli dev status | awk '{print $4;}' | sed -n '2 p')
 
 if [ "$status" != "disconnected" ]; then
-  echo "[ 直 $name ]"
+  echo "^c#a6da95^直 $name^d^"
 else
-  echo "[ 睊 $status ]"
-
+  echo "^c#ed8796^睊 disconnected^d^"
 fi
 
 case $BLOCK_BUTTON in

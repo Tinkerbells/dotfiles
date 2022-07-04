@@ -3,12 +3,12 @@
 pidof -x sb-mpdup > /dev/null 2>&1 || sb-mpdup > /dev/null 2>&1 &
 
 if [ $(mpc | wc -l) -lt 3 ];then
- name="empty playlist"
+	echo "empty playlist" && exit
 else
- name=$(mpc | head -n 1)
+ name=$(mpc | head -n 1 | cut -c1-30)
 fi
 
-mpc | grep paused > /dev/null 2>&1 && echo "[  ${name:0:30} " ] || echo "[  ${name:0:30} ]" 
+mpc | grep paused > /dev/null 2>&1 && echo " $name"  || echo "^c#8caaee^契 $name^d^" 
 
 case $BLOCK_BUTTON in
   1) mpc next;;

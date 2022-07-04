@@ -1,20 +1,20 @@
 #!/bin/sh
 
-[ $(pamixer --get-mute) = true ] && echo " muted" && exit
+[ $(pamixer --get-mute) = true ] && echo "^c#ed8796^^d^ muted" && exit
 
 volume="$(pamixer --get-volume)"
 
-if [ "$volume" -gt "80" ]; then
-  icon=""
+if [ "$volume" -ge "80" ]; then
+  icon="^c#eed49f^"
 elif [ "$volume" -gt "50" ]; then
-  icon="墳"
+  icon="^c#a6da95^墳"
 elif [ "$volume" -gt "10" ]; then
-  icon=""
+  icon="^c#8aadf4^"
 else
-  icon="" && exit
+  icon=""
 fi
 
-echo "[ $icon $volume% ]"
+echo "$icon $volume%^d^"
 
 case $BLOCK_BUTTON in
   1) pavucontrol ;;

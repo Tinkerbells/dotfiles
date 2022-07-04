@@ -6,27 +6,27 @@ is_charging=$(acpi | head -n 1 | cut -d "," -f1 | cut -d " " -f3)
 
 get_icon() {
   if [ "$level" -ge "98" ]; then
-    icon=""
+    icon="^c#a6da95^"
   elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
-    icon=""
+    icon="^c#a6da95^"
   elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
-    icon=""
+    icon="^c#a6da95^"
   elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
-    icon=""
+    icon="^c#a6da95^"
   elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
-    icon=""
+    icon="^c#eed49f^"
   elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
-    icon=""
+    icon="^c#eed49f^"
   elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
-    icon=""
+    icon="^c#f5a97f^"
   elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
-    icon=""
+    icon="^c#f5a97f^"
   elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
-    icon=""
+    icon="^c#ed8796^"
   elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
-    icon=""
+    icon="^c#ed8796^"
   else
-    icon=""
+    icon="^c#ed8796^"
   fi
   echo "$icon"
 }
@@ -38,9 +38,9 @@ fi
 
 if [ "$is_charging" != "Charging" ]; then
   icon=$(get_icon)
-  echo "[ $icon $level% ]"
+  echo "$icon $level%^d^"
 else
-  echo "[  $level% ]"
+  echo "^c#8aadf4^ $level%^d^"
 fi
 
 case $BLOCK_BUTTON in

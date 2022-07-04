@@ -1,20 +1,22 @@
 #!/bin/sh
 
 status=$(sleep 10 && nmcli dev status | awk '{print $3;}' | sed -n '2 p')
-old_price=$(cat "$HOME/.cache" | head -n 1)
+old_price=$(cat $HOME/.cache/dollar | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
 	price=$(printf "%.*f" 2 $(curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB&compact=ultra&apiKey=3100dea3775f17212859" | jq .USD_RUB))
   if (($(echo "$price > $old_price" | bc -l))); then
+    color="^c#a6da95^"
     icon=""
     change=$(printf "%.*f" 2 $(echo "100-$old_price/$price*100" | bc -l))
   else
+    color="^c#ed8796^"
     icon=""
     change=$(printf "%.*f" 2 $(echo "100-$price/$old_price*100" | bc -l))
   fi
-  echo "[  $price $icon $change% ]" 
+  echo "$color $price $icon $change%^d^" 
 else
-  echo "[  $old_price ]" 
+  echo " $old_price" 
 fi
 
 case $BLOCK_BUTTON in
