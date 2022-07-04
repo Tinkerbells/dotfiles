@@ -17,5 +17,7 @@ fi
 echo "$icon $volume%^d^"
 
 case $BLOCK_BUTTON in
-  1) pavucontrol ;;
+  1)pamixer -i 5 && dunstify -a "changevolume" -u low -r "9993" -h "$volume" -i "volume-up"  "Volume: ${volume}%" -t 2000 ;;
+  2) pavucontrol ;;
+  3)pamixer -d 5 && dunstify -a "changevolume" -u low -r "9993" -h "$volume" -i "volume-down" "Volume: ${volume}%" -t 2000 ;;
 esac

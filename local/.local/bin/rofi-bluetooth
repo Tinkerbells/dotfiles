@@ -201,35 +201,33 @@ print_status() {
           dunstify -r 988 -t 4000 -i keyboard -u critical "Low battery - $level%"
         fi
 
-        get_icon() {
-  if [ "$level" -ge "98" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
-    icon="^c#eed49f^"
-  elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
-    icon="^c#eed49f^"
-  elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
-    icon="^c#f5a97f^"
-  elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
-    icon="^c#f5a97f^"
-  elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
-    icon="^c#ed8796^"
-  elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
-    icon="^c#ed8796^"
-  else
-    icon="^c#ed8796^"
-  fi
-  echo "$icon"
-}
-
-
-        get_device_icon() {
+        get_battery_icon() {
+              if [ "$level" -ge "98" ]; then
+                icon="^c#a6da95^"
+              elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
+                icon="^c#a6da95^"
+              elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
+                icon="^c#a6da95^"
+              elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
+                icon="^c#a6da95^"
+              elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
+                icon="^c#eed49f^"
+              elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
+                icon="^c#eed49f^"
+              elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
+                icon="^c#f5a97f^"
+              elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
+                icon="^c#f5a97f^"
+              elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
+                icon="^c#ed8796^"
+              elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
+                icon="^c#ed8796^"
+              else
+                icon="^c#ed8796^"
+              fi
+              echo "$icon"
+       		}
+	get_device_icon(){
           if [ "$name" = "audio-headset" ] || [ "$name" = "audio-headphones" ]; then
             icon=""
           elif [ "$name" = "input-keyboard" ]; then

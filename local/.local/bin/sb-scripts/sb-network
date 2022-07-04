@@ -27,5 +27,5 @@ fi
 echo "$color $speed MBit/s^d^"
 
 case $BLOCK_BUTTON in
-  1) dunstify -u low -r 942 -t 1000 -i network-speed "Started" && dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;
+	1) dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;
 esac
