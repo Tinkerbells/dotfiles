@@ -313,6 +313,9 @@
     # Icon for notifications with critical urgency, uncomment to enable
     default_icon = /home/untermensch/.local/share/icons/notifications_icons/default-critical.png
 
+[play_sound]
+    summary = "*"
+    script = /home/untermensch/.local/bin/alert
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
 #
