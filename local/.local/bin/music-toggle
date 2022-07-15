@@ -1,0 +1,8 @@
+#!/bin/bash
+
+apps="mpv" # add app that might be control by MPRIS, see https://wiki.archlinux.org/title/MPRIS
+
+for app in $apps; do
+    pidof -s $app || mpc toggle
+done > /dev/null 2>&1
+
