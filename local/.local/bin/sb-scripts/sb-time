@@ -2,8 +2,8 @@
 
 time=$(date +"%H:%M:%S")
 
-echo -e " ^d^$time ^d^ " 
+echo "^b#494d64^^c#cad3f5^  $time ^d^"
 
 case $BLOCK_BUTTON in
-  1) alacritty -e tty-clock -sct -f "%a, %d %b %Y %T %z" ;;
+    1) alacritty -e tty-clock -sct -f "%a, %d %b %Y %T %z" ;;
 esac

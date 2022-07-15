@@ -1,23 +1,21 @@
 #!/bin/sh
 
-[ $(pamixer --get-mute) = true ] && echo "^c#ed8796^^d^ muted" && exit
+[ $(pamixer --get-mute) = true ] && echo "^b#494d64^^c#ed8796^  muted ^d^" && exit
 
 volume="$(pamixer --get-volume)"
 
 if [ "$volume" -ge "80" ]; then
-  icon="^c#eed49f^"
+    icon=""
 elif [ "$volume" -gt "50" ]; then
-  icon="^c#a6da95^墳"
+    icon="墳"
 elif [ "$volume" -gt "10" ]; then
-  icon="^c#8aadf4^"
+    icon=""
 else
-  icon=""
+    icon=""
 fi
 
-echo "$icon $volume%^d^"
+echo "^b#494d64^^c#cad3f5^ $icon $volume% ^d^"
 
 case $BLOCK_BUTTON in
-  1)pamixer -i 5 && dunstify -a "changevolume" -u low -r "9993" -h "$volume" -i "volume-up"  "Volume: ${volume}%" -t 2000 ;;
-  2) pavucontrol ;;
-  3)pamixer -d 5 && dunstify -a "changevolume" -u low -r "9993" -h "$volume" -i "volume-down" "Volume: ${volume}%" -t 2000 ;;
+    1) pavucontrol ;;
 esac

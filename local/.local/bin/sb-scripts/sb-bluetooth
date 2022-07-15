@@ -2,8 +2,8 @@
 
 connecitons=$(rofi-bluetooth --status)
 
-echo "$connecitons"
+echo "^b#494d64^^c#cad3f5^ $connecitons ^d^"
 
 case $BLOCK_BUTTON in
-  1) rofi-bluetooth ;;
+    1) rofi-bluetooth ;;
 esac

@@ -5,44 +5,44 @@ level=$(acpi | head -n 1 | cut -d "," -f2 | sed 's/%//' | tr -d " ")
 is_charging=$(acpi | head -n 1 | cut -d "," -f1 | cut -d " " -f3)
 
 get_icon() {
-  if [ "$level" -ge "98" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
-    icon="^c#a6da95^"
-  elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
-    icon="^c#eed49f^"
-  elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
-    icon="^c#eed49f^"
-  elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
-    icon="^c#f5a97f^"
-  elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
-    icon="^c#f5a97f^"
-  elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
-    icon="^c#ed8796^"
-  elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
-    icon="^c#ed8796^"
-  else
-    icon="^c#ed8796^"
-  fi
-  echo "$icon"
+    if [ "$level" -ge "98" ]; then
+        icon="^c#a6da95^"
+    elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
+        icon="^c#a6da95^"
+    elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
+        icon="^c#a6da95^"
+    elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
+        icon="^c#a6da95^"
+    elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
+        icon="^c#eed49f^"
+    elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
+        icon="^c#eed49f^"
+    elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
+        icon="^c#f5a97f^"
+    elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
+        icon="^c#f5a97f^"
+    elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
+        icon="^c#ed8796^"
+    elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
+        icon="^c#ed8796^"
+    else
+        icon="^c#ed8796^"
+    fi
+    echo "$icon"
 }
 
 # Low battery notify
 if [ "$level" -le "10" ] && [ "$is_charging" != "Charging" ] ; then
-  dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
+    dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
 fi
 
 if [ "$is_charging" != "Charging" ]; then
-  icon=$(get_icon)
-  echo "$icon $level%^d^"
+    icon=$(get_icon)
+    echo "^b#494d64^ $icon $level% ^d^ "
 else
-  echo "^c#8aadf4^ $level%^d^"
+    echo "^b#494d64^^c#8aadf4^  $level% ^d^ "
 fi
 
 case $BLOCK_BUTTON in
-  1) [ -z "$info" ] && dunstify -u normal "Fully charged" -r 998 || dunstify -u normal "$info" -r 998 ;;
+    1) [ -z "$info" ] && dunstify -u normal "Fully charged" -r 998 || dunstify -u normal "$info" -r 998 ;;
 esac

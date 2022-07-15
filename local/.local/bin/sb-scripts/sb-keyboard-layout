@@ -1,11 +1,11 @@
 #!/bin/sh
 
-layout_code=$(xset -q | grep -A 0 'LED' | cut -c59-67) 
+layout_code=$(xset -q | grep -A 0 'LED' | cut -c59-67)
 
 if [ "$layout_code" -eq "00000000" ];then
-	layout="US"
+    layout="US"
 else
-	layout="RU"
+    layout="RU"
 fi
 
-echo " $layout"
+echo "^b#494d64^^c#cad3f5^  $layout ^d^"

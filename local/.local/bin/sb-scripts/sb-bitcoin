@@ -5,28 +5,26 @@ old_price=$(cat $HOME/.cache/bitcoin | head -n 1)
 
 if [ "$status" != "disconnected" ]; then
     price=$(printf "%.*f" 2 $(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=7F390A8F-EAE9-4FB4-9F15-363124425D0F" | jq .rate))
-  if (($(echo "$price > $old_price" | bc -l))); then
-    color="^c#a6da95^"
-    icon=""
-    change=$(printf "%.*f" 2 $(echo "100-$old_price/$price*100" | bc -l))
-    message=$(echo -e "Rised by $change%\n$old_price$  $price$")
-    if (($(echo "$change > 5" | bc -l)));then
-	    dunstify -i bitcoin-up -r 934 -t 5000 "$message"
+    if (($(echo "$price > $old_price" | bc -l))); then
+        icon="^c#a6da95^"
+        change=$(printf "%.*f" 2 $(echo "100-$old_price/$price*100" | bc -l))
+        message=$(echo -e "Rised by $change%\n$old_price$  $price$")
+        if (($(echo "$change > 5" | bc -l)));then
+            dunstify -i bitcoin-up -r 934 -t 5000 "$message"
+        fi
+    else
+        icon="^c#ed8796^"
+        change=$(printf "%.*f" 2 $(echo "100-$price/$old_price*100" | bc -l))
+        message=$(echo -e "Dropped by $change%\n$old_price$  $price$")
+        if (($(echo "$change > 5" | bc -l)));then
+            dunstify -i bitcoin-down -r 934 -t 5000 "$message"
+        fi
     fi
-  else
-    color="^c#ed8796^"
-    icon=""
-    change=$(printf "%.*f" 2 $(echo "100-$price/$old_price*100" | bc -l))
-    message=$(echo -e "Dropped by $change%\n$old_price$  $price$")
-    if (($(echo "$change > 5" | bc -l)));then
-	    dunstify -i bitcoin-down -r 934 -t 5000 "$message"
-    fi
-  fi
-  echo "$color $price $icon $change%^d^" 
+    echo "^b#494d64^^c#cad3f5^  $price $icon $change% ^d^"
 else
-  echo " $old_price" 
+    echo "^b#494d64^^c#cad3f5^  $old_price ^d^"
 fi
 
 case $BLOCK_BUTTON in
-  1) alacritty --hold -e tstock -b 24 -t 60min btc ;;
+    1) alacritty --hold -e tstock -b 24 -t 60min btc ;;
 esac
