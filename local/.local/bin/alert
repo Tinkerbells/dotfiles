@@ -1,0 +1,9 @@
+#!/bin/bash
+
+excludes="MPD"
+
+for i in $excludes; do
+    if [ "$1" != "$i" ];then
+        paplay $HOME/.config/dunst/notification_sound.wav
+    fi
+done
