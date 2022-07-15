@@ -18,6 +18,7 @@ unsetopt BEEP
 # completions
 autoload -Uz compinit
 zstyle ':completion:*' menu select
+# zstyle ':autocomplete:*' default-context ''
 # zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
 # compinit
@@ -43,7 +44,6 @@ zsh_add_file "zsh-aliases"
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin "marlonrichert/zsh-autocomplete"
 zsh_add_plugin "hlissner/zsh-autopair"
 
 # Key-bindings
