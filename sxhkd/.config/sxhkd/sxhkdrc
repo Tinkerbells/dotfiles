@@ -36,10 +36,10 @@ XF86AudioMute
   change-volume mute 
 
 XF86AudioPlay
-  mpc toggle 
+  music-toggle
 
 XF86AudioPause
-  mpc toggle 
+  music-toggle
 
 XF86AudioNext
   mpc next
