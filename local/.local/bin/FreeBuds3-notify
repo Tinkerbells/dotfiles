@@ -9,6 +9,6 @@ message=$(echo -e "Connected\nBattery: $level%")
 kill -39 $(pidof dwmblocks)
 kill -40 $(pidof dwmblocks)
 
-dunstify -u low -i earbuds -r 957 "$message" 
+dunstify -u low -i earbuds -r 957 "$message"
 
 
