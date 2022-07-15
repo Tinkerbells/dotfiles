@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export ZDOTDIR=$HOME/.config/zsh
+
+setxkbmap -option grp:alt_shift_toggle us,ru -option caps:ctrl_modifier &
