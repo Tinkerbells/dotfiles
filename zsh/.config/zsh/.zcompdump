@@ -1,4 +1,4 @@
-#files: 930	version: 5.8
+#files: 929	version: 5.8
 
 _comps=(
 '-' '_precommand'
@@ -492,7 +492,6 @@ _comps=(
 'fmttest' '_mh'
 'fned' '_zed'
 'fnext' '_mh'
-'fnm' '_fnm'
 'fold' '_fold'
 'folder' '_mh'
 'folders' '_mh'
@@ -1978,7 +1977,7 @@ autoload -Uz _SUSEconfig _a2ps _a2utils _aap _abcde \
             _zfs_pool _zftp _zip _zle _zlogin \
             _zmodload _zmv _zoneadm _zones _zparseopts \
             _zpool _zpty _zsh _zsh-mime-handler _zsocket \
-            _zstyle _ztodo _zypper _fnm
+            _zstyle _ztodo _zypper
 autoload -Uz +X _call_program
 
 typeset -gUa _comp_assocs

@@ -2,9 +2,10 @@
 alias g='lazygit'
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 alias nvimrc='nvim ~/.config/nvim/'
-
-# alias lvim='nvim -u ~/.local/share/lunarvim/lvim/init.lua --cmd "set runtimepath+=~/.local/share/lunarvim/lvim"'
-
+alias p="paru -S"
+alias pr="paru -R"
+alias v="nvim"
+alias chromium="chromium --force-dark-mode --enable-features=WebUIDarkMode --disable-top-sites"
 # get fastest mirrors
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
@@ -26,14 +27,13 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
+# restart keyd service
+alias keyr="sudo systemctl restart keyd"
 
 alias m="git checkout master"
 alias s="git checkout stable"
 
-if [[ $TERM == "xterm-kitty" ]]; then
-    alias ssh="kitty +kitten ssh"
-fi
+alias ls='ls -A --color=auto'
 
-alias ls='ls -a --color=auto'
-
+# start lf with uberzug wrapper
 alias lf="lfub"

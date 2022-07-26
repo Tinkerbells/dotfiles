@@ -1,18 +1,36 @@
-#!/bin/sh
-# HISTFILE="$XDG_DATA_HOME"/zsh/history
-HISTSIZE=1000000
-SAVEHIST=1000000
+#!/bin/zsh
+
+setxkbmap -option grp:alt_shift_toggle us,ru -option caps:ctrl_modifier 
+
+export LC_ALL=en_US.UTF-8
+export ZDOTDIR=$HOME/.config/zsh
+export EDITOR="nvim"
+export TERMINAL="alacritty"
+export BROWSER="chromium"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
+export PATH="$HOME/.local/bin":$PATH
+export PATH="$HOME/.local/bin/sb-scripts":$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/share/go/bin:$PATH
-export GOPATH=$HOME/.local/share/go
-export PATH=$HOME/.fnm:$PATH
 export PATH="$PATH:./node_modules/.bin"
+# ~/ Clean-up:
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
+export GOPATH=$HOME/.local/share/go
+export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
+export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
+export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 
+# tstock API key
+export ALPHAVANTAGE_API_KEY=561PTBRJOGBD4J7W
 # lf file manager icons
-export LF_ICONS="\
-tw=:\
+export LF_ICONS="\ tw=:\
 st=:\
 ow=:\
 dt=:\
@@ -24,9 +42,6 @@ ex=:\
 *.c=:\
 *.cc=:\
 *.clj=:\
-*.coffee=:\
-*.cpp=:\
-*.css=:\
 *.d=:\
 *.dart=:\
 *.erl=:\
@@ -173,8 +188,3 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 "
-export LC_ALL=en_US.UTF-8
-# tstock API key
-export ALPHAVANTAGE_API_KEY=561PTBRJOGBD4J7W
-
-
