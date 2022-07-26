@@ -18,7 +18,7 @@ if (($(echo "$speed > $provider_max_speed*0.5" | bc -l))); then
     color="^c#ed8796^"
 fi
 
-echo "^b#494d64^$color  $speed MBit/s ^d^"
+echo "^b#363a4f^$color  $speed MBit/s ^d^"
 
 case $BLOCK_BUTTON in
     1) dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;

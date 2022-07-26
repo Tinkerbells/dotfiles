@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ $(pamixer --get-mute) = true ] && echo "^b#494d64^^c#ed8796^  muted ^d^" && exit
+[ $(pamixer --get-mute) = true ] && echo "^b#363a4f^^c#ed8796^  muted ^d^" && exit
 
 volume="$(pamixer --get-volume)"
 
@@ -14,7 +14,7 @@ else
     icon=""
 fi
 
-echo "^b#494d64^^c#cad3f5^ $icon $volume% ^d^"
+echo "^b#363a4f^^c#cad3f5^ $icon $volume% ^d^"
 
 case $BLOCK_BUTTON in
     1) pavucontrol ;;

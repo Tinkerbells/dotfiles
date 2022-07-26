@@ -5,7 +5,9 @@ level=$(acpi | head -n 1 | cut -d "," -f2 | sed 's/%//' | tr -d " ")
 is_charging=$(acpi | head -n 1 | cut -d "," -f1 | cut -d " " -f3)
 
 get_icon() {
-    if [ "$level" -ge "98" ]; then
+    if [ "$level" -eq "100" ]; then
+        icon=""
+    elif [ "$level" -ge "98" ]; then
         icon="^c#a6da95^"
     elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
         icon="^c#a6da95^"
@@ -38,9 +40,9 @@ fi
 
 if [ "$is_charging" != "Charging" ]; then
     icon=$(get_icon)
-    echo "^b#494d64^ $icon $level% ^d^ "
+    echo "^b#363a4f^ $icon $level% ^d^ "
 else
-    echo "^b#494d64^^c#8aadf4^  $level% ^d^ "
+    echo "^b#363a4f^^c#8aadf4^  $level% ^d^ "
 fi
 
 case $BLOCK_BUTTON in

@@ -2,7 +2,7 @@
 
 connecitons=$(rofi-bluetooth --status)
 
-echo "^b#494d64^^c#cad3f5^ $connecitons ^d^"
+echo "^b#363a4f^^c#cad3f5^ $connecitons ^d^"
 
 case $BLOCK_BUTTON in
     1) rofi-bluetooth ;;

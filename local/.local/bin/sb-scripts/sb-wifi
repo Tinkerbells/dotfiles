@@ -1,14 +1,29 @@
 #!/bin/bash
+vpn_status=$(mullvad status)
 
-status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 name=$(nmcli dev status | awk '{print $4;}' | sed -n '2 p')
 
-if [ "$status" != "disconnected" ]; then
-    echo "^b#494d64^^c#cad3f5^ 直 $name ^d^"
-else
-    echo "^b#494d64^^c#ed8796^ 睊 disconnected ^d^"
+status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p' )
+
+if [ "$status" = "disconnected" ];then
+    echo -e "^b#363a4f^^c#ed8796^ 睊 disconnected ^d^" && exit 0
 fi
+
+if [ "$vpn_status" != "Disconnected" ]; then
+    echo "^b#363a4f^  $name ^d^"
+else
+    echo "^b#363a4f^ 直 $name ^d^"
+fi
+
+toggle_vpn(){
+    if [ "$vpn_status" != "Disconnected" ]; then
+        mullvad disconnect && dunstify -i vpn -r 394 -t 1500 "Disconnected"
+    else
+        mullvad connect && dunstify -i vpn -r 394 -t 1500 "Connected"
+    fi
+}
 
 case $BLOCK_BUTTON in
     1) alacritty -e nmtui ;;
+    3) toggle_vpn ;;
 esac

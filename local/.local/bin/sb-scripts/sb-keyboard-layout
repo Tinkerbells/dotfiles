@@ -8,4 +8,4 @@ else
     layout="RU"
 fi
 
-echo "^b#494d64^^c#cad3f5^  $layout ^d^"
+echo "^b#363a4f^^c#cad3f5^  $layout ^d^"

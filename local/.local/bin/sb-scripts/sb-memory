@@ -1,6 +1,6 @@
 #!/bin/sh
 
-free --mebi | sed -n '2{p;q}' | awk '{printf ("^b#494d64^^c#cad3f5^ ﬙ %2.2f GiB ^d^\n", ( $3 / 1024))}'
+free --mebi | sed -n '2{p;q}' | awk '{printf ("^b#363a4f^^c#cad3f5^ ﬙ %2.2f GiB ^d^\n", ( $3 / 1024))}'
 
 case $BLOCK_BUTTON in
     1) alacritty --hold -t btop -e btop ;;
