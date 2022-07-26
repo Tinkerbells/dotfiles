@@ -1,10 +1,12 @@
-#!/bin/bash
-output="$HOME/Pictures/screenshots/%Y-%m-%d-%T-screenshot.png"
+#! /bin/sh
+path="$HOME/Pictures/Screenshots/"
+
+notify(){
+    dunstify -i screenshot -t 1500 "Screenshot taken"
+}
 
 case "$1" in
-  "select") scrot "$output" --select --line mode=edge || exit ;;
-  "window") scrot "$output" --focused --border || exit ;;
-  *) scrot "$output" || exit ;;
+    "select") flameshot gui -p $path > /dev/null 2>&1 && notify || exit ;;
+    "full") flameshot full -c -p $path > /dev/null 2>&1 && notify || exit ;;
+    "open") sxiv "$path$(ls -Art $path | tail -n 1)"  || exit ;;
 esac
-
-dunstify -I "$(date +$output)" "Screenshot taken"
