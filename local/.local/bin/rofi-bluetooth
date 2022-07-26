@@ -242,16 +242,16 @@ print_status() {
                 battery=$(get_battery_icon)
 
                 if [ $counter -gt 0 ]; then
-                    printf " %s" "$icon - $battery $level%^d^"
+                    printf " %s" "$icon - $battery $level%"
                 else
-                    printf "%s" "$icon - $battery $level%^d^"
+                    printf "%s" "$icon - $battery $level%"
                 fi
 
                 ((counter++))
             fi
         done
         if [ $counter -eq 0 ]; then
-            echo "No devices"
+            echo ""
         fi
     else
         printf ""
