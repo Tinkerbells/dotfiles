@@ -1,12 +1,20 @@
 # Running apps
 super + w  
-  brave 
+  chromium --force-dark-mode --enable-features=WebUIDarkMode --disable-top-sites
 
 super +  t 
   telegram-desktop
 
 super + Return 
   alacritty -t terminal
+
+super + shift + Return  
+  st
+
+super + shift + Return  
+  kitty 
+
+
 
 super + r 
   rofi -show drun
@@ -21,7 +29,7 @@ super + f
 super + m 
   alacritty -t ncmpcpp -e ncmpcpp
 
-# Dunstctl histroy bind
+# Dunst histroy 
 alt + h
   dunstctl history-pop                              
   
@@ -31,7 +39,7 @@ XF86AudioLowerVolume
 
 XF86AudioRaiseVolume
   change-volume up 
-  
+
 XF86AudioMute
   change-volume mute 
 
@@ -46,7 +54,7 @@ XF86AudioNext
 
 XF86AudioPrev
   mpc prev
-
+  
 XF86MonBrightnessUp
   change-brightness up
 
@@ -65,13 +73,15 @@ alt + p
 alt + Return
   mpc toggle
 
-# Screenshot
+# Screenshots
+super + s
+  screenshot full
+
 super + shift + s
   screenshot select  
-super + s
-  screenshot 
-super + control + shift + s
-  screenshot window
+
+super + control + s 
+  screenshot open
 
 # Clipmanager 
 super + c 
