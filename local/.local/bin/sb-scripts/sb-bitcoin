@@ -6,23 +6,23 @@ price=$(sleep 10 && curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?ap
 if [ $price != "null" ]; then
     new_price=$(printf "%.*f" 2 $price) 
     if (($(echo "$new_price > $old_price" | bc -l))); then
-        icon="^c#a6da95^"
+        icon=""
         change=$(printf "%.*f" 2 $(echo "100-$old_price/$new_price*100" | bc -l))
         message=$(echo -e "Rised by $change%\n$old_price$  $new_price$")
         if (($(echo "$change > 5" | bc -l)));then
             dunstify -i bitcoin-up -r 934 -t 5000 "$message"
         fi
     else
-        icon="^c#ed8796^"
+        icon=""
         change=$(printf "%.*f" 2 $(echo "100-$new_price/$old_price*100" | bc -l))
         message=$(echo -e "Dropped by $change%\n$old_price$  $new_price$")
         if (($(echo "$change > 5" | bc -l)));then
             dunstify -i bitcoin-down -r 934 -t 5000 "$message"
         fi
     fi
-    echo "^b#363a4f^^c#cad3f5^  $new_price $icon $change% ^d^"
+    echo "[  $new_price $icon $change% ]"
 else
-    echo "^b#363a4f^^c#cad3f5^  $old_price ^d^"
+    echo "[  $old_price ]"
 fi
 
 case $BLOCK_BUTTON in

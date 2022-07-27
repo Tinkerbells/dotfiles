@@ -1,0 +1,9 @@
+[restore-stream]
+Input/Audio:application.id:org.PulseAudio.pavucontrol:channelMap=MONO;
+Input/Audio:application.id:org.PulseAudio.pavucontrol:channelVolumes=1.0;
+Input/Audio:application.id:org.PulseAudio.pavucontrol:mute=false
+Input/Audio:application.id:org.PulseAudio.pavucontrol:volume=1.0
+Output/Audio:application.name:Brave:channelMap=FL;FR;
+Output/Audio:application.name:Brave:channelVolumes=1.0;1.0;
+Output/Audio:application.name:Brave:mute=false
+Output/Audio:application.name:Brave:volume=1.0

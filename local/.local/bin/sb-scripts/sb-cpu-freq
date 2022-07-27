@@ -12,8 +12,4 @@ done;
 
 result=$(printf "%.*f" 1 $(echo "$sum / $cores / 1000" | bc -l))
 
-if (($(echo "$result > 3.6" | bc -l))); then
-    color="^c#ed8796^"
-fi
-
-echo "^b#363a4f^ $color龍 $result GHz ^d^"
+echo "[ 龍 $result GHz ]"

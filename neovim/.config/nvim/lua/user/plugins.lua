@@ -91,8 +91,7 @@ return packer.startup(function(use)
   use "andymass/vim-matchup"
 
   -- Colorschemes
-  use "catppuccin/nvim"
-  vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+  use "folke/tokyonight.nvim"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp"

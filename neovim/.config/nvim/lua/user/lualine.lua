@@ -3,42 +3,42 @@ if not status_ok then
   return
 end
 
-vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#f5a97f", bg = "#24273a" })
-vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#cad3f5", bg = "#24273a", bold = false })
--- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#D7BA7D", bg = "#252525" })
-vim.api.nvim_set_hl(0, "SLProgress", { fg = "#8087a2", bg = "#24273a" })
-vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#8087a2", bg = "#24273a" })
-vim.api.nvim_set_hl(0, "SLLSP", { fg = "#8aadf4", bg = "#24273a" })
+-- vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#f5a97f", bg = "#24273a" })
+-- vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#cad3f5", bg = "#24273a", bold = false })
+-- -- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#D7BA7D", bg = "#252525" })
+-- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#8087a2", bg = "#24273a" })
+-- vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#8087a2", bg = "#24273a" })
+-- vim.api.nvim_set_hl(0, "SLLSP", { fg = "#8aadf4", bg = "#24273a" })
 -- darkerplus
 -- vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#E8AB53", bg = "#303030" })
 -- vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#abb2bf", bg = "#303030", bold = false })
 -- -- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#D7BA7D", bg = "#252525" })
 -- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#abb2bf", bg = "#303030" })
 -- vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#545862", bg = "#252525" })
-local mode_color = {
-  n = "#8aadf4",
-  i = "#a6da95",
-  v = "#c6a0f6",
-  [""] = "#ee99a0",
-  V = "#ed8796",
-  -- c = '#B5CEA8',
-  -- c = '#D7BA7D',
-  c = "#f5a97f",
-  no = "#8aadf4",
-  s = "#f5a97f",
-  S = "#f5a97f",
-  [""] = "#f5a97f",
-  ic = "#ed8796",
-  R = "#f5a97f",
-  Rv = "#ed8796",
-  cv = "#8aadf4",
-  ce = "#8aadf4",
-  r = "#ed8796",
-  rm = "#f5bde6",
-  ["r?"] = "#f5bde6",
-  ["!"] = "#f5bde6",
-  t = "#a6da95",
-}
+-- local mode_color = {
+--   n = "#8aadf4",
+--   i = "#a6da95",
+--   v = "#c6a0f6",
+--   [""] = "#ee99a0",
+--   V = "#ed8796",
+--   -- c = '#B5CEA8',
+--   -- c = '#D7BA7D',
+--   c = "#f5a97f",
+--   no = "#8aadf4",
+--   s = "#f5a97f",
+--   S = "#f5a97f",
+--   [""] = "#f5a97f",
+--   ic = "#ed8796",
+--   R = "#f5a97f",
+--   Rv = "#ed8796",
+--   cv = "#8aadf4",
+--   ce = "#8aadf4",
+--   r = "#ed8796",
+--   rm = "#f5bde6",
+--   ["r?"] = "#f5bde6",
+--   ["!"] = "#f5bde6",
+--   t = "#a6da95",
+-- }
 
 local mode = {
   -- mode component
@@ -47,10 +47,10 @@ local mode = {
     return "  "
     -- return "  "
   end,
-  color = function()
-    -- auto change color according to neovims mode
-    return { bg = mode_color[vim.fn.mode()] }
-  end,
+  -- color = function()
+  --   -- auto change color according to neovims mode
+  --   return { bg = mode_color[vim.fn.mode()] }
+  -- end,
   -- padding = { right = 1 },
   padding = 0,
 }
@@ -100,7 +100,7 @@ local branch = {
 
 local progress = {
   "progress",
-  color = "SLProgress",
+  -- color = "SLProgress",
   -- fmt = function(str)
   --   print(vim.fn.expand(str))
   --   if str == "1%" then

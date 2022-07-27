@@ -6,15 +6,15 @@ price=$(sleep 10 && curl -sS "https://free.currconv.com/api/v7/convert?q=USD_RUB
 if [ "$price" != "0" ]; then
     new_price=$(printf "%.*f" 2 $price) 
     if (($(echo "$new_price > $old_price" | bc -l))); then
-        icon="^c#ed8796^"
+        icon=""
         change=$(printf "%.*f" 2 $(echo "100-$old_price/$new_price*100" | bc -l))
     else
-        icon="^c#a6da95^"
+        icon=""
         change=$(printf "%.*f" 2 $(echo "100-$new_price/$old_price*100" | bc -l))
     fi
-    echo "^b#363a4f^^c#cad3f5^  $new_price $icon $change% ^d^"
+    echo "[  $new_price $icon $change% ]"
 else
-    echo "^b#363a4f^^c#cad3f5^  $old_price ^d^"
+    echo "[  $old_price ]"
 fi
 
 case $BLOCK_BUTTON in

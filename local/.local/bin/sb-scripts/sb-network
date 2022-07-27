@@ -1,5 +1,4 @@
 #!/bin/bash
-provider_max_speed=250 # Change to your max provider network speed
 
 get_speed() {
     mullvad status | grep Disconnected > /dev/null && iface="wlp0s20f3" || iface="wg-mullvad"
@@ -14,11 +13,7 @@ get_speed() {
 
 speed=$(get_speed)
 
-if (($(echo "$speed > $provider_max_speed*0.5" | bc -l))); then
-    color="^c#ed8796^"
-fi
-
-echo "^b#363a4f^$color  $speed MBit/s ^d^"
+echo "[ $color  $speed MBit/s ]"
 
 case $BLOCK_BUTTON in
     1) dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;

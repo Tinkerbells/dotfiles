@@ -2,7 +2,7 @@
 
 for i in *
 do
- if [ "$i" != ".git" ] && [ "$i" != "alacritty" ] && [ "$i" != "zsh" ] && [ "$i" != "install-dots" ];then
+ if [ "$i" != ".git" ] && [ "$i" != "install-dots" ];then
   stow $i
  fi
 done

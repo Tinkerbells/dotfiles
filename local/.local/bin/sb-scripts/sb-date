@@ -2,7 +2,7 @@
 
 date_now=$(date +"%m/%d/%Y")
 
-echo "^b#363a4f^^c#cad3f5^  $date_now ^d^"
+echo "[  $date_now ]"
 
 case $BLOCK_BUTTON in
     1) alacritty -e tty-clock -sct -f "%a, %d %b %Y %T %z" ;;

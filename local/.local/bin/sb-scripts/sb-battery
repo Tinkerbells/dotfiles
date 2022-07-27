@@ -8,42 +8,42 @@ get_icon() {
     if [ "$level" -eq "100" ]; then
         icon=""
     elif [ "$level" -ge "98" ]; then
-        icon="^c#a6da95^"
+        icon=""
     elif [ "$level" -ge "90" ] && [ "$level" -lt "98" ]; then
-        icon="^c#a6da95^"
+        icon=""
     elif [ "$level" -ge "80" ] && [ "$level" -lt "90" ]; then
-        icon="^c#a6da95^"
+        icon=""
     elif [ "$level" -ge "70" ] && [ "$level" -lt "80" ]; then
-        icon="^c#a6da95^"
+        icon=""
     elif [ "$level" -ge "60" ] && [ "$level" -lt "70" ]; then
-        icon="^c#eed49f^"
+        icon=""
     elif [ "$level" -ge "50" ] && [ "$level" -lt "60" ]; then
-        icon="^c#eed49f^"
+        icon=""
     elif [ "$level" -ge "40" ] && [ "$level" -lt "50" ]; then
-        icon="^c#f5a97f^"
+        icon=""
     elif [ "$level" -ge "30" ] && [ "$level" -lt "40" ]; then
-        icon="^c#f5a97f^"
+        icon=""
     elif [ "$level" -ge "20" ] && [ "$level" -lt "30" ]; then
-        icon="^c#ed8796^"
+        icon=""
     elif [ "$level" -ge "10" ] && [ "$level" -lt "20" ]; then
-        icon="^c#ed8796^"
+        icon=""
     else
-        icon="^c#ed8796^"
+        icon=""
     fi
     echo "$icon"
 }
 
 # Low battery notify
-if [ "$level" -le "10" ] && [ "$is_charging" != "Charging" ] ; then
-    dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
-fi
+# if [ "$level" -le "10" ] && [ "$is_charging" != "Charging" ] ; then
+#     dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
+# fi
 
-if [ "$is_charging" != "Charging" ]; then
-    icon=$(get_icon)
-    echo "^b#363a4f^ $icon $level% ^d^ "
-else
-    echo "^b#363a4f^^c#8aadf4^  $level% ^d^ "
-fi
+# if [ "$is_charging" != "Charging" ]; then
+#     icon=$(get_icon)
+#     # echo "[ $icon $level% ]"
+# else
+#     # echo "[  $level% ]"
+# fi
 
 case $BLOCK_BUTTON in
     1) [ -z "$info" ] && dunstify -u normal "Fully charged" -r 998 || dunstify -u normal "$info" -r 998 ;;

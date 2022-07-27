@@ -6,13 +6,13 @@ temp="${temp%???}"
 
 get_icon() {
     if [ "$temp" -ge "90" ]; then
-        icon="^c#ed8796^"
+        icon=""
     elif [ "$temp" -ge "85" ] && [ "$temp" -lt "85" ]; then
-        icon="^c#ee99a0^"
+        icon=""
     elif [ "$temp" -ge "75" ] && [ "$temp" -lt "75" ]; then
-        icon="^c#f5a97f^"
+        icon=""
     elif [ "$temp" -ge "65" ] && [ "$temp" -lt "65" ]; then
-        icon="^c#eed49f^"
+        icon=""
     else
         icon=""
     fi
@@ -21,10 +21,8 @@ get_icon() {
 
 icon=$(get_icon)
 
-printf "^b#363a4f^^c#cad3f5^ $icon %s°C ^d^" "$temp"
+printf "[ $icon %s°C ]" "$temp"
 
 case $BLOCK_BUTTON in
     1) alacritty --hold -t btop -e btop ;;
-    5) alacritty --hold -t btop -e btop ;;
-    6) alacritty --hold -t btop -e btop ;;
 esac

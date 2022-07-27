@@ -4,6 +4,7 @@ userresources=$HOME/.Xresources
 
 # zsh default config path
 export ZDOTDIR=$HOME/.config/zsh
+export PATH="~/bin:$PATH"
 
 # merge in defaults
 xrdb -merge "$userresources"

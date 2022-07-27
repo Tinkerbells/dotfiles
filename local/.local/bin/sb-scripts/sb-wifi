@@ -6,13 +6,13 @@ name=$(nmcli dev status | awk '{print $4;}' | sed -n '2 p')
 status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p' )
 
 if [ "$status" = "disconnected" ];then
-    echo -e "^b#363a4f^^c#ed8796^ 睊 disconnected ^d^" && exit 0
+    echo -e "[ 睊 disconnected ]" && exit 0
 fi
 
 if [ "$vpn_status" != "Disconnected" ]; then
-    echo "^b#363a4f^  $name ^d^"
+    echo "[  $name ]"
 else
-    echo "^b#363a4f^ 直 $name ^d^"
+    echo "[ 直 $name ]"
 fi
 
 toggle_vpn(){

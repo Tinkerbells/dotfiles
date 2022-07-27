@@ -9,7 +9,7 @@ $character
 right_format = """$cmd_duration"""
 
 [character]
-success_symbol = "[ﰲ](purple)"
+success_symbol = "[ﰲ](blue)"
 error_symbol   = "[ﰲ](red)"
 vicmd_symbol   = "[ﰲ](green)"
 
@@ -31,16 +31,16 @@ show_always = true
 style = "bold blue"
 format = '[$path]($style)[$read_only]($read_only_style) '
 read_only = " "
-truncation_length = 3 
+truncation_length = 10 
 truncate_to_repo = false 
 
 [git_branch]
 symbol = " "
-style = "bold #c6a0f6"
+style = "bold red" 
 
 [git_status]
 untracked = "?"
 modified = "!"
 deleted = ""
-style = "bold #f5a97f"
+style = "bold yellow" 
 staged = '[++\($count\)](green)'

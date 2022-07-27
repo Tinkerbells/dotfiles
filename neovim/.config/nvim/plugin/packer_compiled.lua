@@ -196,11 +196,6 @@ _G.packer_plugins = {
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/numb.nvim",
     url = "https://github.com/nacro90/numb.nvim"
   },
-  nvim = {
-    loaded = true,
-    path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/nvim",
-    url = "https://github.com/catppuccin/nvim"
-  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
@@ -326,6 +321,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["typescript.nvim"] = {
     loaded = true,

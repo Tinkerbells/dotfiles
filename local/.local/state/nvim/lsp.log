@@ -1,0 +1,10 @@
+[START][2022-07-27 20:53:18] LSP logging initiated
+[WARN][2022-07-27 20:53:18] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
+[WARN][2022-07-27 20:53:25] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
+[START][2022-07-27 20:54:06] LSP logging initiated
+[WARN][2022-07-27 20:54:06] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
+[START][2022-07-27 20:54:20] LSP logging initiated
+[WARN][2022-07-27 20:54:20] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
+[WARN][2022-07-27 20:54:28] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
+[START][2022-07-27 20:55:00] LSP logging initiated
+[WARN][2022-07-27 20:55:00] .../lua/vim/lsp.lua:934	"server_request: no handler found for"	"workspace/diagnostic/refresh"
