@@ -13,7 +13,7 @@ get_speed() {
 
 speed=$(get_speed)
 
-echo "[ $color  $speed MBit/s ]"
+echo "[  $speed MBit/s ]"
 
 case $BLOCK_BUTTON in
     1) dunstify -u low -r 942 -t 6000 -i network-speed "$(speedtest --simple)" ;;

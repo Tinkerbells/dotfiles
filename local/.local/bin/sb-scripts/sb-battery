@@ -38,12 +38,12 @@ get_icon() {
 #     dunstify -i battery-low -t 2000 -r 993 -u critical "$info"
 # fi
 
-# if [ "$is_charging" != "Charging" ]; then
-#     icon=$(get_icon)
-#     # echo "[ $icon $level% ]"
-# else
-#     # echo "[  $level% ]"
-# fi
+if [ "$is_charging" != "Charging" ]; then
+    icon=$(get_icon)
+    echo "[ $icon $level% ]"
+else
+    echo "[  $level% ]"
+fi
 
 case $BLOCK_BUTTON in
     1) [ -z "$info" ] && dunstify -u normal "Fully charged" -r 998 || dunstify -u normal "$info" -r 998 ;;

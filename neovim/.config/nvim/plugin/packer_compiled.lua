@@ -301,6 +301,11 @@ _G.packer_plugins = {
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/sniprun",
     url = "https://github.com/michaelb/sniprun"
   },
+  sonokai = {
+    loaded = true,
+    path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/sonokai",
+    url = "https://github.com/sainnhe/sonokai"
+  },
   ["tabout.nvim"] = {
     loaded = true,
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/tabout.nvim",
@@ -321,11 +326,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/untermensch/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["typescript.nvim"] = {
     loaded = true,

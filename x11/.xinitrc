@@ -32,7 +32,8 @@ sxhkd &
 greenclip daemon >/dev/null 2>&1 &
 
 # Wallpaper
-feh --bg-fill $HOME/Pictures/Wallpapers/catppuccin/catppuccin-planet.png >/dev/null 2>&1 &
+feh --bg-fill $HOME/Pictures/Wallpapers/nature/greece2.jpg >/dev/null 2>&1 &
+
 # Dwmblocks
 dwmblocks >/dev/null 2>&1 &
 

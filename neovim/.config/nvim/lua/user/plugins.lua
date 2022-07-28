@@ -91,7 +91,7 @@ return packer.startup(function(use)
   use "andymass/vim-matchup"
 
   -- Colorschemes
-  use "folke/tokyonight.nvim"
+  use "sainnhe/sonokai"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp"
