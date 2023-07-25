@@ -1,0 +1,7 @@
+ncmpcpp_directory = ~/.config/ncmpcpp
+lyrics_directory = ~/.config/ncmpcpp/lyrics
+mpd_connection_timeout = 60 
+now_playing_prefix =  $b
+playlist_display_mode = "classic"
+song_list_format = "$5{%a »$3 %t$/r$R}|{%f}"
+lyrics_fetchers = azlyrics, genius, musixmatch, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet
