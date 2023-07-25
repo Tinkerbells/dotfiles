@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+import subprocess
+import telebot
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+
+token = ""
+bot = telebot.TeleBot(token)
+
+
+def mpd_control(state):
+    if state == "play":
+        subprocess.run(["mpc", "play"], stdout=subprocess.PIPE)
+    elif state == "pause":
+        subprocess.run(["mpc", "pause"], stdout=subprocess.PIPE)
+    elif state == "next":
+        subprocess.run(["mpc", "next"], stdout=subprocess.PIPE)
+    elif state == "prev":
+        subprocess.run(["mpc", "prev"], stdout=subprocess.PIPE)
+    current_song = (
+        subprocess.run(["mpc"], stdout=subprocess.PIPE)
+        .stdout.decode("utf-8")
+        .split("\n", 1)[0]
+    )
+    return f"🎵{current_song}"
+
+
+def mpd_control(state):
+    if state == "up":
+        subprocess.run(["change-volume", "up", "/dev/null"], stdout=subprocess.PIPE)
+    elif state == "down":
+        subprocess.run(["change-volume", "down", "/dev/null"], stdout=subprocess.PIPE)
+    elif state == "mute":
+        is_mute = (
+            subprocess.run(
+                ["pamixer", "--get-mute", "/dev/null"], stdout=subprocess.PIPE
+            )
+            .stdout.decode("utf-8")
+            .split("\n", 1)[0]
+        )
+
+        subprocess.run(["change-volume", "mute", "/dev/null"], stdout=subprocess.PIPE)
+        if is_mute == "false":
+            return "🔇 muted"
+
+    level = (
+        subprocess.run(["pamixer", "--get-volume", "/dev/null"], stdout=subprocess.PIPE)
+        .stdout.decode("utf-8")
+        .split("\n", 1)[0]
+    )
+    if int(level) > 80:
+        icon = "🔊"
+    elif int(level) > 50:
+        icon = "🔉"
+    elif int(level) > 10:
+        icon = "🔈"
+    return f"{icon} Volume - {level}%"
+
+
+def change_output():
+    subprocess.run(["change-audio-sink", "/dev/null"], stdout=subprocess.PIPE)
+
+
+@bot.message_handler(commands=["start"])
+def remote_control(message):
+    markup = ReplyKeyboardMarkup()
+    up = KeyboardButton("Up")
+    down = KeyboardButton("Down")
+    mute = KeyboardButton("Mute/unmute")
+    play = KeyboardButton("Play")
+    pause = KeyboardButton("Pause")
+    output = KeyboardButton("Output")
+    next = KeyboardButton("Next")
+    prev = KeyboardButton("Prev")
+    markup.add(up, play, mute, down, pause, output, prev, next)
+    bot.send_message(message.chat.id, "Control audio", reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: True)
+def message(message):
+    if message.text == "Play":
+        bot.send_message(message.chat.id, mpd_control("play"))
+    elif message.text == "Pause":
+        bot.send_message(message.chat.id, mpd_control("pause"))
+    elif message.text == "Up":
+        bot.send_message(message.chat.id, mpd_control("up"))
+    elif message.text == "Down":
+        bot.send_message(message.chat.id, mpd_control("down"))
+    elif message.text == "Mute/unmute":
+        bot.send_message(message.chat.id, mpd_control("mute"))
+    elif message.text == "Output":
+        change_output()
+
+
+bot.infinity_polling()

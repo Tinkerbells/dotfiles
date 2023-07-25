@@ -1,0 +1,15 @@
+#!/bin/sh
+
+icon_path="$HOME/.local/share/icons/notifications_icons"
+icons=$(ls $icon_path)
+example_icon=$(find $icon_path -type f | tail -1)
+
+echo "Start changing..."
+
+opaque=$(convert $example_icon -resize 1x1 txt:- | grep -Po "#[[:xdigit:]]{6}")
+
+for icon in $icons ;do
+    convert "$icon_path/$icon" -fuzz 90% -fill "$1" -opaque "$opaque" "$icon_path/$icon"
+done
+
+echo "Colors changed!"

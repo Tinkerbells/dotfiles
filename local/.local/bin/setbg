@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# random
+wallpaper=$(find "$HOME/pictures/onedark-walls" -name "*.jpg" -or -name "*.png" | shuf -n 1)
+# static
+# wallpaper="$HOME/pictures/wallpapers/23.png"
+
+link="$HOME/pictures/wallpapers/.wallpaper"
+
+rm -rf $link && ln -s $wallpaper $link
+
+feh --no-fehbg --bg-fill "$wallpaper" >/dev/null

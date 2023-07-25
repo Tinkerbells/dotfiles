@@ -1,0 +1,34 @@
+#!/bin/bash
+
+send_notification() {
+	volume=$(pamixer --get-volume)
+	notify-send -a Pamixer -u low -r 993 -h int:value:"$volume" -i "volume-$1" "Volume: ${volume}%" -t 2000
+}
+
+update() {
+	kill -39 "$(pidof dwmblocks)"
+}
+
+case $1 in
+up)
+	# Set the volume on (if it was muted)
+	pamixer -u
+	pamixer -i 5
+	send_notification "$1"
+	;;
+down)
+	pamixer -u
+	pamixer -d 5
+	send_notification "$1"
+	;;
+mute)
+	pamixer -t
+	if pamixer --get-mute; then
+		notify-send -a Pamixer -i volume-mute -t 2000 -r 993 -u low "Muted"
+	else
+		send_notification up
+	fi
+	;;
+esac
+
+update

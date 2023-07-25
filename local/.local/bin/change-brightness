@@ -1,0 +1,20 @@
+#!/bin/bash
+
+current=$(brightnessctl | grep % | sed -n 's/.*(\([0-9]*\)%).*/\1/p')
+
+send_notification() {
+	brightness=$(brightnessctl | grep % | sed -n 's/.*(\([0-9]*\)%).*/\1/p')
+	notify-send -u low -r 993 -h int:value:"$brightness-" -i "brightness-$1" "Brightness: ${brightness}%" -t 2000
+}
+
+case $1 in
+up)
+	# Set the volume on (if it was muted)
+	brightnessctl s "$((current + 10))%"
+	send_notification "$1"
+	;;
+down)
+	brightnessctl s "$((current - 10))%"
+	send_notification "$1"
+	;;
+esac

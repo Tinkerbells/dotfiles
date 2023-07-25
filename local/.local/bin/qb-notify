@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+import telebot
+import argparse
+from plyer import notification
+
+# Need to add this /home/untermensch/.local/bin/qb-notify "%F" to qb options
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("torrent")
+    args = parser.parse_args()
+
+    torrent = args.torrent.replace("/home/untermensch/downloads/", "")
+    token = ""
+    bot = telebot.TeleBot(token)
+    chat_id = ""
+    icon_path = "/home/untermensch/.local/share/icons/notifications_icons/download.png"
+
+    notification.notify(
+        title="Torrent",
+        message=f"{torrent} - downloaded",
+        app_icon=icon_path,
+        timeout=2,
+    )
+
+    bot.send_message(chat_id, f"{torrent} - downloaded")
+
+
+if __name__ == "__main__":
+    main()

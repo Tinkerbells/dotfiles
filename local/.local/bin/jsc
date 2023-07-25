@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# Default urls for arguments
+export FZF_DEFAULT_OPTS="--header-lines 1 --reverse --nth 4.. --with-nth=2.. --multi -i"
+api_key="$JACKETT_API_KEY"
+sort_by=".Seeders"
+jackett_url="http://127.0.0.1:9117"
+
+# Function to show the help message
+function show_help {
+	echo "Usage: $(basename "$0") ['search-term'] [OPTIONS]"
+	echo "Options:"
+	echo "  -u, --url value          Specify jackett url address (default http://127.0.0.1:9117)"
+	echo "  -k, --api-key KEY        Specify API key"
+	echo "  -t, --trackers LIST      Specify trackers (comma-separated)"
+	echo "  -s, --sort-by-size       Sort by size (largest first)"
+	echo "  -h, --help               Show help message"
+}
+
+function download {
+	# if ! pgrep "qbittorrent-nox" >/dev/null; then
+	# 	qbittorrent-nox -d && notify-send "Qbit daemon start"
+	# fi
+	# qbittorrent-nox "$1"
+	pidof transmission-daemon >/dev/null || (transmission-daemon && notify-send "starting transmission daemon...")
+	transmission-remote -a "$1" && notify-send -i transmission "Torrent added"
+}
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+	arg="$1"
+	case $arg in
+	-u | --url)
+		jackett_url="$2"
+		shift
+		shift
+		;;
+	-k | --api-key)
+		api_key="$2"
+		shift
+		shift
+		;;
+	-t | --trackers)
+		trackers="$2"
+		shift
+		shift
+		;;
+	-s | --sort-by-size)
+		sort_by=".Size"
+		shift
+		;;
+	-h | --help)
+		show_help
+		exit
+		;;
+	*)
+		# First argument without a flag
+		search_term="$1"
+		shift
+		;;
+	esac
+done
+
+# If no input file is specified, show help message
+if [[ -z "$search_term" ]]; then
+	show_help
+	exit 1
+fi
+
+if [ -z "$api_key" ]; then
+	echo "Error: no api key provided ❗"
+	show_help
+	exit 1
+fi
+
+# Use the arguments to perform some task
+url="$jackett_url/api/v2.0/indexers/all/results?apikey=$api_key"
+
+[ -n "$trackers" ] && url="$url&Tracker%5B%5D=$trackers"
+
+raw_torrents_data=$(gum spin --spinner minidot --show-output --title "Searching..." -- curl -s -G --data-urlencode "Query=$search_term" "$url")
+
+# Log curl request error
+if [ $? -ne 0 ]; then
+	echo -e "Error: request failed. Please try again ❗"
+	exit 1
+fi
+
+torrents_data="$(echo "$raw_torrents_data" | jq ".Results | sort_by($sort_by) | reverse")"
+
+columns='[if .MagnetUri == null then .Link else .MagnetUri end, .Seeders, .Size, .TrackerId, .Title]'
+
+if [ "$torrents_data" = "[]" ]; then
+	echo "Nothing found!"
+	exit 0
+fi
+
+torrents_table=$(
+	echo "$torrents_data" |
+		jq -r '.[] | '"$columns"' | @tsv' |
+		uniq |
+		numfmt --to=iec --field 3 -d$'\t' |
+		column --table-columns "MOL,Seeder,Size,Tracker,Title" --table --separator $'\t'
+)
+selected_torrents="$(echo "$torrents_table" | fzf)"
+
+echo "$selected_torrents" | awk '{print $1}' |
+	while read -r magnet_or_link; do
+		if [ -z "$magnet_or_link" ]; then
+			exit 0
+		fi
+		if echo "$magnet_or_link" | grep -q '^magnet:'; then
+			magnet="$magnet_or_link"
+		else
+			magnet="$(gum spin --spinner minidot --show-output --title "Getting magnet link..." -- wget --hsts-file=$XDG_DATA_HOME/wget-hsts -O /dev/null "$magnet_or_link" --server-response 2>&1 | grep 'Location:' -m 1 | sed 's|\s\sLocation:\s||')"
+		fi
+		download "$magnet"
+	done

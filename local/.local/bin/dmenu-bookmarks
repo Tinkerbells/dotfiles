@@ -1,0 +1,141 @@
+#!/bin/bash
+
+bookmarks="$XDG_CONFIG_HOME/bookmarks.json" # default bookmarks file path
+GPG_RECIPIENT="UntermenschH@protonmail.com" # default gpg recipient
+
+function usage() {
+	echo "Usage: $(basename "$0") [OPTIONS]"
+	echo ""
+	echo "Options: "
+	echo "  -g, --get                Get bookmarks using dmenu"
+	echo "  -a, --add                Add a new bookmark"
+	echo "  -c, --change             Edit bookmarks file"
+	echo "  -b, --bookmarks file     Specify bookmarks file path"
+	echo "  -e, --encrypt            Encrypt bookmarks file using gpg"
+	echo "  -d, --decrypt            Decrypt bookmarks file using gpg"
+	echo "  -h, --help               Show help message"
+}
+
+function add_bookmark() {
+	tmpfile=$(mktemp)
+	cat <<EOF >"$tmpfile"
+# Please fill in the following information to add a bookmark:
+# 1. Bookmark name (one line only)
+
+# 2. Value (one line only)
+
+# Please do not modify this file except to fill in the required information.
+Bookmark Name
+https://example.com
+true
+EOF
+
+	$EDITOR "$tmpfile"
+
+	name=$(sed '3q;d' "$tmpfile")
+	value=$(sed '5q;d' "$tmpfile")
+
+	if echo "$value" | grep -qE '^(http|https)://'; then
+		open=true
+	else
+		open=false
+	fi
+
+	if [ -z "$name" ] || [ -z "$value" ]; then
+		echo "Error: all fields are required. Bookmark not added." >&2
+		rm "$tmpfile"
+		exit 1
+	fi
+
+	if [ ! -f "$bookmarks" ]; then
+		cat <<EOF >"$bookmarks"
+{
+  "$name":{
+    "value":"$value",
+    "open":"$open"
+  }
+}
+EOF
+	fi
+
+	jq --arg name "$name" --arg value "$value" --argjson open "$open" '.[$name] = {value: $value, open: $open}' "$bookmarks" >tmp.json && mv tmp.json "$bookmarks" && notify-send -r 401 -t 1000 -i bookmark "Added bookmark" "$name"
+
+	rm "$tmpfile"
+}
+
+function get_bookmark() {
+	link_name=$(jq -r "keys[]" "$bookmarks" | dmenu -p "Bookmarks:" -l 20)
+	if [ -n "$link_name" ]; then
+		value=$(jq -r ".$link_name.value" "$bookmarks")
+		open=$(jq -r ".$link_name.open" "$bookmarks")
+
+		if [ "$open" = "true" ]; then
+			echo "hello"
+			xdg-open "$value"
+		else
+			echo "$value" | xclip -sel clip && notify-send -r 401 -t 1000 -i bookmark "Copy bookmark" "$link_name"
+		fi
+	fi
+}
+
+function edit_bookmark() {
+	$EDITOR "$bookmarks"
+}
+
+function encrypt() {
+	gpg --encrypt --recipient "$GPG_RECIPIENT" "$bookmarks" && notify-send -t 1000 -r 401 -i bookmark "Bookmarks" "encrypted"
+}
+
+function decrypt() {
+	if [ ! -f "$bookmarks.gpg" ]; then
+		exit 0
+	fi
+	gpg --decrypt --recipient "$GPG_RECIPIENT" "$bookmarks.gpg" >"$bookmarks" && notify-send -t 1000 -r 401 -i bookmark "Bookmarks" "decrypted"
+	rm "$bookmarks.gpg"
+}
+
+while [[ $# -gt 0 ]]; do
+	arg="$1"
+	case $arg in
+	-g | --get)
+		get_bookmark
+		shift
+		shift
+		;;
+	-a | --add)
+		add_bookmark
+		shift
+		shift
+		;;
+	-b | --bookmarks)
+		bookmarks="$2"
+		shift
+		shift
+		;;
+	-e | --encrypt)
+		encrypt
+		shift
+		shift
+		;;
+	-d | --decrypt)
+		decrypt
+		shift
+		shift
+		;;
+	-c | --change)
+		edit_bookmark
+		shift
+		shift
+		;;
+	-h | --help)
+		usage
+		shift
+		shift
+		;;
+	*)
+		usage
+		shift
+		shift
+		;;
+	esac
+done

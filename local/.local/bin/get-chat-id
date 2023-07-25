@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+import subprocess
+import telebot
+import json
+
+token = ""
+bot = telebot.TeleBot(token)
+
+@bot.message_handler(func=lambda message: True)
+def message(message):
+    if message.text == "start":
+        print(message)
+
+bot.infinity_polling()

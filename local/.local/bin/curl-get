@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+	echo 'Please provide a value as an argument'
+	exit 1
+fi
+
+# Make the cvalue request and pipe the response to nvim
+temp_file=$(mktemp)
+mv "$temp_file" "$temp_file.json"
+cvalue -o "$temp_file.json" -s "$1" && nvim "$temp_file.json"
+rm "$temp_file.json"

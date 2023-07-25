@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Prompt the user for input
+prompt=$(echo -e "What text would you like to generate with ChatGPT?" | dmenu -p "ChatGPT")
+
+# Call the OpenAI API with the prompt
+response=$(cvalue -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <API_KEY>" -d "{\"prompt\":\"$prompt\",\"max_tokens\":1024}" https://api.openai.com/v1/engines/davinci/jobs)
+
+# Extract the generated text from the API response
+generated_text=$(echo $response | jq -r '.choices[0].text')
+
+# Save the generated text to a temporary file
+temp_file=$(mktemp)
+echo -e "$generated_text" > $temp_file
+
+# Prompt the user to choose between previewing the text or copying it
+action=$(echo -e "Preview\nCopy" | dmenu -p "What would you like to do with the generated text?")
+
+if [ "$action" == "Preview" ]; then
+    # Preview the generated text using Zathura
+    zathura $temp_file &
+elif [ "$action" == "Copy" ]; then
+    # Copy the generated text to the clipboard
+    echo -e "$generated_text" | xclip -selection clipboard
+else
+    # Do nothing if the user cancels the prompt
+    :
+fi
+
+# Clean up the temporary file
+rm $temp_file

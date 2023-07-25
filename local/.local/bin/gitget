@@ -1,0 +1,65 @@
+#!/bin/bash
+
+usage() {
+	echo "Usage: $(basename $0) [-d] [-o output_directory] github_url"
+	echo
+	echo "Options:"
+	echo "  -d                   Prompt for the GitHub url using dmenu"
+	echo "  -o output_directory  Specify the output directory (default: current directory)"
+	echo "  -h                   Display this help message"
+	exit 0
+}
+
+# Default output directory
+output_dir="."
+
+# Parse command line options
+while getopts "do:h" opt; do
+	case $opt in
+	d)
+		use_dmenu=true
+		download_dir="$HOME/downloads"
+		;;
+	o)
+		output_dir="$OPTARG"
+		;;
+	h)
+		usage
+		;;
+	\?)
+		echo "Invalid option: -$OPTARG" >&2
+		exit 1
+		;;
+	esac
+done
+
+# Shift command line arguments to the left
+shift $((OPTIND - 1))
+
+# Check if the GitHub url was provided
+if [ -z "$1" ]; then
+	if [ "$use_dmenu" = true ]; then
+		# Prompt for the GitHub url using dmenu
+		clip=$(xclip -o)
+		github_url=$(echo "$clip" | $dmenu)
+		output_dir="$download_dir"
+	else
+		exit 1
+	fi
+else
+	github_url="$1"
+fi
+
+# Transform the GitHub value to the raw.githubusercontent.com link
+raw_url=$(echo "$github_url" | sed -e 's/github\.com/raw.githubusercontent.com/' -e 's/blob\///')
+
+# Download the file using wget
+filename=$(basename "$raw_url")
+wget --no-hsts -q "$raw_url" -P "$output_dir"
+
+# Check if the download was successful
+if [ $? -eq 0 ]; then
+	notify-send -i github "Download complete" "$filename"
+else
+	notify-send -i github "Download failed"
+fi

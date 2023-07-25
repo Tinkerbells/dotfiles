@@ -1,0 +1,5 @@
+#!/bin/bash
+
+torrents_dir="$HOME/downloads/torrents"
+
+rm -rf $torrents_dir && pidof qbittorrent-nox >/dev/null && qb-mini -d

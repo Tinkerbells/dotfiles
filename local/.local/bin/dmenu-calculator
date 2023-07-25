@@ -1,0 +1,71 @@
+#!/bin/sh
+
+main() {
+    : "${config_dir:=${XDG_CONFIG_HOME:-$HOME/.config}/$(basename $0)}"
+    : "${config_file:=$config_dir/$(basename $0).conf}"
+    [ -f "$config_file" ] && . "$config_file"
+
+    parse_opts "$@" ; base "$@"
+}
+
+base() {
+    cmenu=0 ; math() { bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//'; }
+    Clear
+    [ "$menu" != "" ] && cmenu=$(echo "0$menu" | math)
+    copy "$@"
+
+    while true; do
+        [ "$menu" = "" ] && exit 0
+
+        Clear
+        if [ "$menu" != "" ];then
+            case "$(printf "$menu" | cut -b 1)" in
+                ''|*[!0-9]*) cmenu=$(echo "$cmenu$menu" | math) ;;
+                *) cmenu=$(echo "0$menu" | math) ;;
+            esac
+        fi
+        copy "$@"
+    done
+}
+
+copy() { [ ! -n "$no_copy" ] && [ ! -z "$copy" ] && [ "$cmenu" != "" ] && printf "$cmenu" | xclip -i -selection $copy; }
+
+Clear() {
+    menu=$(printf "Clear" | dmenu -p $cmenu)
+    while [ "$menu" = "Clear" ]; do
+        menu=$(printf "Clear" | dmenu  -p 0)
+        cmenu=""
+    done
+}
+
+help() { printf 'Usage:\t%s' "$(basename $0) [options]
+
+Options:
+-c|--copy    │ Copy the result (\"primary\", \"secondary\", \"clipboard\" or \"buffer-cut\")
+   --no-copy │ Do not copy (always overrides --copy)
+-h|--help    │ Print this help message and exit
+"; }
+
+parse_opts() {
+    die() { printf "$*\n" >&2; exit 2; }
+    needs_arg() { [ -z "$OPTARG" ] && die "No arg for --$OPT option"; }
+
+    while getopts hc:-: OPT; do
+        # Support long options: https://stackoverflow.com/a/28466267/519360
+        if [ "$OPT" = "-" ]; then
+            OPT="${OPTARG%%=*}"
+            OPTARG="${OPTARG#$OPT}"
+            OPTARG="${OPTARG#=}"
+        fi
+        case "$OPT" in
+            h | help) help ; exit 0 ;;
+            c | copy) needs_arg ; copy="$OPTARG" ;;
+            no-copy) no_copy=1 ;;
+            ??*) die "Illegal option --$OPT" ;;
+            ?) exit 2 ;;
+        esac
+    done
+    shift $((OPTIND-1))
+}
+
+main "$@"

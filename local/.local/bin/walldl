@@ -1,0 +1,71 @@
+#!/bin/bash
+
+download_dir="$HOME/pictures/walldl"
+
+theme="onedark"
+
+output_dir="$HOME/pictures/$theme-walls"
+
+tmpfile=$(mktemp)
+
+echo "Choose range"
+
+range=$(gum choose "1d" "3d" "1w" "1M" "3M" "6M" "1y")
+
+curl -s "https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=$range&ratios=16x9,16x10&page=1" | jq >"$tmpfile"
+
+total=$(jq -r '.meta.total' "$tmpfile")
+
+count=$(gum input --placeholder "Count of images, max is $total:")
+
+if ! [[ $count =~ ^[0-9]+$ ]]; then
+	echo "error: Count not a number" >&2
+	exit 1
+fi
+
+if [[ $count -eq 0 ]]; then
+	exit 0
+fi
+
+if [[ $count -gt $total ]]; then
+	echo "Max is $total" >&2
+	exit 1
+fi
+
+pages=$((count / 24))
+
+paths=$(jq -r '.data[].path' "$tmpfile")
+
+download_and_convert_images() {
+	index=1
+	for path in $(echo "$paths" | uniq | head -n "$count"); do
+		echo "#$index wallpaper:"
+		filepath="$download_dir/$(basename "$path")"
+		wget -P "$download_dir" "$path" -q --show-progress
+		dipc "$theme" -s warm "$filepath" -d "$output_dir"
+		((index = index + 1))
+	done
+}
+
+get_paths() {
+	page_paths=$(curl -s "https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=$range&ratios=16x9,16x10&page=$1" | jq -r '.data[].path')
+	paths+=$(echo -e "\n$page_paths")
+}
+
+echo "Download $count wallpapers for $range..."
+
+paths_count=$(echo "$paths" | wc -l)
+
+page=2 # page to start download with
+
+while [[ $page -le $pages ]]; do
+	get_paths $page
+	((page = page + 1))
+done
+
+if [[ $paths_count -lt $count ]]; then # ensure if there enough images
+	((page = page + 1))
+	get_paths $page
+fi
+
+download_and_convert_images && notify-send -t 1500 -r 470 "$count images were downloaded"

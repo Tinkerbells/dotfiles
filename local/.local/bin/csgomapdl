@@ -1,0 +1,5 @@
+#!/bin/bash
+
+map="$(echo "$1" | sed "s/.*\///g")"
+maps_path="$HOME/.local/share/Steam/steamapps/common/Counter-Strike Global Offensive/csgo/maps"
+wget "$1" -P "$maps_path" >/dev/null && aunpack "$maps_path/$map" -X "$maps_path/" && notify-send -i download -t 1500 "CS:GO" "Map downloaded"

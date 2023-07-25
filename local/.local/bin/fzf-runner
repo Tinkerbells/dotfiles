@@ -1,0 +1,10 @@
+#!/bin/bash
+
+files() {
+	path_dirs=$(echo "$PATH" | sed 's/:/\n/g')
+	for dir in $path_dirs; do
+		find "$dir" -maxdepth 1 -executable -perm -u+x 2>/dev/null
+	done
+}
+
+files | sort | fzf -e -i -m --reverse --delimiter / --with-nth -1 | (nohup ${SHELL:-"/bin/sh"} &) >/dev/null 2>&1

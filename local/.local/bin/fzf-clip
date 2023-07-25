@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cliphist list | fzf -e -i -m --reverse --delimiter / --with-nth -1 | cliphist decode | wl-copy

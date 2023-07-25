@@ -1,0 +1,11 @@
+#!/bin/bash
+
+xresources="$XDG_CONFIG_HOME/X11/xresources"
+
+if [[ $(xrandr -q | grep 'HDMI-1 connected') ]];then
+    sed -i "s/Xft.dpi: 120/Xft.dpi: 100/" $xresources
+else
+    sed -i "s/Xft.dpi: 100/Xft.dpi: 120/" $xresources
+fi
+
+xrdb -merge $xresources

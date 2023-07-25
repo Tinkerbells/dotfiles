@@ -1,0 +1,31 @@
+#!/bin/bash
+
+device_connected() {
+	device_info=$(bluetoothctl info "$1")
+	if echo "$device_info" | grep -F -q "Connected: yes" && [ ! -z "$1" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+reload() {
+	kill -39 "$(pidof dwmblocks)"
+	kill -40 "$(pidof dwmblocks)"
+}
+toggle_connection() {
+	if device_connected "$1"; then
+		bluetoothctl disconnect "$1"
+		reload
+	else
+		bluetoothctl connect "$1"
+		reload
+	fi
+}
+
+show_menu() {
+	device=$(bluetoothctl devices | cut -d " " -f 3 | dmenu -p "Devices:" -l 10)
+	mac=$(bluetoothctl devices | grep "$device" | cut -d " " -f 2)
+	toggle_connection "$mac"
+}
+
+show_menu

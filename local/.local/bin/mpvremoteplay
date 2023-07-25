@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+import argparse
+import requests
+from bs4 import BeautifulSoup
+import subprocess
+import urllib.parse
+
+VALID_EXTENSIONS = ['.mp4', '.avi', '.mkv', '.mp3', '.wav']
+
+def scrape_href_values(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        a_tags = soup.find_all('a', href=True)
+
+        href_values = [a.get('href') for a in a_tags]
+
+        return href_values
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while scraping: {e}")
+        return [], []
+
+def validate(href_values):
+    validated_values = []
+    for value in href_values:
+        if any(value.lower().endswith(ext) for ext in VALID_EXTENSIONS):
+            validated_values.append(value)
+    return validated_values
+
+def find_indexes(arr, values):
+    try:
+        indexes = []
+        for index in values:
+            indexes.append(arr.index(index))
+        return indexes
+    except ValueError:
+        return None
+
+def show_dmenu(options, use_dmenu):
+    try:
+        if use_dmenu:
+            dmenu_process = subprocess.Popen(['dmenu', '-p', 'Choose file:', '-l', '20'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            dmenu_output, _ = dmenu_process.communicate(input='\n'.join(options).encode())
+        else:
+            fzf_process = subprocess.Popen(['fzf', '--reverse', '--with-nth', '-1', '-m'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            dmenu_output, _ = fzf_process.communicate(input='\n'.join(options).encode())
+        indexes = find_indexes(options, dmenu_output.decode().strip().split())
+        return indexes 
+    except FileNotFoundError:
+        print("dmenu or fzf not found. Make sure you have dmenu or fzf installed.")
+        return None
+
+def decode_urls(href_values):
+    decoded = []
+    for href in href_values:
+        decoded.append(urllib.parse.unquote(href))
+    return decoded
+
+if __name__ == "__main__":
+    description = (
+        "Scrape href values from a given URL of a simple Python HTTP server and play the selected media file using mpv."
+        "\nValid media file extensions are: mp4, avi, mkv, mp3, and wav."
+    )
+    parser = argparse.ArgumentParser(description=description, epilog="Example: ./scrape_and_play_dmenu.py -d http://localhost:8000")
+    parser.add_argument("url", nargs='?', default="http://localhost:8000", help="URL of the simple Python HTTP server (default: http://localhost:8000)")
+    parser.add_argument("-d", "--dmenu", action="store_true", help="Use dmenu instead of fzf for menu selection")
+    args = parser.parse_args()
+
+    href_values = scrape_href_values(args.url)
+
+    if href_values:
+        validated_href_values = validate(href_values) # Could be better 
+        if validated_href_values:
+            selected_values = show_dmenu(decode_urls(validated_href_values), args.dmenu)
+            playlist = []
+            if selected_values:
+                for value in selected_values:
+                    playlist.append(f"{args.url}/{validated_href_values[value]}")
+                print(*playlist, sep='\n')
+        else:
+            print("No valid href values found.")
+    else:
+        print("No href values found.")

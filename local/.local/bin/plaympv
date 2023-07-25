@@ -1,0 +1,24 @@
+import os
+import requests
+import subprocess
+
+def get_mkv_files(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return [file.strip() for file in response.text.splitlines()]
+    return []
+
+def main():
+    server_url = "http://localhost:8000/"  # Change this if you used a different port
+    mkv_files = get_mkv_files(server_url)
+
+    if not mkv_files:
+        print("No MKV files found on the server.")
+        return
+
+    for file in mkv_files:
+        print(f"Playing: {file}")
+        subprocess.run(["mpv", f"{server_url}{file}"])
+
+if __name__ == "__main__":
+    main()

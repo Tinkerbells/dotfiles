@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pidof qbittorrent-nox >/dev/null || exit 1
+
+torrents=$(qb-mini | jq -c ".[] | [.name, .size, .state, .eta]" | sed "s/\[.//g" | sed "s/\]//g" | sed 's/\"//g' | sed "s/,/ - /g" )
+
+[ ${#torrents} -eq 0 ] && exit 0
+
+torrent=$(echo -e "$torrents\nAll" | dmenu -l 10 -p "Torrent :" | sed "s/-.*$//g")
+
+[ ! -z "$torrent" ] && (
+    action=$(echo -e "Pause\nResume\nDelete" | dmenu -p "Action :")
+    [ ! -z "$action" ] && (
+        [ "$action" == "Delete" ] && (
+            files=$(echo -e "Yes\nNo" | dmenu -p "Delete with files?")
+            [ "$torrent" == "All" ] && (
+                [ "$files" == "Yes" ] && qb-mini -d -f || qb-mini -d
+                ) || (
+                [ "$files" == "Yes" ] && qb-mini -t "$torrent" -d -f || qb-mini -t "$torrent" -d
+            )
+        )
+        [ "$action" == "Pause" ] && (
+            [ "$torrent" == "All" ] && qb-mini -p || qb-mini -t "$torrent" -p
+        )
+        [ "$action" == "Resume" ] && (
+            [ "$torrent" == "All" ] && qb-mini -r || qb-mini -t "$torrent" -r
+        )
+    )
+)

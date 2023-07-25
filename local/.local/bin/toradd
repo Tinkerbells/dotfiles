@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# qbittorrent
+# pidof qbittorrent-nox >/dev/null || (qbittorrent-nox -d && notify-send "Qbit daemon start")
+#
+# qbittorrent-nox "$@" && notify-send -i download "Torrent added"
+
+# transmission
+pidof transmission-daemon >/dev/null || (transmission-daemon && notify-send "starting transmission daemon..." && sleep 3 && kill -43 "$(pidof dwmblocks)")
+
+transmission-remote -a "$@" && notify-send -i transmission "Torrent added"

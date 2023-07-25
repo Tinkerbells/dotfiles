@@ -1,0 +1,18 @@
+#!/bin/sh
+
+wallpaper=$(find "$HOME/pictures/wallpapers/onedark" -name "*.jpg" -or -name "*png" | shuf -n 1)
+
+wal -i $wallpaper > /dev/null
+
+xresources="$XDG_CONFIG_HOME/X11/xresources"
+pywal_xresources="$HOME/.cache/wal/xresources"
+dunstrc="$XDG_CONFIG_HOME/dunst/dunstrc"
+pywal_dunstrc="$HOME/.cache/wal/dunstrc"
+
+[ -f "$HOME/.cache/wal/colors.sh" ] && . "$HOME/.cache/wal/colors.sh"
+
+change-icon-color "$foreground"
+
+xrdb $xresources
+
+pidof dunst > /dev/null && killall dunst

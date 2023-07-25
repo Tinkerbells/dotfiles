@@ -1,0 +1,12 @@
+#!/bin/sh
+
+output="$HOME/pictures/screenshots/%Y-%m-%d-%T.png"
+
+#copy screenshot to clipboard and make notification
+cmd="xclip -i -selection clipboard -target image/png \$f;notify-send -r 582 -t 2000 -i screenshot 'Screenshot taken'"
+
+case "$1" in
+"select") scrot "$output" --select --line mode=edge -e "$cmd" || exit ;;
+"window") scrot "$output" --focused --border -e "$cmd" || exit ;;
+*) xrandr -q | grep "HDMI-1 connected" && scrot -a 1920,0,1920,1200 "$output" -e "$cmd" || scrot "$output" -e "$cmd" || exit ;;
+esac

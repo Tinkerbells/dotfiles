@@ -1,0 +1,13 @@
+#!/bin/bash
+
+vpn_status=$(mullvad status)
+
+toggle_vpn(){
+    if [ "$vpn_status" != "Disconnected" ]; then
+        mullvad disconnect && notify-send -i vpn -r 394 -t 1500 "Disconnected"
+    else
+        mullvad connect && notify-send -i vpn -r 394 -t 1500 "Connected"
+    fi
+}
+
+toggle_vpn

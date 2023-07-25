@@ -1,0 +1,173 @@
+#!/bin/bash
+
+# Default settings for script
+GPG_RECIPIENT="UntermenschH@protonmail.com"
+TELEGRAM_PREMIUM=false
+DECRYPT=false
+
+# Define usage function
+function usage {
+	echo "Usage: $(basename "$0") [DIR/FILE] [-o OUTPUT_PREFIX] [-k GPG_KEY] [-d ] [-h]"
+	echo ""
+	echo "Options:"
+	echo "  -d                Decrypt file or directory and join it to one file"
+	echo "  -o OUTPUT_PREFIX  Prefix to use for output files (default: input file/dir name)"
+	echo "  -k GPG_KEY        GPG key to use for encryption (required for directory input)"
+	echo "  -t                Tells the scirpt to use telegam premium settings to split files up to 4GB"
+	echo "  -h                Display this help message"
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+	arg="$1"
+	case $arg in
+	-o | --output)
+		output_prefix="$2"
+		shift
+		shift
+		;;
+	-k | --gpg-key)
+		gpg_key="$2"
+		shift
+		shift
+		;;
+	-p | --premium)
+		TELEGRAM_PREMIUM=true
+		shift
+		shift
+		;;
+	-d | --decrypt)
+		DECRYPT=true
+		shift
+		;;
+	-h | --help)
+		usage
+		exit
+		;;
+	*)
+		# First argument without a flag
+		input="$1"
+		shift
+		;;
+	esac
+done
+
+# Log errors
+
+if [ -z "$output_prefix" ]; then
+	output_prefix=$input
+fi
+
+if [ -z "$gpg_key" ]; then
+	if [ -z "$GPG_RECIPIENT" ]; then
+		echo -e "Error: gpg key identifier is not provided\n Use -k flag or set default value inside the script ❗"
+		usage
+		exit 1
+	fi
+else
+	if [ -z "$GPG_RECIPIENT" ]; then
+		echo -e "Error: gpg key identifier is not provided\n Use -k flag or set default value inside the script ❗"
+		usage
+		exit 1
+	else
+		GPG_RECIPIENT=$gpg_key
+	fi
+fi
+
+# Check if the specified directory or file exists
+if [ "$DECRYPT" = false ]; then
+	if [ -z "$input" ]; then
+		echo "Error: input dir or file must be provided ❗"
+		usage
+		exit 1
+	fi
+	if [ ! -e "$input" ]; then
+		echo "Error: $input does not exist ❗"
+		exit 1
+	fi
+fi
+
+# Check if telegam account is premium
+if [ $TELEGRAM_PREMIUM ]; then
+	max_size=$((4 * 1024 * 1024 * 1024)) # 2GB
+	split_size="3900m"
+fi
+
+max_size=$((2 * 1024 * 1024 * 1024)) # 2GB
+split_size="1900m"
+
+function encrypt() {
+	if [ -d "$input" ]; then
+		size=$(du -sb "$input" | awk '{ print $1 }')
+		# If input is a directory, archive it using tar
+		if [ "$size" -gt $max_size ]; then
+			gum spin --spinner minidot --show-output --title "Archive..." -- tar cf - "$input.tar.gz" "$input"
+			gum spin --spinner minidot --show-output --title "Encrypting..." -- gpg --encrypt --recipient "$GPG_RECIPIENT" "$input.tar.gz"
+			gum spin --spinner minidot --show-output --title "Splitting..." -- split -d -a 2 -b $split_size "$input.tar.gz.gpg" "$output_prefix."
+			rm "$input.tar.gz.gpg" "$input.tar.gz"
+			echo "Encrypting ${input} and splitting are finished ✅"
+		else
+			gum spin --spinner minidot --show-output --title "Archive..." -- tar cf - "$input.tar.gz" "$input"
+			gum spin --spinner minidot --show-output --title "Encrypting..." -- gpg --encrypt --recipient "$GPG_RECIPIENT" "$input.tar.gz"
+			rm "$input.tar.gz"
+			echo "Encrypting ${input} is finished ✅"
+		fi
+	else
+		size=$(stat -c%s "$input")
+		if [ "$size" -gt "$max_size" ]; then
+			# File is larger than 2GB, split into multiple parts
+			gum spin --spinner minidot --show-output --title "Encrypting..." -- gpg --encrypt --recipient "$GPG_RECIPIENT" "$input"
+			gum spin --spinner minidot --show-output --title "Splitting..." -- split -d -a 2 -b $split_size "$input.gpg" "$output_prefix."
+			rm "$input.gpg"
+			echo "Encrypting ${input} and splitting are finished ✅"
+		else
+			# File is smaller than or equal to 2GB, no need to split
+			gum spin --spinner minidot --show-output --title "Encrypting..." -- gpg --encrypt --recipient "$GPG_RECIPIENT" "$input"
+			echo "Encrypting ${input} is finished ✅"
+		fi
+	fi
+}
+
+# Join the split files together
+function decrypt() {
+	TMPFILE=$(mktemp)
+	# find all files from split command
+	splitted_file=$(find -type f -name "*.[0-9][0-9]" | sed -e 's|^\./||' -e 's|\.[0-9]\{2\}$||' | uniq)
+	if [ -z "$splitted_file" ]; then
+		file=$(find . -maxdepth 1 -type f | sed 's|^\./||' | gum choose --no-limit)
+	else
+		file=$(echo "$splitted_file" | gum choose --no-limit)
+	fi
+
+	if [ -z "$file" ]; then
+		exit 0
+	fi
+
+	if [ -e "$file" ]; then
+		echo "Error: $file already exists ❗"
+		exit 1
+	fi
+
+	cat "${file}"* >"$TMPFILE"
+	echo "Remove splitted files?"
+	# Confirm remove download splitted files
+	gum confirm && rm "${file}"*
+
+	# Decrypt the joined file using GPG
+	echo "Decrypting..."
+	gpg --decrypt --recipient "$GPG_RECIPIENT" "$TMPFILE" >"$file"
+	# Check if the decrypted file is a tar archive
+	if file "$TMPFILE" | grep -q "tar"; then
+		# Extract the tar archive to the output directory
+		gum spin --spinner minidot --show-output --title "Extract..." -- tar -xzf "$TMPFILE"
+	fi
+	echo "Decrypting ${file} is finished ✅"
+	rm "$TMPFILE"
+	exit 0
+}
+
+if [ "$DECRYPT" = false ]; then
+	encrypt
+else
+	decrypt
+fi

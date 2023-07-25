@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pass_dir="$HOME/.password-store"
+
+cd $pass_dir && git add -A && git push > /dev/null
