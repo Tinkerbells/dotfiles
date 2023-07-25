@@ -1,0 +1,68 @@
+#!/bin/zsh
+# setxkbmap -option grp:alt_shift_toggle us,ru -option caps:ctrl_modifier
+
+export LC_ALL=en_US.UTF-8
+export XDG_DATA_HOME="$HOME/.local/share" export ZDOTDIR=$HOME/.config/zsh export EDITOR="nvim"
+export TERMINAL="st"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+export PATH="$HOME/.local/bin":$PATH
+export PATH="$HOME/.local/bin/sb-scripts":$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/share/go/bin:$PATH
+export PATH="$HOME/.local/share/npm/bin":$PATH
+export PATH="$HOME/.local/share/cargo/bin":$PATH
+# ~/ Clean-up:
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+export SSB_HOME="$XDG_DATA_HOME"/zoom
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export XDG_CURRENT_DESKTOP="sway"
+export GDK_BACKEND="wayland,x11"
+export XDG_CONFIG_HOME="$HOME/.config"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
+export GOPATH="$XDG_DATA_HOME"/go
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
+export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
+export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
+export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
+# fzf default settings
+export FZF_DEFAULT_COMMAND="fd --hidden"
+export FZF_RUN_COMMAND="fzf -e -i -m --reverse --delimiter / --with-nth -1"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --color=always --line-range :100 {}'"
+export FZF_CTRL_T_COMMAND="fd --type f --hidden"
+export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS --preview 'tree -C {} | head -50'"
+export FZF_ALT_C_COMMAND="fd --hidden"
+export FZF_CTRL_T_COMMAND="fd --type f --hidden"
+
+# gruvbox-dark colorscheme
+# export FZF_DEFAULT_OPTS=' --color=fg:#ebdbb2,bg:#282828,hl:#cc241d --color=fg+:#cc241d,bg+:#282828,hl+:#cc241d --color=info:#d79921,prompt:#cc241d,pointer:#cc241d --color=marker:#d79921,spinner:#458588,header:#458588'
+#
+# Onedark colorscheme
+export FZF_DEFAULT_OPTS=' --color=fg:#b1b4b9,bg:#2c2d30,hl:#e5c07b --color=fg+:#b86b6b,bg+:#282c34,hl+: --color=info:#e5c07b,prompt:#e06c75,pointer:#e06c75 --color=marker:#e06c75,spinner:#e06c75,header:#61afef'
+
+# Tokyonight
+# export FZF_DEFAULT_OPTS=' --color=fg:#c0caf5,bg:#1a1b26,hl:#f7768e --color=fg+:#f7768e,bg+:#1a1b26,hl+:#ff9e64 --color=info:#ff9e64,prompt:#f7768e,pointer:#f7768e --color=marker:#ff9e64,spinner:#ff9e64,header:#ff9e64'
+
+# Speedy keys
+xset r rate 200 50
+
+export TDL_NS=$USER
+
+# source api keys
+source "$HOME/.config/zsh/zsh-gpg-exports"
+
+# starting xsession after login
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
+
+# starting hyprland
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && Hyprland 

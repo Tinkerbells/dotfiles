@@ -1,0 +1,6 @@
+completion/
+.zcompdump
+.zsh_history
+zsh-gpg-exports
+zsh-gpg-exports.gpg
+plugins/

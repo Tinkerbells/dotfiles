@@ -1,0 +1,86 @@
+#!/bin/sh
+# base
+alias ..="cd ../"
+alias .2="cd ../../"
+alias .3="cd ../../../"
+alias .4="cd ../../../../"
+alias .5="cd ../../../../../"
+alias p="paru -Syy && paru -S"
+alias pr="paru -R"
+alias pu="paru -Syy"
+alias v="nvim"
+alias sv="sudoedit"
+alias z="devour zathura"
+alias sx="devour sxiv"
+alias mp="devour mpv --fs"
+alias tr="tremc"
+alias ls="logo-ls -A -X"
+alias lls="logo-ls -A -X -l"
+alias sl="ls -A"
+alias lss="logo-ls -A -X -h -s"
+alias cdd="cd ~/downloads"
+alias cdw="cd ~/downloads/web"
+alias cdt="cd ~/downloads/torrents"
+alias cdv="cd ~/videos"
+alias cdp="cd ~/.local/share/pass/"
+alias cdm="cd ~/music"
+alias cdc="cd ~/.config"
+alias cdb="cd ~/.local/bin"
+alias cdn="cd ~/.config/nvim/"
+alias cp="cp -r"
+alias rm="rm -rf"
+alias clip="xclip -sel clip"
+# wget without history file
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
+# cooler control
+alias na="sudo nbfc set -a"
+alias nm="sudo nbfc set -s 100"
+# get fastest mirrors
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+# reload sxhkd config
+alias sr="pkill -USR1 -x sxhkd"
+# Colorize grep output (good for log files)
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias fzfi="fzf-imgpr"
+# easier to read disk
+alias df="df -h" # human-readable sizes
+alias free="free -m" # show sizes in MB
+# get top process eating memory
+alias psmem="ps auxf | sort -nr -k 4 | head -5"
+# get top process eating cpu ##
+alias pscpu="ps auxf | sort -nr -k 3 | head -5"
+# youtube download and fzf
+alias yd="yt-dlp"
+alias ys="ytfzf -t"
+# restart keyd service
+alias keyr="sudo systemctl restart keyd"
+# git
+alias m="git checkout main"
+alias s="git checkout stable"
+alias gc="git clone"
+alias g="lazygit"
+alias gg="gitget"
+# start lf with uberzug wrapper
+alias lf="lfub"
+# torrent
+alias qb="qbittorrent-nox -d && pkill -SIGRTMIN+7 waybar"
+alias jc="sudo systemctl start jackett"
+alias jcs="sudo systemctl stop jackett"
+# pass
+alias pg="pass generate -c"
+# mount usb drive
+alias um="udisksctl mount -b"
+# tdl
+alias tdu="tdl up -t 8 -s 524288 -l 8 -p"
+# tg
+alias tp="tg-prep"
+alias td="tg-decrypt"
+alias ta="transmission-remote -a"
+alias trr="transmission-remote -t all -r"
+# curl
+alias cg="curl-get"
