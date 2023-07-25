@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[ "$1" == "MPD" ] && exit 0
+[ "$1" == "Pamixer" ] && exit 0
+
+paplay $HOME/.config/dunst/notification_sound.wav
