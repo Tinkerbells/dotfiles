@@ -1,0 +1,18 @@
+/*
+!.gitignore
+!bin
+!share
+share/*
+!share/fonts/
+
+!share/applications/
+share/applications/*
+!share/applications/torrent.desktop
+
+!share/icons/
+share/icons/*
+!share/icons/notifications_icons
+
+# share/applicatoins/*
+# !share/applicatoins/torrent.desktop
+
