@@ -1,0 +1,114 @@
+# Running apps
+super + w  
+  brave 
+
+super + shift + w  
+  librewolf 
+
+super + shift + f 
+   nautilus
+
+# Running terminal based apps
+super + Return 
+  $TERMINAL 
+
+# terminal binded to second tag
+super + shift + Return  
+  $TERMINAL -t terminal
+
+super + shift + m 
+  $TERMINAL -t ncmpcpp -e ncmpcpp
+
+super + control + b 
+  $TERMINAL -t btop -e btop 
+
+super + o 
+  $TERMINAL -t chatgpt -e chatgpt 
+
+super + control + t 
+  $TERMINAL -t transmission-tui -e transgression-tui 
+
+# Dmenu stuff
+super + d 
+  dmenu_run 
+
+super + c 
+  clipmenu 
+
+super + shift + b 
+  dmenu-bluetooth
+
+alt + t 
+  dmenu-translate
+
+alt + c 
+  dmenu-calculator -c clipboard
+
+super + shift + g  
+  $TERMINAL -t add-book -e dmenu-bookmarks -a
+
+super + g  
+  dmenu-bookmarks -g
+
+super + p 
+  dmenu-pass
+
+super + shift + o 
+  dmenu-switch-audio > /dev/null
+
+super + control + g
+  gitget -d
+
+# Dunst histroy 
+alt + h
+  dunstctl history-pop                              
+  
+# Media Control keys
+XF86AudioLowerVolume
+  change-volume down	
+
+XF86AudioRaiseVolume
+  change-volume up 
+
+XF86AudioMute
+  change-volume mute 
+
+XF86Audio{Play,Pause}
+  playerctl play-pause
+
+XF86AudioNext
+  mpc next
+
+XF86AudioPrev
+  mpc prev
+
+super + control + n
+  mpc next
+
+super + control + p
+  mpc prev
+
+alt + Return
+  mpc toggle
+
+# Screenshots
+super + s
+  screenshot 
+
+super + shift + s
+  screenshot select  
+
+super + control + s 
+  screenshot window 
+
+# Color picker
+super + shift + e 
+  farge --no-preview
+
+# Toggle vpn 
+super + v 
+  toggle-vpn
+
+# Set background image
+super + shift + l
+  setbg
