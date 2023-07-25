@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Wait for network connectivity
+while ! ping -c 1 google.com >/dev/null; do
+	sleep 1
+done
+
+# Base currency is USD
+BASE_CURRENCY="USD"
+
+cache="$HOME/.cache/dollar"
+
+if [ ! -f "$cache" ]; then
+	touch "$cache"
+fi
+
+# Currency to convert to is RUB
+CONVERT_CURRENCY="RUB"
+
+# API endpoint for currency conversion
+RESPONSE=$(curl --request GET \
+	--url "https://api.apilayer.com/exchangerates_data/latest?symbols=$CONVERT_CURRENCY&base=$BASE_CURRENCY" \
+	--header "apikey: $EXCHANGE_RATES_API_KEY" --fail --silent --show-error)
+
+if [ $? -ne 0 ]; then
+	echo "Error"
+	exit 1
+fi
+
+# format response value
+current_price=$(echo "$RESPONSE" | jq ".rates.$CONVERT_CURRENCY")
+
+price=$(cat "$cache")
+
+if awk "BEGIN {exit !($current_price > $price)}"; then
+	printf "^C2^ %.2f$  ^d^" "$current_price"
+else
+	printf "^C1^ %.2f$  ^d^" "$current_price"
+fi
+
+sed -i "1s/.*/$current_price/" "$cache"
+
+case $BLOCK_BUTTON in
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

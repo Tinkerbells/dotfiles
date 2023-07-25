@@ -1,0 +1,6 @@
+#!/bin/sh
+
+count=$(paru -Qua | wc -l)
+updates=$(paru -Qua)
+
+printf '{"text":"󰏔 %s","tooltip":"%s"}' "$count" "$updates"

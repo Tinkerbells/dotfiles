@@ -1,0 +1,10 @@
+#!/bin/sh
+
+time=$(date +"%d %a %H:%M:%S")
+
+echo "$time"
+
+case $BLOCK_BUTTON in
+1) "$TERMINAL" -e tty-clock -sc -f "%a, %d %b %Y %T %z" ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

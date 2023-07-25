@@ -1,0 +1,22 @@
+#!/bin/sh
+
+level=$(rivalcfg --battery-level | grep -E -o '[[:digit:]]+')
+
+
+# Low battery notify
+notify(){
+    if [ "$level" -eq "20" ];then
+        notify-send -i low-battery -r 742 -t 2000 "Battery is 20%"
+        elif [ "$level" -eq "10" ];then
+        notify-send -i low-battery -r 742 -t 2000 "Battery is 10%"
+        elif [ "$level" -eq "5" ];then
+        notify-send -i low-battery -r 742 -t 2000 "Battery is 5%"
+    fi
+}
+
+rivalcfg --battery-level >/dev/null && echo "🖱 $level%" || echo "M:DISC"
+
+case $BLOCK_BUTTON in
+    1) rivalcfg -c black ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+freq=$(cat /proc/cpuinfo | grep MHz | grep -oE '[^ ]+$' | tr "\n" " ")
+
+cores=8
+
+sum=0
+
+for f in $freq; do
+    sum=$(echo "$sum + $f" | bc -l)
+done;
+
+result=$(printf "%.*f" 1 $(echo "$sum / $cores / 1000" | bc -l))
+
+echo "[ 龍 $result GHz ]"

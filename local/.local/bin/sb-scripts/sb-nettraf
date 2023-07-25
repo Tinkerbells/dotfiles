@@ -1,0 +1,20 @@
+#!/bin/bash
+
+get_speed() {
+	mullvad status | grep Disconnected >/dev/null && iface="wlp0s20f3" || iface="wg-mullvad"
+	new=$(cat /sys/class/net/$iface/statistics/rx_bytes)
+	cache=/tmp/$iface
+	[ -f "$cache" ] && read -r old <"$cache" || old=0
+	echo "$new" >"$cache"
+	dif=$(expr $new - $old)
+	mbits=$(expr $dif / 131072)
+	echo "$mbits"
+}
+
+speed=$(get_speed)
+
+echo " $speed MBit/s"
+
+case $BLOCK_BUTTON in
+2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

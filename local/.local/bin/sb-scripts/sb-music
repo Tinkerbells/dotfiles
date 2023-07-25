@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# check if mpc output is 0
+while [ "$(mpc | wc -l)" -eq 0 ]
+do
+    sleep 1
+done
+
+if [ "$(mpc | wc -l)" -lt 3 ];then
+    echo "󰎊 empty list" && exit
+else
+    name=$(mpc | head -n 1 | cut -c1-45)
+fi
+
+mpc | grep play > /dev/null && echo "契 $name" || echo " $name"
+
+case $BLOCK_BUTTON in
+    1) mpc toggle ;;
+    2) "$TERMINAL" -e ncmpcpp ;;
+    4) mpc next ;;
+    5) mpc prev ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

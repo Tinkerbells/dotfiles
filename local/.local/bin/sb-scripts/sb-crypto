@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# API endpoint
+API_ENDPOINT="https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=USD"
+
+# API Key
+API_KEY="546c32f9-e80b-4dd7-8ff1-c9ef9e506488"
+
+# Get the current price of Bitcoin in USD
+RESPONSE=$(cvalue -Ss --request GET \
+        --value "$API_ENDPOINT" \
+    --header "X-CMC_Pro_API_Key: $API_KEY")
+
+# Extract the price from the API response
+PRICE=$(echo $RESPONSE | jq ".data.BTC.quote.USD.price")
+
+# Display the price
+echo "The current price of Bitcoin in USD is $PRICE"

@@ -1,0 +1,56 @@
+#!/bin/bash
+# Wait for network connectivity
+while ! ping -c 1 google.com &>/dev/null; do
+	sleep 1
+done
+
+LAT="59.9386"
+LON="30.3141"
+
+# API endpoint for weather data
+RESPONSE=$(curl -sS --request GET \
+	--url "http://api.openweathermap.org/data/2.5/weather?lat=$LAT&lon=$LON&appid=$OPEN_WEATHER_API_KEY")
+
+# Check if the response was successful
+if [ $? -ne 0 ]; then
+	echo "Error"
+	exit 1
+fi
+
+# Extract relevant information from the response
+TEMP=$(echo $RESPONSE | jq ".main.temp" -r)
+WEATHER=$(echo $RESPONSE | jq ".weather[0].main" -r)
+
+# Convert temperature from Kelvin to Celsius and round to integer
+TEMP_C=$(printf "%.0f" $(echo "scale=2; $TEMP - 273.15" | bc))
+
+# Bind emoji icons to each weather state
+case "$WEATHER" in
+"Clear")
+	ICON=" "
+	;;
+"Clouds")
+	ICON=" "
+	;;
+"Drizzle")
+	ICON="殺 "
+	;;
+"Rain")
+	ICON="󰖖 "
+	;;
+"Thunderstorm")
+	ICON=" "
+	;;
+"Snow")
+	ICON="󰖘 "
+	;;
+"Mist" | "Smoke" | "Haze" | "Dust" | "Fog" | "Sand" | "Ash" | "Squall" | "Tornado")
+	ICON="󰖞 "
+	;;
+*)
+	ICON="❓ "
+	;;
+esac
+
+# Print the results
+echo "$ICON $TEMP_C°"

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+vpn_status=$(mullvad status)
+status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
+strength=$(awk '/^\s*w/ {print int($3 * 100 / 70)}' /proc/net/wireless)
+
+get_icon() {
+	if [ "$strength" -ge "90" ]; then
+		icon="󰤨"
+	elif [ "$strength" -ge "70" ]; then
+		icon="󰤥"
+	elif [ "$strength" -ge "50" ]; then
+		icon="󰤢"
+	elif [ "$strength" -ge "30" ]; then
+		icon="󰤟"
+	else
+		icon="󰤯"
+	fi
+	echo "$icon"
+}
+
+get_vpn_icon() {
+	if [ "$strength" -ge "90" ]; then
+		icon="󰤪"
+	elif [ "$strength" -ge "70" ]; then
+		icon="󰤧"
+	elif [ "$strength" -ge "50" ]; then
+		icon="󰤤"
+	elif [ "$strength" -ge "30" ]; then
+		icon="󰤡"
+	else
+		icon="󰤬"
+	fi
+	echo "$icon"
+}
+if [ "$status" = "disconnected" ]; then
+	echo "󰤭" && exit 0
+fi
+
+if [ "$vpn_status" != "Disconnected" ]; then
+	icon=$(get_vpn_icon)
+	echo "$icon"
+else
+	icon=$(get_icon)
+	echo "$icon"
+fi
+
+case $BLOCK_BUTTON in
+1) "$TERMINAL" -e nmtui ;;
+3) toggle-vpn ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

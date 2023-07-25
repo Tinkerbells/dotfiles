@@ -1,0 +1,15 @@
+#!/bin/sh
+
+layout_code=$(xset -q | grep -A 0 'LED' | cut -c59-67)
+
+if [ "$layout_code" -eq "00000000" ]; then
+	layout="us"
+else
+	layout="ru"
+fi
+
+echo "$layout"
+
+case $BLOCK_BUTTON in
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

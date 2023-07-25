@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Wait for network connectivity
+while
+	! ping -c 1 google.com >/dev/null
+do
+	sleep 1
+done
+
+cache="$HOME/.cache/btc"
+
+if [ ! -f "$cache" ]; then
+	touch "$cache"
+fi
+
+current_price=$(curl -sS "https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=$COINAPI_KEY" | jq .rate)
+if [ $? -ne 0 ]; then
+	echo "Error"
+	exit 1
+fi
+
+price=$(cat "$cache")
+
+if awk "BEGIN {exit !($current_price > $price)}"; then
+	printf "^C2^ %.2f$  ^d^" "$current_price"
+else
+	printf "^C1^ %.2f$  ^d^" "$current_price"
+fi
+
+sed -i "1s/.*/$current_price/" "$cache"
+
+case $BLOCK_BUTTON in
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

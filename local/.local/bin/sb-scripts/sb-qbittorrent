@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+import qbittorrentapi
+import argparse
+from functools import reduce
+
+
+def main():
+    ICON_PAUSE = ""
+    ICON_COMP = ""
+    ICON = ""
+
+    # Config
+    username = "admin"
+    password = "adminadmin"
+    host = "localhost"
+    port = "8080"
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--playpause", action="store_true")
+    args = parser.parse_args()
+
+    qbc = qbittorrentapi.Client(
+        host=host,
+        username=username,
+        password=password,
+        port=port,
+        SIMPLE_RESPONSES=True,
+    )
+    failed = False
+    try:
+        qbc.auth_log_in()
+    except:
+        print("")
+        failed = True
+    if not failed:
+
+        active = len(qbc.torrents.info.active())
+        downloading = len(qbc.torrents.info.downloading())
+        completed = len(qbc.torrents.info.completed())
+
+        if args.playpause:
+            if active > 0:
+                qbc.torrents_pause("all")
+            else:
+                qbc.torrents_resume("all")
+            exit()
+
+        if completed > 0:
+            ICON = ICON_COMP
+        else:
+            completed = ""
+
+        dlspeed = qbc.transfer.info["dl_info_speed"] / 1024
+        dlunit = "KiB/s"
+        if dlspeed > 1024:
+            dlunit = "MiB/s"
+            dlspeed = dlspeed / 1024
+
+        cumulative_percentage = 0
+
+        if downloading > 0:
+            if active > 0:
+                progress = (
+                    reduce(
+                        lambda a, b: a + b["progress"],
+                        qbc.torrents.info.downloading(),
+                        0,
+                    )
+                    / downloading
+                )
+                print(
+                    f"{ICON} {completed} 契 {downloading}  {progress:.2%} |  {dlspeed:.2f} {dlunit}"
+                )
+            else:
+                print(f"{ICON_PAUSE} {downloading}")
+        else:
+            if active > 0:
+                print(f"{ICON_COMP} {completed}")
+
+
+if __name__ == "__main__":
+    main()

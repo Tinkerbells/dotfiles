@@ -1,0 +1,14 @@
+#!/bin/sh
+
+display() {
+    case "$(basename "$0")" in
+        sb-battery) low=13 red=12 ;;
+        sb-keyboard-layout) color=14 ;;
+        sb-time) color=10 ;;
+        sb-memory) color=15 ;;
+        sb-bitcoin) color=11 ;;
+        sb-music) color=9 ;;
+        *) color=15 ;;
+    esac
+    echo "^C$color^$1"
+}

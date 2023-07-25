@@ -1,0 +1,126 @@
+#!/bin/sh
+
+power_on() {
+    if bluetoothctl show | grep -q "Powered: yes"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Checks if a device is connected
+device_connected() {
+    device_info=$(bluetoothctl info "$1")
+    if echo "$device_info" | grep -q "Connected: yes"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Checks if a device is paired
+device_paired() {
+    device_info=$(bluetoothctl info "$1")
+    if echo "$device_info" | grep -q "Paired: yes"; then
+        echo "Paired: yes"
+        return 0
+    else
+        echo "Paired: no"
+        return 1
+    fi
+}
+
+# Checks if a device is trusted
+device_trusted() {
+    device_info=$(bluetoothctl info "$1")
+    if echo "$device_info" | grep -q "Trusted: yes"; then
+        echo "Trusted: yes"
+        return 0
+    else
+        echo "Trusted: no"
+        return 1
+    fi
+}
+
+# Prints a short string with the current bluetooth status
+# Useful for status bars like polybar, etc.
+print_status() {
+    if power_on; then
+
+        mapfile -t paired_devices < <(bluetoothctl devices | grep Device | cut -d ' ' -f 2)
+        counter=0
+
+        for device in "${paired_devices[@]}"; do
+            if device_connected "$device"; then
+
+                name=$(bluetoothctl info "$device" | grep Icon | awk '{ print $NF }')
+                level=$(bluetoothctl info "$device" | grep Battery | awk '{ print $NF }' | tr -d '()' | tail -1)
+                if [ "$level" -le 10 ] && [ "$name" = "audio-headset" ]; then
+                    notify-send -r 988 -t 4000 -i headphones -u critical "Low battery - $level%"
+                elif [ "$level" -le 10 ] && [ "$name" = "audio-headphones" ]; then
+                    notify-send -r 988 -t 4000 -i earbuds -u critical "Low battery - $level%"
+                fi
+                fi
+                if [ "$name" = "audio-headset" ];then
+                    icon="󰋋"
+                elif [ "$name" = "audio-headphones" ];then
+                    icon="󱡏"
+                  elif [ "$name" = "audio-card" ] ;then
+                    icon="󰦢"
+                fi
+                # get_icon() {
+                #     if [ "$level" -ge "95" ]; then
+                #         icon="󰥈"
+                #     elif [ "$level" -ge "75" ] && [ "$level" -lt "95" ]; then
+                #         icon="󰥆"
+                #     elif [ "$level" -ge "75" ] && [ "$level" -lt "85" ]; then
+                #         icon="󰥅"
+                #     elif [ "$level" -ge "65" ] && [ "$level" -lt "75" ]; then
+                #         icon="󰥄"
+                #     elif [ "$level" -ge "55" ] && [ "$level" -lt "65" ]; then
+                #         icon="󰥃"
+                #     elif [ "$level" -ge "45" ] && [ "$level" -lt "55" ]; then
+                #         icon="󰥂"
+                #     elif [ "$level" -ge "35" ] && [ "$level" -lt "45" ]; then
+                #         icon="󰥁"
+                #     elif [ "$level" -ge "25" ] && [ "$level" -lt "35" ]; then
+                #         icon="󰥀"
+                #     elif [ "$level" -ge "10" ] && [ "$level" -lt "25" ]; then
+                #         icon="󰤿"
+                #     else
+                #         icon="󰤾"
+                #     fi
+                #     echo "$icon"
+                # }
+                # icon=$(get_icon)
+
+                if [ $counter -gt 0 ]; then
+                  if [ "$level" != 0 ];then
+                    printf " %s" "$icon $level%"
+                  else 
+                    printf " %s" "$icon"
+                  fi
+                else
+                  if [ "$level" != 0 ];then
+                    printf " %s" "$icon $level%"
+                  else 
+                    printf " %s" "$icon"
+                  fi
+                fi
+
+                ((counter++))
+            fi
+        done
+        if [ "$counter" -eq 0 ]; then
+            echo ""
+        fi
+    else
+        echo ""
+    fi
+}
+
+print_status
+
+case $BLOCK_BUTTON in
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

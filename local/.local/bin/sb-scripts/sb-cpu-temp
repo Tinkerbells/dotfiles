@@ -1,0 +1,28 @@
+#!/bin/sh
+
+read -r temp </sys/class/thermal/thermal_zone0/temp
+
+temp="${temp%???}"
+
+get_icon() {
+	if [ "$temp" -ge "90" ]; then
+		icon=""
+	elif [ "$temp" -ge "85" ] && [ "$temp" -lt "85" ]; then
+		icon=""
+	elif [ "$temp" -ge "75" ] && [ "$temp" -lt "75" ]; then
+		icon=""
+	elif [ "$temp" -ge "65" ] && [ "$temp" -lt "65" ]; then
+		icon=""
+	else
+		icon=""
+	fi
+	echo $icon
+}
+
+icon=$(get_icon)
+
+printf "[ $icon %s°C ]" "$temp"
+
+case $BLOCK_BUTTON in
+1) alacritty --hold -t btop -e btop ;;
+esac

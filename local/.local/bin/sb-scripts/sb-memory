@@ -1,0 +1,8 @@
+#!/bin/sh
+
+free | grep Mem | awk '{printf("󰍛 %.1f%", $3/$2 * 100.0)}'
+
+case $BLOCK_BUTTON in
+1) $TERMINAL -t btop -e btop ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

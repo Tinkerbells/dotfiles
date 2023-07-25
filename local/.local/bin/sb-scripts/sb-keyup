@@ -1,0 +1,5 @@
+#!/bin/sh
+
+while :; do
+	xkb-switch -w >/dev/null && kill -38 "$(pidof "${STATUSBAR:-dwmblocks}")" || break
+done

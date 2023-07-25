@@ -1,0 +1,10 @@
+#!/bin/sh
+
+date_now=$(date +"%d/%m/%Y")
+
+echo "[  $date_now ]"
+
+case $BLOCK_BUTTON in
+    1) alacritty -e tty-clock -sct -f "%a, %d %b %Y %T %z" ;;
+    2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

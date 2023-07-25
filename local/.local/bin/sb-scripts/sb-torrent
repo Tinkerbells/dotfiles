@@ -1,0 +1,69 @@
+#!/bin/bash
+# pidof qbittorrent-nox >/dev/null && echo $(sb-qbittorrent) || exit 0
+
+while
+	! pgrep transmission-da >/dev/null
+do
+	sleep 1
+done
+
+torrent=$(transmission-remote -l)
+
+download_progress_values=$(echo "$torrent" | grep % | grep -e Downloading -e Up | awk '{print $2}' | sed "s/%//g")
+
+speed=$(echo "scale=1; $(echo "$torrent" | tail -n 1 | awk '{print $5}') / 1024" | bc)
+
+dlunit="MiB/s"
+if awk "BEGIN {exit !($speed < 1)}"; then
+	dlunit="KiB/s"
+	speed=$(echo "$speed * 1024" | bc)
+fi
+
+total_progress=0
+
+for value in $download_progress_values; do
+	((total_progress = total_progress + value))
+done
+
+status=$(echo "$torrent" | grep % |
+	sed " # The letters are for sorting and will not appear.
+  s/.*Seeding.*/Z 󰹢/;
+  s/.*100%.*/N /;
+  s/.*Idle.*/B 󰥔/;
+  s/.*Uploading.*/L /;
+  s/.*Stopped.*/A /;
+	s/.*%.*/M /" |
+	sort -h | uniq -c | awk '{print $3 " " $1}' | paste -sd ' ' -)
+
+count=$(echo "$download_progress_values" | wc -l)
+
+progress=$(echo "$total_progress / $count" | bc)
+
+isDownloading=$(echo "$torrent" | grep % | grep -e Downloading -e Up)
+
+if [[ -z $isDownloading ]]; then
+	echo "$status"
+else
+	echo "$status - $speed $dlunit - 󰦗 $progress%"
+fi
+
+play-pause() {
+	ids=$(echo "$torrent" | grep % | awk '{print $1}')
+	if [[ -z $isDownloading ]]; then
+		for id in $ids; do
+			transmission-remote -t "$id" --start
+		done
+		notify-send -r 512 -i transmission "All torrents are started"
+	else
+		for id in $ids; do
+			transmission-remote -t "$id" --stop
+		done
+		notify-send -r 512 -i transmission "All torrents are stoped"
+	fi
+}
+
+case $BLOCK_BUTTON in
+1) "$TERMINAL" -t transmission -e transgression-tui ;;
+3) play-pause ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

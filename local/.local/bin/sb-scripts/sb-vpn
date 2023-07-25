@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Check if WireGuard interface exists
+interface="wg-njalla" # name your wireguard config (stored in /etc/wireguard/)
+
+if ! ip link show $interface &>/dev/null; then
+	echo "WireGuard interface $interface not found."
+	exit 1
+fi
+
+# Check if WireGuard connection is active
+if ip link show $interface up &>/dev/null; then
+	echo "󰦝"
+else
+	echo "󰦞"
+fi
