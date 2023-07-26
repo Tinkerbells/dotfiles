@@ -1,5 +1,11 @@
 #!/bin/sh
 
+while
+	! pidof pulseaudio >/dev/null
+do
+	sleep 1
+done
+
 [ "$(pamixer --get-mute)" = true ] && echo "mute" && exit
 
 volume="$(pamixer --get-volume)"

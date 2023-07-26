@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Disable exit on error
+set +e
+
 while :; do
-	xkb-switch -w >/dev/null && kill -38 "$(pidof "${STATUSBAR:-dwmblocks}")" || break
+	xkb-switch -w >/dev/null
+	# Use kill command with '-' to suppress error messages
+	kill -38 "$(pgrep dwmblocks | head -n 1)" >/dev/null 2>&1
 done
+
+# Re-enable exit on error (optional, depending on the rest of your script)
+set -e
