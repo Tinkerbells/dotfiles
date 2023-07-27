@@ -1,6 +1,10 @@
 #!/bin/bash
 
+SYSTEM="$HOME/.config/dunst/notification_sound.wav"
+TELEGRAM="$HOME/.config/dunst/telegram-notification.mp3"
+
 [ "$1" == "MPD" ] && exit 0
 [ "$1" == "Pamixer" ] && exit 0
+[ "$1" == "Telegram Desktop" ] && paplay "$TELEGRAM" && exit 0
 
-paplay $HOME/.config/dunst/notification_sound.wav
+paplay "$SYSTEM"
