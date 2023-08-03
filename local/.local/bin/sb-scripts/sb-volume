@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while
-	! pidof pulseaudio >/dev/null
+	! pidof pipewire >/dev/null
 do
 	sleep 1
 done
