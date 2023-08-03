@@ -2,14 +2,17 @@
 # setxkbmap -option grp:alt_shift_toggle us,ru -option caps:ctrl_modifier
 
 export LC_ALL=en_US.UTF-8
-export XDG_DATA_HOME="$HOME/.local/share" export ZDOTDIR=$HOME/.config/zsh export EDITOR="nvim"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZDOTDIR=$HOME/.config/zsh
+export EDITOR="nvim"
 export TERMINAL="st"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 export PATH="$HOME/.local/bin":$PATH
 export PATH="$HOME/.local/bin/sb-scripts":$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.local/share/go/bin:$PATH
+export PATH="$HOME/.cargo/bin":$PATH
+export PATH="$HOME/.local/share/go/bin":$PATH
 export PATH="$HOME/.local/share/npm/bin":$PATH
 export PATH="$HOME/.local/share/cargo/bin":$PATH
 # ~/ Clean-up:
@@ -21,9 +24,7 @@ export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export XDG_CURRENT_DESKTOP="sway"
 export GDK_BACKEND="wayland,x11"
-export XDG_CONFIG_HOME="$HOME/.config"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
-export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
@@ -66,3 +67,4 @@ source "$HOME/.config/zsh/zsh-gpg-exports"
 
 # starting hyprland
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && Hyprland 
+

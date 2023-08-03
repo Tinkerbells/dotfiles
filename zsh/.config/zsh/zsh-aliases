@@ -1,4 +1,5 @@
 #!/bin/sh
+WIREGUARD_CONFIG="wg-njalla"
 # base
 alias ..="cd ../"
 alias .2="cd ../../"
@@ -57,6 +58,7 @@ alias pscpu="ps auxf | sort -nr -k 3 | head -5"
 # youtube download and fzf
 alias yd="yt-dlp"
 alias ys="ytfzf -t"
+alias ym="yt-dlp -f 'ba' -x --audio-format wav --embed-chapters  -o '%(title)s.%(ext)s'"
 # restart keyd service
 alias keyr="sudo systemctl restart keyd"
 # git
@@ -84,3 +86,7 @@ alias ta="transmission-remote -a"
 alias trr="transmission-remote -t all -r"
 # curl
 alias cg="curl-get"
+# wireguard
+alias wu="sudo wg-quick up $WIREGUARD_CONFIG"
+alias wd="sudo wg-quick down $WIREGUARD_CONFIG"
+
