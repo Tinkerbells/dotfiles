@@ -1,6 +1,12 @@
 -- LSP keymaps
 return {
   "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      pyright = {},
+      ruff_lsp = {},
+    },
+  },
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     local format = require("lazyvim.plugins.lsp.format").format
