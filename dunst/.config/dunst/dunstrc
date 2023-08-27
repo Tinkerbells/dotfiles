@@ -12,7 +12,7 @@
     separator_height = 5
     padding = 8
     frame_width = 3
-    icon_path = /home/work/.local/share/icons/notifications_icons/
+    icon_path = /home/voiduser/.local/share/icons/notifications_icons/
     title = Dunst
     class = Dunst
     mouse_left_click = do_action, close_current
@@ -26,7 +26,7 @@
 
 [play_sound]
     summary = "*"
-    script = /home/work/.local/bin/alert
+    script = /home/voiduser/.local/bin/alert
 
 [global]
     highlight = "#B1B4B9"
@@ -38,20 +38,20 @@
     foreground = "#B1B4B9"
     max_icon_size = 40
     timeout = 3 
-    default_icon = /home/work/.local/share/icons/notifications_icons/default-low.png
+    default_icon = /home/voiduser/.local/share/icons/notifications_icons/default-low.png
  
 [urgency_normal]
     background = "#2C2D30"
     foreground = "#B1B4B9"
     timeout = 3 
-    default_icon = /home/work/.local/share/icons/notifications_icons/default.png
+    default_icon = /home/voiduser/.local/share/icons/notifications_icons/default.png
 
 [urgency_critical]
     background = "#2C2D30"
     foreground = "#B1B4B9"
     frame_color = "#E06C75"
     timeout = 30 
-    default_icon = /home/work/.local/share/icons/notifications_icons/default-critical.png
+    default_icon = /home/voiduser/.local/share/icons/notifications_icons/default-critical.png
 
 [mpd]
     appname = MPD
