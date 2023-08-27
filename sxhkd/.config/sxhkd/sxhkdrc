@@ -1,12 +1,12 @@
 # Running apps
 super + w  
-  brave 
+  firefox 
 
 super + shift + w  
   librewolf 
 
 super + shift + f 
-   nautilus
+   nemo
 
 # Running terminal based apps
 super + Return 
@@ -112,3 +112,6 @@ super + v
 # Set background image
 super + shift + l
   setbg
+
+super + shift + p
+  pavucontrol
