@@ -1,12 +1,14 @@
 #!/bin/sh
 
+isPulse=$(pgrep pipewire | wc -l)
+
 while
-	! pidof pipewire >/dev/null
+	[ "$isPulse" -lt 1 ]
 do
 	sleep 1
 done
 
-[ "$(pamixer --get-mute)" = true ] && echo "mute" && exit
+[ "$(pamixer --get-mute)" = true ] && echo "󰝟 mute" && exit
 
 volume="$(pamixer --get-volume)"
 

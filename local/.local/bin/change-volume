@@ -6,7 +6,7 @@ send_notification() {
 }
 
 update() {
-	kill -39 "$(pidof dwmblocks)"
+	kill -39 "$(pgrep dwmblocks | head -n 1)" >/dev/null 2>&1
 }
 
 case $1 in

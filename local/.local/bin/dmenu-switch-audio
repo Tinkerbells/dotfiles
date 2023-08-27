@@ -2,6 +2,8 @@
 import subprocess
 
 # function to parse output of command "wpctl status" and return a dictionary of sinks with their id and name.
+
+
 def parse_wpctl_status():
     # Execute the wpctl status command and store the output in a variable.
     output = str(subprocess.check_output("wpctl status", shell=True, encoding="utf-8"))
@@ -49,7 +51,8 @@ def parse_wpctl_status():
 
 # get the list of sinks ready to put into wofi - highlight the current default sink
 output = ""
-sinks = parse_wpctl_status() # slice first two (montitor and unused built in audio), remove it if necessary
+# slice first two (montitor and unused built in audio), remove it if necessary
+sinks = parse_wpctl_status()
 
 for items in sinks:
     if items["sink_name"].endswith(" - Default"):
@@ -68,4 +71,5 @@ sinks = parse_wpctl_status()
 
 selected_sink = next(sink for sink in sinks if sink["sink_name"] == selected_sink_name)
 subprocess.run(f"wpctl set-default {selected_sink['sink_id']}", shell=True)
-subprocess.run(f"notify-send -t 2000 -r 751 {selected_sink['sink_name']}", shell=True) # send through linux built-in notify-send instead on python libs
+# send through linux built-in notify-send instead on python libs
+subprocess.run(f"notify-send -t 2000 -r 751 {selected_sink['sink_name']}", shell=True)

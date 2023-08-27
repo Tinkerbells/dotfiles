@@ -1,7 +1,6 @@
 #!/bin/bash
 
-vpn_status=$(mullvad status)
-status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
+# status=$(nmcli dev status | awk '{print $3;}' | sed -n '2 p')
 strength=$(awk '/^\s*w/ {print int($3 * 100 / 70)}' /proc/net/wireless)
 
 get_icon() {
@@ -33,7 +32,7 @@ get_vpn_icon() {
 	fi
 	echo "$icon"
 }
-if [ "$status" = "disconnected" ]; then
+if [ -z "$strength" ]; then
 	echo "󰤭" && exit 0
 fi
 
