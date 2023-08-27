@@ -20,7 +20,7 @@ xset r rate 200 50
 # MPRIS control player daemon
 playerctld daemon >/dev/null &
 
-autostart="sb-keyup setbg redshift dwmblocks mpd mpd-notify sxhkd clipmenud dunst transmission-daemon" # add picom
+autostart="pipewire sb-keyup setbg redshift dwmblocks mpd mpd-notify sxhkd clipmenud dunst transmission-daemon" # add picom
 
 # Start programs without output
 for program in $autostart; do
