@@ -1,31 +1,60 @@
 #!/bin/bash
 
+# Check if Bluetooth is available
+check_bluetooth() {
+	if ! command -v bluetoothctl &>/dev/null; then
+		echo "Error: Bluetoothctl not found. Please make sure Bluetooth is installed and properly configured." >&2
+		exit 1
+	fi
+}
+
+# Check if dwmblocks is available
+check_dwmblocks() {
+	if ! command -v dwmblocks &>/dev/null; then
+		echo "Error: Dwmblocks not found. Please make sure dwmblocks is installed." >&2
+		exit 1
+	fi
+}
+
+# Check if device is connected
 device_connected() {
+	local device_info
 	device_info=$(bluetoothctl info "$1")
-	if echo "$device_info" | grep -F -q "Connected: yes" && [ ! -z "$1" ]; then
+	if echo "$device_info" | grep -F -q "Connected: yes" && [ -n "$1" ]; then
 		return 0
 	else
 		return 1
 	fi
 }
-reload() {
+
+# Reload dwmblocks
+reload_dwmblocks() {
 	kill -39 "$(pidof dwmblocks)"
 	kill -40 "$(pidof dwmblocks)"
 }
+
+# Toggle device connection
 toggle_connection() {
 	if device_connected "$1"; then
 		bluetoothctl disconnect "$1"
-		reload
 	else
 		bluetoothctl connect "$1"
-		reload
 	fi
+	reload_dwmblocks
 }
 
+# Display menu and toggle connection
 show_menu() {
-	device=$(bluetoothctl devices | cut -d " " -f 3 | dmenu -p "Devices:" -l 10)
+	local device mac
+	device=$(bluetoothctl devices | cut -d " " -f 3 | sort | dmenu -p "Devices:" -l 10)
 	mac=$(bluetoothctl devices | grep "$device" | cut -d " " -f 2)
 	toggle_connection "$mac"
 }
 
-show_menu
+main() {
+	check_bluetooth
+	check_dwmblocks
+	show_menu
+}
+
+main
