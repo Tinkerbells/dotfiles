@@ -1,9 +1,9 @@
 # Running apps
 super + w  
-  firefox 
+  chromium 
 
 super + shift + w  
-  librewolf 
+  firefox 
 
 super + shift + f 
    nemo
@@ -58,6 +58,9 @@ super + shift + o
 
 super + control + g
   gitget -d
+
+super + shift + y 
+  yt-mpv
 
 # Dunst histroy 
 alt + h
