@@ -43,12 +43,19 @@ if [ -f "$pomodoro_file" ]; then
 	minutes=$((remaining_time / 60))
 	seconds=$((remaining_time % 60))
 
-	printf -v seconds "%02d" "$seconds"
+	if [ "$minutes" -lt 10 ]; then
+		minutes="0$minutes"
+	fi
+
+	if [ "$seconds" -lt 10 ]; then
+		seconds="0$seconds"
+	fi
+
 	icon=$(get_icon "$state")
 	if [ -z "$(get_pid)" ]; then
 		icon="󱫞"
 	fi
-	printf "%s %d:%s\n" "$icon" "$minutes" "$seconds"
+	echo "$icon $minutes:$seconds"
 else
 	echo "$sleep_icon"
 fi
