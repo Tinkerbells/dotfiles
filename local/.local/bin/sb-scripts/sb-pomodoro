@@ -1,0 +1,56 @@
+#!/bin/sh
+
+pomodoro_file="/tmp/pomodoro.json"
+base_script_path="$HOME/.local/bin/pomodoro"
+sleep_icon="󰒲"
+
+pid=$(ps aux | grep "python3 $base_script_path" | grep -v grep | awk '{print $2}' | tail -n 1)
+
+toggle_pomodoro() {
+	if [ -z "$pid" ]; then
+		# Start the Pomodoro script in the background
+		pomodoro >/dev/null &
+	else
+		# Kill the Pomodoro script
+		kill "$pid"
+	fi
+}
+
+stop_pomodoro() {
+	rm $pomodoro_file && kill $pid
+}
+
+get_icon() {
+	case "$1" in
+	work) echo "" ;;
+	short_break) echo "" ;;
+	long_break) echo "" ;;
+	*) echo "?" ;;
+	esac
+}
+
+if [ -f "$pomodoro_file" ]; then
+	state=$(jq -r '.current_state' "$pomodoro_file")
+	current_state=$(jq -r '.current_state' "$pomodoro_file")
+	remaining_time=$(jq -r ".[\"$current_state\"]" "$pomodoro_file")
+	minutes=$((remaining_time / 60))
+	seconds=$((remaining_time % 60))
+
+	if [ $seconds -lt 10 ]; then
+		seconds="0$seconds"
+	fi
+	# Get icon for current state
+	icon=$(get_icon "$state")
+	if [ -z "$pid" ]; then
+		icon="󱫞"
+	fi
+	echo "$icon $minutes:$seconds"
+else
+	echo "$sleep_icon"
+fi
+
+case $BLOCK_BUTTON in
+1) toggle_pomodoro ;;
+3) stop_pomodoro ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
