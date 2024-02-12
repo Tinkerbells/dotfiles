@@ -23,8 +23,8 @@ down)
 	;;
 mute)
 	pamixer -t
-	if pamixer --get-mute; then
-		notify-send -a Pamixer -i volume-mute -t 2000 -r 993 -u low "Muted"
+	if [ "$(pamixer --get-mute)" = "true" ]; then
+		notify-send -a Pamixer -i volume-mute -t 1000 -r 993 -u low "Muted"
 	else
 		send_notification up
 	fi
