@@ -2,6 +2,10 @@ Xft.dpi: 125
 
 /* dmenu */
 dmenu.font: JetBrainsMono Nerd Font:size=12:style=Bold
+dmenu.foreground: #B1B4B9
+dmenu.background: #2C2D30
+dmenu.selbackground: #B1B4B9
+dmenu.selforeground: #2C2D30
 
 /* st */
 st.font: JetBrainsMono Nerd Font:size=14
