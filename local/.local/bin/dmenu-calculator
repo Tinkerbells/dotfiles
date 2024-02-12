@@ -1,71 +1,26 @@
-#!/bin/sh
+#!/bin/bash
 
-main() {
-    : "${config_dir:=${XDG_CONFIG_HOME:-$HOME/.config}/$(basename $0)}"
-    : "${config_file:=$config_dir/$(basename $0).conf}"
-    [ -f "$config_file" ] && . "$config_file"
+if ! command -v dmenu >/dev/null; then
+	echo "Error: dmenu could not be found. Please install it first."
+	exit 0
+elif ! command -v bc >/dev/null; then
+	echo "Error: bc could not be found. Please install it first."
+	exit 0
+fi
 
-    parse_opts "$@" ; base "$@"
-}
+if [ "$1" == "-h" ]; then
+	echo "This is a simple calculator script that uses dmenu for input and bc for calculation."
+	exit 0
+fi
+result=$(echo "scale=2; $(echo "" | dmenu -p "Enter calculation:")" | bc 2>/dev/null)
 
-base() {
-    cmenu=0 ; math() { bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//'; }
-    Clear
-    [ "$menu" != "" ] && cmenu=$(echo "0$menu" | math)
-    copy "$@"
-
-    while true; do
-        [ "$menu" = "" ] && exit 0
-
-        Clear
-        if [ "$menu" != "" ];then
-            case "$(printf "$menu" | cut -b 1)" in
-                ''|*[!0-9]*) cmenu=$(echo "$cmenu$menu" | math) ;;
-                *) cmenu=$(echo "0$menu" | math) ;;
-            esac
-        fi
-        copy "$@"
-    done
-}
-
-copy() { [ ! -n "$no_copy" ] && [ ! -z "$copy" ] && [ "$cmenu" != "" ] && printf "$cmenu" | xclip -i -selection $copy; }
-
-Clear() {
-    menu=$(printf "Clear" | dmenu -p $cmenu)
-    while [ "$menu" = "Clear" ]; do
-        menu=$(printf "Clear" | dmenu  -p 0)
-        cmenu=""
-    done
-}
-
-help() { printf 'Usage:\t%s' "$(basename $0) [options]
-
-Options:
--c|--copy    │ Copy the result (\"primary\", \"secondary\", \"clipboard\" or \"buffer-cut\")
-   --no-copy │ Do not copy (always overrides --copy)
--h|--help    │ Print this help message and exit
-"; }
-
-parse_opts() {
-    die() { printf "$*\n" >&2; exit 2; }
-    needs_arg() { [ -z "$OPTARG" ] && die "No arg for --$OPT option"; }
-
-    while getopts hc:-: OPT; do
-        # Support long options: https://stackoverflow.com/a/28466267/519360
-        if [ "$OPT" = "-" ]; then
-            OPT="${OPTARG%%=*}"
-            OPTARG="${OPTARG#$OPT}"
-            OPTARG="${OPTARG#=}"
-        fi
-        case "$OPT" in
-            h | help) help ; exit 0 ;;
-            c | copy) needs_arg ; copy="$OPTARG" ;;
-            no-copy) no_copy=1 ;;
-            ??*) die "Illegal option --$OPT" ;;
-            ?) exit 2 ;;
-        esac
-    done
-    shift $((OPTIND-1))
-}
-
-main "$@"
+if [ $? -ne 0 ]; then
+	notify-send "Calculator" "Invalid input" --urgency=critical
+else
+	rounded=$(echo "scale=0; $result / 1" | bc)
+	if [ $(echo "$rounded == $result" | bc) -eq 1 ]; then
+		result=$rounded
+	fi
+	echo $result | xclip -selection clipboard
+	notify-send "Calculator" "$result"
+fi
