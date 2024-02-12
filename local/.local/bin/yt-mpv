@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Check if xclip is installed
+if ! command -v xclip >/dev/null; then
+	echo "xclip not found"
+	exit 1
+fi
+
+if ! command -v mpv >/dev/null; then
+	echo "mpv not found"
+	exit 1
+fi
+if ! command -v notify-send >/dev/null; then
+	echo "notify-send not found"
+	exit 1
+fi
+
+validate() {
+	local url="$1"
+
+	if echo "$url" | grep -qE '^(http|https)://(www\.)?youtu(\.be/|be\.com/\S*)'; then
+		echo false
+	else
+		echo true
+	fi
+}
+
+# Get URL from clipboard or user input
+url=$(echo "" | dmenu -p "Enter YouTube URL:")
+
+# Check if URL is valid and not empty
+if [ -z "$url" ]; then
+	echo "No URL entered"
+	exit 1
+fi
+
+# validate "$url" == true && notify-send "Invalid url" && exit 1
+
+# video_id=$(echo "$url" | cut -d '/' -f 5)
+mpv_cmd="mpv --really-quiet --ytdl-format=best $url"
+
+# Play video in mpv
+eval "$mpv_cmd" >/dev/null 2>&1
+notify-send "Mpv is starting"
