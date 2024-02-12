@@ -2,11 +2,15 @@
 
 pomodoro_file="/tmp/pomodoro.json"
 base_script_path="$HOME/.local/bin/pomodoro"
+config_file="$XDG_CONFIG_HOME/pomodoro_config.json"
 sleep_icon="󰒲"
 
-pid=$(ps aux | grep "python3 $base_script_path" | grep -v grep | awk '{print $2}' | tail -n 1)
+get_pid() {
+	ps aux | grep "python3 $base_script_path" | grep -v grep | awk '{print $2}' | tail -n 1
+}
 
 toggle_pomodoro() {
+	pid=$(get_pid)
 	if [ -z "$pid" ]; then
 		# Start the Pomodoro script in the background
 		pomodoro >/dev/null &
@@ -17,7 +21,11 @@ toggle_pomodoro() {
 }
 
 stop_pomodoro() {
-	rm $pomodoro_file && kill $pid
+	pid=$(get_pid)
+	if [ ! -z "$pid" ]; then
+		kill "$pid"
+	fi
+	rm -f "$pomodoro_file"
 }
 
 get_icon() {
@@ -31,20 +39,16 @@ get_icon() {
 
 if [ -f "$pomodoro_file" ]; then
 	state=$(jq -r '.current_state' "$pomodoro_file")
-	current_state=$(jq -r '.current_state' "$pomodoro_file")
-	remaining_time=$(jq -r ".[\"$current_state\"]" "$pomodoro_file")
+	remaining_time=$(jq -r ".[\"$state\"]" "$pomodoro_file")
 	minutes=$((remaining_time / 60))
 	seconds=$((remaining_time % 60))
 
-	if [ $seconds -lt 10 ]; then
-		seconds="0$seconds"
-	fi
-	# Get icon for current state
+	printf -v seconds "%02d" "$seconds"
 	icon=$(get_icon "$state")
-	if [ -z "$pid" ]; then
+	if [ -z "$(get_pid)" ]; then
 		icon="󱫞"
 	fi
-	echo "$icon $minutes:$seconds"
+	printf "%s %d:%s\n" "$icon" "$minutes" "$seconds"
 else
 	echo "$sleep_icon"
 fi
@@ -53,4 +57,5 @@ case $BLOCK_BUTTON in
 1) toggle_pomodoro ;;
 3) stop_pomodoro ;;
 6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+8) "$TERMINAL" -e "$EDITOR" "$config_file" ;;
 esac

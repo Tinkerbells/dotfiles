@@ -16,6 +16,44 @@ NUM_CYCLES = 4
 # File path for cache
 CACHE_FILE = "/tmp/pomodoro.json"
 
+# Timer durations (in minutes)
+DEFAULT_WORK_TIME = 45
+DEFAULT_SHORT_BREAK_TIME = 5
+DEFAULT_LONG_BREAK_TIME = 25
+DEFAULT_NUM_CYCLES = 4
+
+# File path for cache
+
+# Configuration file path
+CONFIG_FILE = os.path.expanduser("~/.config/pomodoro_config.json")
+
+
+# Function to load config
+def load_config():
+    try:
+        with open(CONFIG_FILE, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # Create default config file
+        config = {
+            "work_time": DEFAULT_WORK_TIME,
+            "short_break_time": DEFAULT_SHORT_BREAK_TIME,
+            "long_break_time": DEFAULT_LONG_BREAK_TIME,
+            "num_cycles": DEFAULT_NUM_CYCLES,
+        }
+        with open(CONFIG_FILE, "w") as f:
+            json.dump(config, f)
+        return config
+
+
+config = load_config()
+
+# Extracting configuration parameters
+WORK_TIME = config.get("work_time", DEFAULT_WORK_TIME)
+SHORT_BREAK_TIME = config.get("short_break_time", DEFAULT_SHORT_BREAK_TIME)
+LONG_BREAK_TIME = config.get("long_break_time", DEFAULT_LONG_BREAK_TIME)
+NUM_CYCLES = config.get("num_cycles", DEFAULT_NUM_CYCLES)
+
 
 def load_cache():
     try:
@@ -35,10 +73,6 @@ def save_cache(cache):
         json.dump(cache, f)
 
 
-def clean_cache():
-    os.remove(CACHE_FILE)
-
-
 def pomodoro_timer(message, timer_name):
     cache["current_state"] = timer_name
     remaining_time = cache[timer_name]
@@ -56,9 +90,6 @@ def pomodoro_timer(message, timer_name):
 
 
 cache = load_cache()
-
-if "-f" in sys.argv:
-    clean_cache()
 
 
 def stop_pomodoro():
