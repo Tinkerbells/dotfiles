@@ -1,0 +1,12 @@
+modmap:
+  - name: main
+    remap:
+      CapsLock: leftctrl
+
+keymap:
+  - name: vim-like bindings
+    application:
+      not: "St"
+    remap:
+      C-k: up
+      C-j: down
