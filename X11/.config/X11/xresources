@@ -8,13 +8,13 @@ dmenu.selbackground: #B1B4B9
 dmenu.selforeground: #2C2D30
 
 /* st */
-st.font: JetBrainsMono Nerd Font:size=14
+st.font: JetBrainsMono Nerd Font:size=16
 st.borderpx: 10
 
 *.normfgcolor: #B1B4B9
 *.normbgcolor: #2C2D30
-*.selbgcolor: #B1B4B9
-*.selfgcolor: #2C2D30
+*.selbgcolor: #2C2D30
+*.selfgcolor: #B1B4B9
 
 *.titlenormbgcolor: #2C2D30
 *.titlenormfgcolor: #B1B4B9
@@ -32,9 +32,12 @@ st.borderpx: 10
 *.scratchnormfloatcolor: #2C2D30
 
 
-
 *.normbordercolor: #2C2D30
 *.selbordercolor: #E06C75
+*.tagsnormbordercolor: #2C2D30
+*.tagsselbordercolor: #E06C75
+*.titlesnormbordercolor: #2C2D30
+*.titleselbordercolor: #E06C75
 
 *.foreground:   #B1B4B9
 *.background:   #2C2D30

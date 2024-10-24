@@ -2,7 +2,7 @@
 
 # Default urls for arguments
 export FZF_DEFAULT_OPTS="--header-lines 1 --reverse --nth 4.. --with-nth=2.. --multi -i"
-api_key="$JACKETT_API_KEY"
+api_key="axcxipb218xac57ovumabxggju98koff"
 sort_by=".Seeders"
 jackett_url="http://127.0.0.1:9117"
 
@@ -23,7 +23,7 @@ function download {
 	# fi
 	# qbittorrent-nox "$1"
 	pidof transmission-daemon >/dev/null || (transmission-daemon && notify-send "starting transmission daemon...")
-	transmission-remote -a "$1" && notify-send -i transmission "Torrent added"
+	transmission-remote -a "$1" >/dev/null && notify-send -i transmission "Torrent added"
 }
 
 # Parse command-line arguments
@@ -112,7 +112,7 @@ echo "$selected_torrents" | awk '{print $1}' |
 		if echo "$magnet_or_link" | grep -q '^magnet:'; then
 			magnet="$magnet_or_link"
 		else
-			magnet="$(gum spin --spinner minidot --show-output --title "Getting magnet link..." -- wget --hsts-file=$XDG_DATA_HOME/wget-hsts -O /dev/null "$magnet_or_link" --server-response 2>&1 | grep 'Location:' -m 1 | sed 's|\s\sLocation:\s||')"
+			magnet="$(gum spin --spinner minidot --show-output --title "Getting magnet link..." -- wget --hsts-file="$XDG_DATA_HOME"/wget-hsts -O /dev/null "$magnet_or_link" --server-response 2>&1 | grep 'Location:' -m 1 | sed 's|\s\sLocation:\s||')"
 		fi
 		download "$magnet"
 	done

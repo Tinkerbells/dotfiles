@@ -1,0 +1,26 @@
+#!/bin/sh
+
+config_file="$XDG_CONFIG_HOME/pomodoro.json"
+
+pid=$(cat "/tmp/pomodoro_daemon.pid" | head -n 1)
+
+pomodoro=$(pomodoro get)
+
+echo "$pomodoro"
+
+start_pomodoro() {
+	if [ ! pidof "$pid" ] >/dev/null; then
+		pomodorod
+		>/dev/null &
+	else
+		pomodoro toggle
+	fi
+}
+
+case $BLOCK_BUTTON in
+1) start_pomodoro ;;
+2) pomodoro restart ;;
+3) pomodoro skip ;;
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+8) "$TERMINAL" -e "$EDITOR" "$config_file" ;;
+esac

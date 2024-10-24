@@ -47,3 +47,17 @@ function osc7 {
     uri=${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%${(l:2::0:)$(([##16]#match))}}
     print -n "\e]7;file://${HOSTNAME}${uri}\e\\"
 }
+
+fzf-config-widget() {
+    local file
+    selected_item=$(fd . -H ~/.config | fzf --reverse  --preview 'bat --color=always {}' --preview-window=right:50%)  # Use find to list files and directories in ~/.config and pass them to fzf
+    if [ -n "$selected_item" ]; then
+        if [ -d "$selected_item" ]; then
+          builtin cd "$selected_item" && logo-ls -A -X
+          zle reset-prompt
+        else
+          ${EDITOR:-vi} "$selected_item"
+        fi
+    fi
+}
+

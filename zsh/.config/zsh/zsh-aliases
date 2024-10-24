@@ -68,7 +68,8 @@ alias gc="git clone"
 alias g="lazygit"
 alias gg="gitget"
 # start lf with uberzug wrapper
-alias lf="lfub"
+alias lf="yazi"
+alias y="yazi"
 # torrent
 alias qb="qbittorrent-nox -d && pkill -SIGRTMIN+7 waybar"
 alias jc="sudo systemctl start jackett"
@@ -89,4 +90,7 @@ alias cg="curl-get"
 # wireguard
 alias wu="sudo wg-quick up $WIREGUARD_CONFIG"
 alias wd="sudo wg-quick down $WIREGUARD_CONFIG"
+# xbps
+alias xi="sudo xbps-install -S"
+alias xr="sudo xbps-remove -R"
 

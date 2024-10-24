@@ -1,10 +1,12 @@
 #!/bin/bash
 
 SYSTEM="$HOME/.config/dunst/notification_sound.wav"
+POMODORO="$HOME/.config/dunst/pomodoro.wav"
 TELEGRAM="$HOME/.config/dunst/telegram-notification.mp3"
 
 [ "$1" == "MPD" ] && exit 0
 [ "$1" == "Pamixer" ] && exit 0
-[ "$1" == "Telegram Desktop" ] && paplay "$TELEGRAM" && exit 0
+[ "$1" == "Telegram Desktop" ] && paplay --volume 30000 "$TELEGRAM" && exit 0
+[ "$1" == "Pomodoro" ] && paplay --volume 30000 "$POMODORO" && exit 0
 
-paplay "$SYSTEM"
+paplay --volume 30000 "$SYSTEM"

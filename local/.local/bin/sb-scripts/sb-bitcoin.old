@@ -3,49 +3,40 @@
 import os
 import time
 import requests
-from typing import Dict
+import subprocess
+from typing import Dict, Optional
 
 # Get API key from environment variable
-COINAPI_KEY = os.getenv("COINAPI_KEY")
+COINAPI_KEY = os.getenv('COINAPI_KEY')
 if COINAPI_KEY is None:
     raise EnvironmentError("Environment variable 'COINAPI_KEY' not found")
 
 cache_file = os.path.expanduser("~/.cache/btc")
 price = 0.0
 
-
-def internet_connection():
-    try:
-        requests.get("https://google.com", timeout=5)
-        return True
-    except requests.ConnectionError:
-        return False
-
-
 # Wait for network connectivity
 while True:
-    if internet_connection() is True:
+    response = subprocess.call(['ping', '-c', '1', 'google.com'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if response == 0:
         break
     time.sleep(1)
 
 # Make sure cache file exists and get the cached price
 if os.path.exists(cache_file):
     try:
-        with open(cache_file, "r") as f:
+        with open(cache_file, 'r') as f:
             price = float(f.read())
     except ValueError:
         pass  # ignore invalid data in cache file
 
 # Define the headers dictionary explicitly with type hinting
-headers: Dict[str, str] = {"X-CoinAPI-Key": COINAPI_KEY}
+headers: Dict[str, str] = {'X-CoinAPI-Key': COINAPI_KEY}
 url = "https://rest.coinapi.io/v1/exchangerate/BTC/USD"
 response = requests.get(url, headers=headers)
-
 if response.status_code != 200:
     print("Error")
     exit(1)
-
-current_price = round(float(response.json()["rate"]), 2)
+current_price = float(response.json()['rate'])
 
 # Compare prices and print the result
 if current_price > price:
@@ -54,5 +45,5 @@ else:
     print(f"^C1^ {current_price}$  ^d^")
 
 # Update the cache with the new price
-with open(cache_file, "w") as f:
+with open(cache_file, 'w') as f:
     f.write(str(current_price))

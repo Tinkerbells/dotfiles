@@ -1,16 +1,28 @@
 #!/bin/bash
 
+# WIREGUARD
+#
 # Check if WireGuard interface exists
-interface="wg-njalla" # name your wireguard config (stored in /etc/wireguard/)
+# interface="wg-njalla" # name your wireguard config (stored in /etc/wireguard/)
+#
+# if ! ip link show $interface &>/dev/null; then
+# 	echo "VPN:off"
+# fi
+#
+# # Check if WireGuard connection is active
+# if ip link show $interface up &>/dev/null; then
+# 	echo "VPN:on"
+# fi
 
-if ! ip link show $interface &>/dev/null; then
-	echo "WireGuard interface $interface not found."
-	exit 1
-fi
+# OPENVPN
 
-# Check if WireGuard connection is active
-if ip link show $interface up &>/dev/null; then
-	echo "󰦝"
+# Check if OpenVPN process is running
+if pgrep -x "openvpn" >/dev/null; then
+	echo "VPN:on"
 else
-	echo "󰦞"
+	echo "VPN:off"
 fi
+
+case $BLOCK_BUTTON in
+6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

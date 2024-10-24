@@ -1,45 +1,61 @@
-#!/bin/sh
+#!/usr/bin/env python3
+
+import os
+import time
+import requests
+from typing import Dict
+
+# Get API key from environment variable
+EXCHANGE_RATES_API_KEY = os.getenv("EXCHANGE_RATES_API_KEY")
+if EXCHANGE_RATES_API_KEY is None:
+    raise EnvironmentError("Environment variable 'COINAPI_KEY' not found")
+
+BASE_CURRENCY = "USD"
+CONVERT_CURRENCY = "RUB"
+
+cache_file = os.path.expanduser("~/.cache/dollar")
+price = 0.0
+
+
+def internet_connection():
+    try:
+        requests.get("https://google.com", timeout=5)
+        return True
+    except requests.ConnectionError:
+        return False
+
 
 # Wait for network connectivity
-while ! ping -c 1 google.com >/dev/null; do
-	sleep 1
-done
+while True:
+    if internet_connection() is True:
+        break
+    time.sleep(1)
 
-# Base currency is USD
-BASE_CURRENCY="USD"
+# Make sure cache file exists and get the cached price
+if os.path.exists(cache_file):
+    try:
+        with open(cache_file, "r") as f:
+            price = float(f.read())
+    except ValueError:
+        pass  # ignore invalid data in cache file
 
-cache="$HOME/.cache/dollar"
+# Define the headers dictionary explicitly with type hinting
+headers: Dict[str, str] = {"apikey": EXCHANGE_RATES_API_KEY}
+url = f"https://api.apilayer.com/exchangerates_data/latest?symbols={CONVERT_CURRENCY}&base={BASE_CURRENCY}"
+response = requests.get(url, headers=headers)
 
-if [ ! -f "$cache" ]; then
-	touch "$cache"
-fi
+if response.status_code != 200:
+    print("Error")
+    exit(1)
 
-# Currency to convert to is RUB
-CONVERT_CURRENCY="RUB"
+current_price = round(float(response.json()["rates"][CONVERT_CURRENCY]), 2)
 
-# API endpoint for currency conversion
-RESPONSE=$(curl --request GET \
-	--url "https://api.apilayer.com/exchangerates_data/latest?symbols=$CONVERT_CURRENCY&base=$BASE_CURRENCY" \
-	--header "apikey: $EXCHANGE_RATES_API_KEY" --fail --silent --show-error)
+# Compare prices and print the result
+if current_price > price:
+    print(f"^C2^ {current_price}$  ^d^")
+else:
+    print(f"^C1^ {current_price}$  ^d^")
 
-if [ $? -ne 0 ]; then
-	echo "Error"
-	exit 1
-fi
-
-# format response value
-current_price=$(echo "$RESPONSE" | jq ".rates.$CONVERT_CURRENCY")
-
-price=$(cat "$cache")
-
-if awk "BEGIN {exit !($current_price > $price)}"; then
-	printf "^C2^ %.2f$  ^d^" "$current_price"
-else
-	printf "^C1^ %.2f$  ^d^" "$current_price"
-fi
-
-sed -i "1s/.*/$current_price/" "$cache"
-
-case $BLOCK_BUTTON in
-6) "$TERMINAL" -e "$EDITOR" "$0" ;;
-esac
+# Update the cache with the new price
+with open(cache_file, "w") as f:
+    f.write(str(current_price))

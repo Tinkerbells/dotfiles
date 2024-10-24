@@ -3,7 +3,7 @@ super + w
   firefox 
 
 super + shift + w  
-  librewolf 
+  chromium 
 
 super + shift + f 
    nemo
@@ -56,12 +56,18 @@ super + p
 super + shift + o 
   dmenu-switch-audio > /dev/null
 
+super + shift + c 
+  dmenu-px-rem 
+
 super + control + g
   gitget -d
 
+super + shift + y 
+  yt-mpv
+
 # Dunst histroy 
-alt + h
-  dunstctl history-pop                              
+# alt + h
+#   dunstctl history-pop                              
   
 # Media Control keys
 XF86AudioLowerVolume
@@ -106,7 +112,7 @@ super + shift + e
   farge --no-preview
 
 # Toggle vpn 
-super + v 
+super + shift + v 
   toggle-vpn
 
 # Set background image

@@ -13,8 +13,13 @@ export PATH="$HOME/.local/bin":$PATH
 export PATH="$HOME/.local/bin/sb-scripts":$PATH
 export PATH="$HOME/.cargo/bin":$PATH
 export PATH="$HOME/.local/share/go/bin":$PATH
+export NVM_DIR="$HOME/.config/nvm"
 export PATH="$HOME/.local/share/npm/bin":$PATH
 export PATH="$HOME/.local/share/cargo/bin":$PATH
+export PATH="$HOME/.local/share/pnpm":$PATH
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="${PATH}:/opt/flutter/bin"
 # ~/ Clean-up:
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
@@ -66,5 +71,10 @@ source "$HOME/.config/zsh/zsh-gpg-exports"
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
 
 # starting hyprland
+
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && Hyprland 
 
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
