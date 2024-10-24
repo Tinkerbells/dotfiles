@@ -34,6 +34,7 @@ autoload -Uz colors && colors
 
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
+zle -N fzf-config-widget
 
 # Normal files to source
 zsh_add_file "zsh-vim-mode"
@@ -46,6 +47,7 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 
+
 # Key-bindings
 bindkey '^[[P' delete-char
 bindkey "^p" up-line-or-beginning-search # Up
@@ -55,8 +57,9 @@ bindkey "^j" down-line-or-beginning-search # Down
 bindkey -r "^u"
 bindkey -r "^d"
 bindkey '\ew' fzf-cd-widget
+bindkey '^x' fzf-config-widget
+
 # FZF
-# TODO update for mac
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
@@ -73,7 +76,37 @@ bindkey '^e' edit-command-line
 xset r rate 200 50
 
 add-zsh-hook -Uz chpwd osc7
-# Autologin to docker group
 
-[ -f ~/.config/zsh/lazyshell ] && source ~/.config/zsh/lazyshell
+# bun completions
+# [ -s "/home/voiduser/.bun/_bun" ] && source "/home/voiduser/.bun/_bun"
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/voiduser/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/voiduser/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/voiduser/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/voiduser/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+eval "$(zoxide init --cmd cd zsh)"
+
+#nvm 
+# [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/home/voiduser/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# source necessary exports
+source "$HOME/.config/zsh/zsh-gpg-exports"

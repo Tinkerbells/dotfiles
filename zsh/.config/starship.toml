@@ -1,6 +1,7 @@
 add_newline = false
 
 format = """
+$conda\
 $hostname\
 $directory\
 $git_branch\
@@ -8,6 +9,11 @@ $git_status\
 $character
 """
 right_format = """$cmd_duration"""
+
+[conda]
+symbol = ""
+format = '[$symbol $environment](bold red) '
+
 
 [hostname]
 ssh_only = true
