@@ -1,0 +1,2 @@
+CRITICAL: [dbus_cb_name_lost:1153] Cannot acquire 'org.freedesktop.Notifications': Name is acquired by 'dunst' with PID '3113'.
+X connection to :0 broken (explicit kill or server shutdown).

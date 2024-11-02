@@ -22,9 +22,9 @@ trim_at = '.companyname.com'
 disabled = false
 
 [character]
-success_symbol = "[ﰲ](blue)"
-error_symbol   = "[ﰲ](red)"
-vicmd_symbol   = "[ﰲ](green)"
+success_symbol = "[](blue)"
+error_symbol   = "[](red)"
+vicmd_symbol   = "[](green)"
 
 [line_break]
 disabled = true
@@ -43,7 +43,7 @@ show_always = true
 [directory]
 style = "bold blue"
 format = '[$path]($style)[$read_only]($read_only_style) '
-read_only = " "
+read_only = " "
 # truncation_length = 3
 truncate_to_repo = false 
 
@@ -52,8 +52,8 @@ symbol = " "
 style = "bold red" 
 
 [git_status]
-untracked = "?"
-modified = "!"
-deleted = ""
+untracked = ""
+modified = ""
+deleted = "󰆴"
 style = "bold yellow" 
 staged = '[++\($count\)](green)'

@@ -11,7 +11,6 @@
     progress_bar_max_width = 225
     separator_height = 5
     padding = 8
-    frame_width = 3
     icon_path = /home/voiduser/.local/share/icons/notifications_icons/
     title = Dunst
     class = Dunst
@@ -19,7 +18,7 @@
     mouse_middle_click =  do_action, close_current
     mouse_right_click = do_action, close_all
 
-    font = JetBrainsMono Nerd Font 12
+    font = JetBrainsMono Nerd Font 10
 
 [experimental]
     per_monitor_dpi = false
@@ -29,27 +28,18 @@
     script = /home/voiduser/.local/bin/alert
 
 [global]
-    highlight = "#B1B4B9"
-    frame_color = "#B1B4B9"
     separator_color = frame
 
 [urgency_low]
-    background = "#2C2D30"
-    foreground = "#B1B4B9"
     max_icon_size = 40
     timeout = 3 
     default_icon = /home/voiduser/.local/share/icons/notifications_icons/default-low.png
  
 [urgency_normal]
-    background = "#2C2D30"
-    foreground = "#B1B4B9"
     timeout = 3 
     default_icon = /home/voiduser/.local/share/icons/notifications_icons/default.png
 
 [urgency_critical]
-    background = "#2C2D30"
-    foreground = "#B1B4B9"
-    frame_color = "#E06C75"
     timeout = 30 
     default_icon = /home/voiduser/.local/share/icons/notifications_icons/default-critical.png
 

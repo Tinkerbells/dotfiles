@@ -1,46 +1,44 @@
 #!/bin/sh
-info="$(acpi | head -n 1 | cut -d "," -f3)"
 level=$(cat /sys/class/power_supply/BAT0/capacity)
 is_charging=$(cat /sys/class/power_supply/BAT0/status)
 
 get_icon() {
-	if [ "$level" -ge "90" ]; then
-		icon=" "
-	elif [ "$level" -ge "55" ] && [ "$level" -lt "90" ]; then
-		icon=" "
-	elif [ "$level" -ge "35" ] && [ "$level" -lt "55" ]; then
-		icon=" "
-	elif [ "$level" -ge "10" ] && [ "$level" -lt "35" ]; then
-		icon=" "
-	else
-		icon=" "
-	fi
-	echo "$icon"
+  if [ "$level" -ge "90" ]; then
+    icon=" "
+  elif [ "$level" -ge "55" ] && [ "$level" -lt "90" ]; then
+    icon=" "
+  elif [ "$level" -ge "35" ] && [ "$level" -lt "55" ]; then
+    icon=" "
+  elif [ "$level" -ge "10" ] && [ "$level" -lt "35" ]; then
+    icon=" "
+  else
+    icon=" "
+  fi
+  echo "$icon"
 }
 
 # Low battery notify
 notify() {
-	if [ "$level" -eq "20" ]; then
-		notify-send -i low-battery -r 742 -t 2000 "Battery is 20%"
-	elif [ "$level" -eq "10" ]; then
-		notify-send -i low-battery -r 742 -t 2000 "Battery is 10%"
-	elif [ "$level" -eq "5" ]; then
-		notify-send -i low-battery -r 742 -t 2000 "Battery is 5%"
-	fi
+  if [ "$level" -eq "20" ]; then
+    notify-send -i low-battery -r 742 -t 2000 "Battery is 20%"
+  elif [ "$level" -eq "10" ]; then
+    notify-send -i low-battery -r 742 -t 2000 "Battery is 10%"
+  elif [ "$level" -eq "5" ]; then
+    notify-send -i low-battery -r 742 -t 2000 "Battery is 5%"
+  fi
 }
 
 icon=$(get_icon)
 if [ "$is_charging" != "Charging" ]; then
-	if [ "$level" -gt "95" ]; then
-		echo "$icon 100%"
-	else
-		echo "$icon $level%"
-	fi
+  if [ "$level" -gt "95" ]; then
+    echo "$icon 100%"
+  else
+    echo "$icon $level%"
+  fi
 else
-	echo "$icon $level% ⚡"
+  echo "$icon $level% ⚡"
 fi
 
 case $BLOCK_BUTTON in
-1) [ -z "$info" ] && notify-send -u normal "Fully charged" -r 998 || notify-send -u normal "$info" -r 998 ;;
 6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

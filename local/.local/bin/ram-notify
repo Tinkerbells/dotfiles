@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Set the RAM usage threshold level
+THRESHOLD=90
+INTERVAL=300 # 5 minutes in seconds
+
+while true; do
+  # Get the current RAM usage as a percentage
+  RAM_USAGE=$(free | awk '/Mem:/ {printf("%.0f"), $3/$2 * 100.0}')
+
+  # Check if the RAM usage is above or equal to the threshold
+  if [[ "$RAM_USAGE" -ge "$THRESHOLD" ]]; then
+    notify-send -u critical "High RAM Usage" "RAM usage is at ${RAM_USAGE}%. Consider closing some applications."
+    sleep $INTERVAL
+  else
+    # Sleep for a short time if RAM usage is okay, then check again
+    sleep 60
+  fi
+done

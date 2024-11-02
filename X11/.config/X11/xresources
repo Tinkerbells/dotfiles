@@ -1,35 +1,16 @@
 Xft.dpi: 125
 
 /* dmenu */
-dmenu.font: JetBrainsMono Nerd Font:size=12:style=Bold
-dmenu.foreground: #B1B4B9
-dmenu.background: #2C2D30
-dmenu.selbackground: #B1B4B9
-dmenu.selforeground: #2C2D30
+dmenu.font: JetBrainsMono Nerd Font:size=12
+dmenu.foreground: #ffffff
+dmenu.background: #222222
+dmenu.selbackground: #ffffff
+dmenu.selforeground: #222222
+dmenu.schemeborder: #222222
 
 /* st */
-st.font: JetBrainsMono Nerd Font:size=16
+st.font: JetBrainsMono Nerd Font:size=13
 st.borderpx: 10
-
-*.normfgcolor: #B1B4B9
-*.normbgcolor: #2C2D30
-*.selbgcolor: #2C2D30
-*.selfgcolor: #B1B4B9
-
-*.titlenormbgcolor: #2C2D30
-*.titlenormfgcolor: #B1B4B9
-*.titleselbgcolor: #2C2D30
-*.titleselfgcolor: #B1B4B9
-
-*.tagsnormbgcolor: #2C2D30
-*.tagsnormfgcolor: #B1B4B9
-*.tagsselbgcolor: #B1B4B9
-*.tagsselfgcolor: #2C2D30
-
-*.scratchnormbordercolor: #2C2D30
-*.scratchselbordercolor: #61AFEF
-*.scratchselfloatcolor: #61AFEF
-*.scratchnormfloatcolor: #2C2D30
 
 
 *.normbordercolor: #2C2D30

@@ -5,6 +5,9 @@ super + w
 super + shift + w  
   chromium 
 
+super + shift + t   
+  Telegram 
+
 super + shift + f 
    nemo
 
@@ -56,8 +59,8 @@ super + p
 super + shift + o 
   dmenu-switch-audio > /dev/null
 
-super + shift + c 
-  dmenu-px-rem 
+# super + shift + c 
+#   dmenu-px-rem 
 
 super + control + g
   gitget -d

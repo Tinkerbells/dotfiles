@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Set the battery threshold level
+THRESHOLD=15
+INTERVAL=300 # 5 minutes in seconds
+
+while true; do
+  # Get the current battery level as a percentage
+  BATTERY_LEVEL=$(cat /sys/class/power_supply/BAT0/capacity)
+  # Check if the battery level is below the threshold
+
+  if [[ "$BATTERY_LEVEL" -lt "$THRESHOLD" ]]; then
+    notify-send -u critical "Low Battery" "Battery level is at ${BATTERY_LEVEL}%. Please charge soon."
+    sleep $INTERVAL
+  else
+    # Sleep for a short time if the battery level is okay, then check again
+    sleep 360
+  fi
+done

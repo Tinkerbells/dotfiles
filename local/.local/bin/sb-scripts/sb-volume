@@ -1,29 +1,27 @@
 #!/bin/sh
 
 while
-	! pidof wireplumber >/dev/null
+  ! pidof wireplumber >/dev/null
 do
-	sleep 1
+  sleep 1
 done
 
 [ "$(pamixer --get-mute)" = true ] && echo "󰝟 mute" && exit
 
 volume="$(pamixer --get-volume)"
 
-if [ "$volume" -ge "80" ]; then
-	icon=" "
-elif [ "$volume" -gt "50" ]; then
-	icon="墳 "
-elif [ "$volume" -gt "10" ]; then
-	icon=" "
+if [ "$volume" -ge "70" ]; then
+  icon="  "
+elif [ "$volume" -gt "30" ]; then
+  icon=" "
 else
-	icon=" "
+  icon=" "
 fi
 
 echo "$icon$volume%"
 
 send_notification() {
-	notify-send -a Pamixer -u low -r 993 -h int:value:"$volume" -i "volume-$1" "Volume: ${volume}%" -t 2000
+  notify-send -a Pamixer -u low -r 993 -h int:value:"$volume" -i "volume-$1" "Volume: ${volume}%" -t 2000
 }
 
 case $BLOCK_BUTTON in

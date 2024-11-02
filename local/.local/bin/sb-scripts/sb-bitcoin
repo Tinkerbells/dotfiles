@@ -49,9 +49,9 @@ current_price = round(float(response.json()["rate"]), 2)
 
 # Compare prices and print the result
 if current_price > price:
-    print(f"^C2^ {current_price}$  ^d^")
+    print(f"^C2^ {current_price}$  ^d^")
 else:
-    print(f"^C1^ {current_price}$  ^d^")
+    print(f"^C1^ {current_price}$  ^d^")
 
 # Update the cache with the new price
 with open(cache_file, "w") as f:
