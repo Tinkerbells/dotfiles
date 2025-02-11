@@ -1,0 +1,87 @@
+Selecting devices from the following list:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+/dev/input/event1 : Video Bus
+/dev/input/event10: HDA Digital PCBeep
+/dev/input/event11: HD-Audio Generic Mic
+/dev/input/event12: HD-Audio Generic Headphone
+/dev/input/event13: SynPS/2 Synaptics TouchPad
+/dev/input/event14: TPPS/2 Elan TrackPoint
+/dev/input/event2 : Power Button
+/dev/input/event3 : Lid Switch
+/dev/input/event4 : Sleep Button
+/dev/input/event5 : PC Speaker
+/dev/input/event6 : ThinkPad Extra Buttons
+/dev/input/event7 : HD-Audio Generic HDMI/DP,pcm=3
+/dev/input/event8 : HD-Audio Generic HDMI/DP,pcm=7
+/dev/input/event9 : HD-Audio Generic HDMI/DP,pcm=8
+------------------------------------------------------------------------------
+Selected keyboards automatically since --device options weren't specified:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+------------------------------------------------------------------------------
+application-client: X11 (supported: true)
+application: Navigator.Firefox
+Selecting devices from the following list:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+/dev/input/event1 : Video Bus
+/dev/input/event10: HDA Digital PCBeep
+/dev/input/event11: HD-Audio Generic Mic
+/dev/input/event12: HD-Audio Generic Headphone
+/dev/input/event13: SynPS/2 Synaptics TouchPad
+/dev/input/event14: TPPS/2 Elan TrackPoint
+/dev/input/event2 : Power Button
+/dev/input/event3 : Lid Switch
+/dev/input/event4 : Sleep Button
+/dev/input/event5 : PC Speaker
+/dev/input/event6 : ThinkPad Extra Buttons
+/dev/input/event7 : HD-Audio Generic HDMI/DP,pcm=3
+/dev/input/event8 : HD-Audio Generic HDMI/DP,pcm=7
+/dev/input/event9 : HD-Audio Generic HDMI/DP,pcm=8
+------------------------------------------------------------------------------
+Selected keyboards automatically since --device options weren't specified:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+------------------------------------------------------------------------------
+application-client: X11 (supported: true)
+application: Navigator.Firefox
+application: st.St
+Selecting devices from the following list:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+/dev/input/event1 : Video Bus
+/dev/input/event10: HD-Audio Generic HDMI/DP,pcm=7
+/dev/input/event11: HD-Audio Generic HDMI/DP,pcm=8
+/dev/input/event12: ThinkPad Extra Buttons
+/dev/input/event13: HDA Digital PCBeep
+/dev/input/event14: HD-Audio Generic Mic
+/dev/input/event15: HD-Audio Generic Headphone
+/dev/input/event16: HUAWEI FreeBuds 5 (AVRCP)
+/dev/input/event2 : SynPS/2 Synaptics TouchPad
+/dev/input/event3 : TPPS/2 Elan TrackPoint
+/dev/input/event4 : PixArt USB Optical Mouse
+/dev/input/event5 : Power Button
+/dev/input/event6 : Lid Switch
+/dev/input/event7 : Sleep Button
+/dev/input/event8 : PC Speaker
+/dev/input/event9 : HD-Audio Generic HDMI/DP,pcm=3
+------------------------------------------------------------------------------
+Selected keyboards automatically since --device options weren't specified:
+------------------------------------------------------------------------------
+/dev/input/event0 : AT Translated Set 2 keyboard
+------------------------------------------------------------------------------
+application-client: X11 (supported: true)
+application: st.St
+application: Navigator.zen-beta
+application: st.St
+application: xdg-desktop-portal-gtk.Xdg-desktop-portal-gtk
+application: Telegram.TelegramDesktop
+application: Navigator.zen-beta
+application: st.St
+application: Navigator.zen-beta
+application: st.St
+application: Navigator.zen-beta
+application: st.St
+application: Navigator.zen-beta
+application: st.St

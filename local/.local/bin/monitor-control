@@ -7,18 +7,33 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
 # Get the name of the external and primary monitors
 PRIMARY_MONITOR=$(xrandr -q | grep 'connected' | awk '{print $1}' | head -n 1)
-EXTERNAL_MONITOR="DP-1" # change to yours external monitor name
+EXTERNAL_MONITOR="DP-1" # change to your external monitor name
 
-# Check if the external monitor is connected
-if xrandr -q | grep -q "$EXTERNAL_MONITOR disconnected"; then
-	# Disable the external monitor
-	xrandr --output $EXTERNAL_MONITOR --off --output "$PRIMARY_MONITOR" --mode 1920x1080 --rotate normal
-	notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Disconnected"
+# Check for the "external on/off" argument
+if [[ $1 == "external" ]]; then
+  if [[ $2 == "on" ]]; then
+    # Enable the external monitor
+    xrandr --output "$PRIMARY_MONITOR" --off --output $EXTERNAL_MONITOR --primary --mode 1920x1080 --rotate normal --right-of "$PRIMARY_MONITOR"
+    notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Connected"
+  elif [[ $2 == "off" ]]; then
+    # Disable the external monitor
+    xrandr --output $EXTERNAL_MONITOR --off --output "$PRIMARY_MONITOR" --mode 1920x1080 --rotate normal
+    notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Disconnected"
+  else
+    echo "Invalid argument. Use 'external on' or 'external off'."
+    exit 1
+  fi
 else
-	# Enable the external monitor
-	# xrandr --output "$PRIMARY_MONITOR" --mode 1920x1080 --rotate normal --output $EXTERNAL_MONITOR --primary --mode 1920x1200 --rotate normal --right-of "$PRIMARY_MONITOR"
-	xrandr --output "$PRIMARY_MONITOR" --off --output $EXTERNAL_MONITOR --primary --mode 1920x1200 --rotate normal --right-of "$PRIMARY_MONITOR"
-	notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Connected"
+  # Default behavior: auto-detect if the external monitor is connected
+  if xrandr -q | grep -q "$EXTERNAL_MONITOR disconnected"; then
+    # Disable the external monitor
+    xrandr --output $EXTERNAL_MONITOR --off --output "$PRIMARY_MONITOR" --mode 1920x1080 --rotate normal
+    notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Disconnected"
+  else
+    # Enable the external monitor
+    xrandr --output "$PRIMARY_MONITOR" --off --output $EXTERNAL_MONITOR --primary --mode 1920x1080 --rotate normal --right-of "$PRIMARY_MONITOR"
+    notify-send -t 2500 -i monitor-plug "$EXTERNAL_MONITOR" "Connected"
+  fi
 fi
 
 # Reload the xresources file and dunst
@@ -26,4 +41,4 @@ fi
 
 sleep 5 && setbg
 
-zsh
+exec zsh

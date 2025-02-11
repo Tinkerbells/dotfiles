@@ -1,19 +1,20 @@
 #!/bin/bash
+# export XAUTHORITY=$HOME/.Xauthority
+# export DISPLAY=:0
+# export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
-# Set the battery threshold level
-THRESHOLD=15
-INTERVAL=300 # 5 minutes in seconds
+is_charging=$(cat /sys/class/power_supply/BAT0/status)
 
-while true; do
-  # Get the current battery level as a percentage
-  BATTERY_LEVEL=$(cat /sys/class/power_supply/BAT0/capacity)
-  # Check if the battery level is below the threshold
+n_text="Plug in"
 
-  if [[ "$BATTERY_LEVEL" -lt "$THRESHOLD" ]]; then
-    notify-send -u critical "Low Battery" "Battery level is at ${BATTERY_LEVEL}%. Please charge soon."
-    sleep $INTERVAL
-  else
-    # Sleep for a short time if the battery level is okay, then check again
-    sleep 360
-  fi
-done
+if [ "$is_charging" != "Charging" ]; then
+  n_text="Unpluged"
+fi
+
+# update() {
+#   kill -35 $(pidof dwmblocks)
+# }
+
+notify-send -u low -r 937 "Battery" "$n_text"
+
+# update

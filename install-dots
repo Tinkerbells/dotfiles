@@ -1,10 +1,9 @@
 #!/bin/bash
 
-for i in *
-do
-    if [ "$i" != ".git" ] && [ "$i" != "install-dots" ] && [ "$i" != "xdg-utils" ];then
-        stow "$i"
-    fi
+for i in *; do
+  if [ "$i" != ".git" ] && [ "$i" != "install-dots" ] && [ "$i" != "xdg-utils" ]; then
+    stow "$i"
+  fi
 done
 
 echo "Dotfiles installed!"

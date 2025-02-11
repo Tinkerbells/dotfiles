@@ -10,3 +10,13 @@ keymap:
     remap:
       C-k: up
       C-j: down
+      C-h: left
+      C-l: right
+  - name: firefox navigation
+    application:
+      only: "Firefox"
+    remap:
+      C-k: up
+      C-j: down
+      C-h: left
+      C-l: right
