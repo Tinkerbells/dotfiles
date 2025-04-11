@@ -1,12 +1,12 @@
 # Running apps
 super + w  
-  flatpak run io.github.zen_browser.zen
+  flatpak run io.github.ungoogled_software.ungoogled_chromium
 
 super + shift + w  
   chromium 
 
 super + shift + t   
-  Telegram 
+  flatpak run org.telegram.desktop
 
 super + shift + f 
    nemo

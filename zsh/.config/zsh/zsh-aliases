@@ -95,4 +95,5 @@ alias wd="sudo wg-quick down $WIREGUARD_CONFIG"
 alias xi="sudo xbps-install -S"
 alias xr="sudo xbps-remove -R"
 alias xq="xbps-query -Rs"
+alias xu="sudo xbps-install -Syu"
 
