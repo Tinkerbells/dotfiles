@@ -80,20 +80,6 @@ add-zsh-hook -Uz chpwd osc7
 # bun completions
 # [ -s "/home/voiduser/.bun/_bun" ] && source "/home/voiduser/.bun/_bun"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/voiduser/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/voiduser/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/voiduser/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/voiduser/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 eval "$(zoxide init --cmd cd zsh)"
 
 #nvm 
@@ -110,3 +96,19 @@ esac
 
 # source necessary exports
 source "$HOME/.config/zsh/zsh-gpg-exports"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/voiduser/.local/share/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/voiduser/.local/share/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/voiduser/.local/share/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/voiduser/.local/share/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

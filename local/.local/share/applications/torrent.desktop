@@ -1,4 +1,11 @@
 [Desktop Entry]
 Type=Application
-Name=Torrent
+Name=Magnet Link Handler
+GenericName=Torrent Client
+Comment=Opens magnet links in your preferred torrent client
 Exec=/usr/bin/env toradd %U
+Icon=torrent
+Terminal=false
+Categories=Network;FileTransfer;P2P;
+MimeType=x-scheme-handler/magnet;
+NoDisplay=false

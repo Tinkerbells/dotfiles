@@ -1,9 +1,9 @@
 # Running apps
 super + w  
-  firefox 
+  flatpak run io.github.ungoogled_software.ungoogled_chromium
 
 super + shift + w  
-  chromium 
+  brave-browser-stable
 
 super + shift + t   
   Telegram 
@@ -18,6 +18,10 @@ super + Return
 # terminal binded to second tag
 super + shift + Return  
   $TERMINAL -t terminal
+
+# file manager
+super + f 
+  $TERMINAL -t yazi -e yazi 
 
 super + shift + m 
   $TERMINAL -t ncmpcpp -e ncmpcpp
